@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 import { TrendingUp, Zap, Shield, Sparkles } from 'lucide-react';
+import { useReduceMotion } from '../hooks/useReduceMotion';
 
 interface StatItemProps {
   number: string;
@@ -157,6 +158,7 @@ function StatItem({ number, label, delay, icon }: StatItemProps) {
 }
 
 export function StatsBar() {
+  const reduceMotion = useReduceMotion();
   const stats = [
     { number: '3+', label: 'Sites Per Session', icon: <TrendingUp className="w-5 h-5" /> },
     { number: '<3s', label: 'Research Time', icon: <Zap className="w-5 h-5" /> },
@@ -184,42 +186,46 @@ export function StatsBar() {
         </svg>
       </div>
 
-      {/* Gradient Overlays */}
-      <motion.div
-        className="absolute top-0 left-0 w-64 h-64 rounded-full opacity-10"
-        style={{
-          background: 'radial-gradient(circle, var(--accent), transparent 70%)',
-          filter: 'blur(60px)',
-          willChange: 'transform',
-        }}
-        animate={{
-          x: [-20, 20, -20],
-          y: [-20, 20, -20],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-10"
-        style={{
-          background: 'radial-gradient(circle, var(--vera-voice), transparent 70%)',
-          filter: 'blur(60px)',
-          willChange: 'transform',
-        }}
-        animate={{
-          x: [20, -20, 20],
-          y: [20, -20, 20],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 4,
-        }}
-      />
+      {/* Gradient Overlays — skipped on mobile for perf */}
+      {!reduceMotion && (
+        <>
+          <motion.div
+            className="absolute top-0 left-0 w-64 h-64 rounded-full opacity-10"
+            style={{
+              background: 'radial-gradient(circle, var(--accent), transparent 70%)',
+              filter: 'blur(60px)',
+              willChange: 'transform',
+            }}
+            animate={{
+              x: [-20, 20, -20],
+              y: [-20, 20, -20],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-10"
+            style={{
+              background: 'radial-gradient(circle, var(--vera-voice), transparent 70%)',
+              filter: 'blur(60px)',
+              willChange: 'transform',
+            }}
+            animate={{
+              x: [20, -20, 20],
+              y: [20, -20, 20],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 4,
+            }}
+          />
+        </>
+      )}
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: 'var(--border)' }}>

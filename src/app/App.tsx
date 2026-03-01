@@ -3,9 +3,11 @@ import { ResearchProvider } from './context/ResearchContext';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { ScrollToTop } from './components/ScrollToTop';
+import { GlowCursor } from './components/GlowCursor';
+import { LazyOnView } from './components/LazyOnView';
 
 // Eagerly loaded: above-fold critical components
-// Lazy loaded: all below-fold sections — deferred until scroll/idle
+// Lazy loaded: below-fold sections — chunks load only when section is near viewport (mobile perf)
 const StatsBar = lazy(() => import('./components/StatsBar').then(m => ({ default: m.StatsBar })));
 const PipelineSection = lazy(() => import('./components/PipelineSection').then(m => ({ default: m.PipelineSection })));
 const LiveAgentSection = lazy(() => import('./components/LiveAgentSection').then(m => ({ default: m.LiveAgentSection })));
@@ -16,7 +18,6 @@ const ArchitectureSection = lazy(() => import('./components/ArchitectureSection'
 const CommunitySection = lazy(() => import('./components/CommunitySection').then(m => ({ default: m.CommunitySection })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
-// Minimal skeleton — invisible placeholder holding space during load
 function SectionSkeleton() {
   return <div style={{ minHeight: '1px' }} aria-hidden="true" />;
 }
@@ -53,21 +54,54 @@ export default function App() {
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <main>
           <HeroSection />
-          <Suspense fallback={<SectionSkeleton />}>
-            <StatsBar />
-            <PipelineSection />
-            <LiveAgentSection />
-            <FeaturesSection />
-            <ImpactSection />
-            <ResearchOutputSection />
-            <ArchitectureSection />
-            <CommunitySection />
-          </Suspense>
+          <LazyOnView fallbackHeight={140}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <StatsBar />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={320}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <PipelineSection />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={400}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <LiveAgentSection />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={360}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <FeaturesSection />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={380}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <ImpactSection />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={200}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <ResearchOutputSection />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={420}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <ArchitectureSection />
+            </Suspense>
+          </LazyOnView>
+          <LazyOnView fallbackHeight={340}>
+            <Suspense fallback={<SectionSkeleton />}>
+              <CommunitySection />
+            </Suspense>
+          </LazyOnView>
         </main>
-        <Suspense fallback={<SectionSkeleton />}>
-          <Footer />
-        </Suspense>
+        <LazyOnView fallbackHeight={200}>
+          <Suspense fallback={<SectionSkeleton />}>
+            <Footer />
+          </Suspense>
+        </LazyOnView>
         <ScrollToTop />
+        <GlowCursor />
       </div>
     </ResearchProvider>
   );

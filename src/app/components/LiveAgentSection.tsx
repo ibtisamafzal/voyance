@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Eye, Zap, CheckCircle2 } from 'lucide-react';
+import { useReduceMotion } from '../hooks/useReduceMotion';
 
 interface ScreenState {
   url: string;
@@ -61,6 +62,7 @@ export function LiveAgentSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transcript, setTranscript] = useState('');
   const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReduceMotion();
 
   const currentState = screenStates[currentIndex];
 
@@ -119,48 +121,50 @@ export function LiveAgentSection() {
       className="py-16 sm:py-20 md:py-24 lg:py-32 flex items-center relative overflow-hidden"
       style={{ backgroundColor: '#060B14' }}
     >
-      {/* Animated Background Gradients */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            top: '10%',
-            left: '10%',
-            opacity: 0.1,
-            willChange: 'transform',
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, var(--vera-voice) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            bottom: '10%',
-            right: '10%',
-            opacity: 0.1,
-            willChange: 'transform',
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: 4,
-          }}
-        />
-      </div>
+      {/* Animated Background Gradients — skipped on mobile for perf */}
+      {!reduceMotion && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
+              filter: 'blur(100px)',
+              top: '10%',
+              left: '10%',
+              opacity: 0.1,
+              willChange: 'transform',
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, var(--vera-voice) 0%, transparent 70%)',
+              filter: 'blur(100px)',
+              bottom: '10%',
+              right: '10%',
+              opacity: 0.1,
+              willChange: 'transform',
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 4,
+            }}
+          />
+        </div>
+      )}
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-5 md:px-10 relative z-10 w-full">
         {/* Section Header */}

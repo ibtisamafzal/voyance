@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Mic, MicOff, Loader2, CheckCircle, Play, Navigation, Globe, Sparkles } from 'lucide-react';
 import { startResearch, connectToResearchStream, getResearchResults, sendInterruptViaWS, interruptResearch, transcribeAudio, type AgentUpdate } from '../../lib/api';
 import { useResearch } from '../context/ResearchContext';
+import { useReduceMotion } from '../hooks/useReduceMotion';
 
 const SAMPLE_PROMPTS = [
   'Compare top 5 Voice Agent Tools',
@@ -17,6 +18,7 @@ export function HeroSection() {
   const words3 = ['In', 'Seconds.'];
 
   const { appendResult, setResults, clearResults } = useResearch();
+  const reduceMotion = useReduceMotion();
   const [query, setQuery] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -266,72 +268,74 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      {/* Animated Mesh Gradient Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.04] dark:opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            bottom: '-10%',
-            left: '-5%',
-            willChange: 'transform',
-          }}
-          animate={{
-            x: [0, 20, 0],
-            y: [0, -20, 0],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-        />
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.04] dark:opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, var(--vera-voice) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            top: '-5%',
-            right: '-5%',
-            willChange: 'transform',
-          }}
-          animate={{
-            x: [0, -20, 0],
-            y: [0, 20, 0],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            delay: 4,
-          }}
-        />
-        <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full opacity-[0.04] dark:opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, var(--success) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            top: '40%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            willChange: 'transform',
-          }}
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            delay: 8,
-          }}
-        />
-      </div>
+      {/* Animated Mesh Gradient Background — skipped on mobile for perf */}
+      {!reduceMotion && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full opacity-[0.04] dark:opacity-[0.08]"
+            style={{
+              background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
+              filter: 'blur(80px)',
+              bottom: '-10%',
+              left: '-5%',
+              willChange: 'transform',
+            }}
+            animate={{
+              x: [0, 20, 0],
+              y: [0, -20, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full opacity-[0.04] dark:opacity-[0.08]"
+            style={{
+              background: 'radial-gradient(circle, var(--vera-voice) 0%, transparent 70%)',
+              filter: 'blur(80px)',
+              top: '-5%',
+              right: '-5%',
+              willChange: 'transform',
+            }}
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 20, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: 4,
+            }}
+          />
+          <motion.div
+            className="absolute w-[400px] h-[400px] rounded-full opacity-[0.04] dark:opacity-[0.08]"
+            style={{
+              background: 'radial-gradient(circle, var(--success) 0%, transparent 70%)',
+              filter: 'blur(80px)',
+              top: '40%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              willChange: 'transform',
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, -30, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: 8,
+            }}
+          />
+        </div>
+      )}
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 py-8 sm:py-10 md:py-12 relative z-10">
         <div className="text-center max-w-[900px] mx-auto space-y-8">
