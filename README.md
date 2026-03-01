@@ -110,12 +110,9 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 ## Deployment
 
-| Target | Guide |
-|--------|--------|
-| **Backend (Cloud Run)** | [docs/DEPLOY_TO_CLOUD_RUN.md](docs/DEPLOY_TO_CLOUD_RUN.md) |
-| **Frontend (Vercel) + GitHub** | [docs/DEPLOY_FRONTEND_GITHUB.md](docs/DEPLOY_FRONTEND_GITHUB.md) |
+Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL.
 
-**Proof of Google Cloud:** Backend runs on Cloud Run; deploy via `infra/cloudbuild.yaml`. See Cloud Run console or the deploy doc for verification.
+**Proof of Google Cloud:** Backend runs on Cloud Run; use `infra/cloudbuild.yaml` for build and deploy.
 
 ---
 
@@ -131,10 +128,9 @@ Copy `backend/.env.example` to `backend/.env` and set:
 │   │   ├── routers/      # Research, voice, health, sessions
 │   │   └── services/     # Gemini, Firecrawl, Perplexity, Playwright, ElevenLabs
 │   └── main.py
-├── infra/                 # GCP automation (bonus)
-│   ├── cloudbuild.yaml   # Build & deploy to Cloud Run
-│   └── main.tf           # Terraform (Cloud Run, etc.)
-└── docs/                  # Deployment and setup guides
+└── infra/                 # GCP automation
+    ├── cloudbuild.yaml   # Build & deploy to Cloud Run
+    └── main.tf           # Terraform (Cloud Run, etc.)
 ```
 
 ---
@@ -151,7 +147,6 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 - **Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (Deadline: Mar 16, 2026)
 - **Category:** [UI Navigator](https://geminiliveagentchallenge.devpost.com/) — visual UI understanding & interaction
-- **Alignment:** [docs/HACKATHON_ALIGNMENT.md](docs/HACKATHON_ALIGNMENT.md)
 
 ---
 
