@@ -209,7 +209,7 @@ export function LiveAgentSection() {
           >
             {/* Screen State Indicators */}
             <div className="flex justify-center gap-2 mb-8">
-              {screenStates.map((_, i) => (
+              {screenStates.map((state, i) => (
                 <motion.button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
@@ -219,6 +219,8 @@ export function LiveAgentSection() {
                     backgroundColor: i === currentIndex ? 'var(--accent)' : 'rgba(255, 255, 255, 0.2)',
                   }}
                   whileHover={{ scale: 1.1 }}
+                  aria-label={`View ${state.title} analysis`}
+                  aria-current={i === currentIndex ? 'true' : 'false'}
                 >
                   {i === currentIndex && (
                     <motion.div
@@ -433,7 +435,7 @@ export function LiveAgentSection() {
               >
                 <span
                   className="text-xs uppercase tracking-wider"
-                  style={{ fontFamily: 'var(--font-mono)', color: '#64748B' }}
+                  style={{ fontFamily: 'var(--font-mono)', color: '#94A3B8' }}
                 >
                   NOW ANALYZING
                 </span>
@@ -582,7 +584,7 @@ export function LiveAgentSection() {
                   >
                     {stat.value}
                   </div>
-                  <div className="text-xs" style={{ color: '#64748B', fontFamily: 'var(--font-mono)' }}>
+                  <div className="text-xs" style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)' }}>
                     {stat.label}
                   </div>
                 </motion.div>
@@ -597,6 +599,8 @@ export function LiveAgentSection() {
               className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-[10px] font-semibold text-white transition-all hover:scale-105"
               style={{ backgroundColor: 'var(--accent)' }}
               whileHover={{ boxShadow: '0 0 0 4px var(--accent-glow)' }}
+              aria-label="Run your own research with Voyance"
+              onClick={() => document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Run Your Own Research <ArrowRight className="inline-block ml-2 w-5 h-5" />
             </motion.button>

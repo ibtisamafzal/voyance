@@ -456,6 +456,7 @@ export function HeroSection() {
                   color: isRecording || isGeminiTranscribing ? 'var(--vera-voice)' : 'var(--accent)',
                   backgroundColor: isRecording || isGeminiTranscribing ? 'rgba(14, 165, 233, 0.15)' : 'transparent',
                 }}
+                aria-label={isRecording ? 'Stop voice recording' : isGeminiTranscribing ? 'Transcribing audio...' : 'Start voice input'}
                 title={isRecording ? 'Stop recording' : isGeminiTranscribing ? 'Transcribing...' : 'Start voice input'}
               >
                 {isRecording || isGeminiTranscribing ? (
@@ -495,6 +496,7 @@ export function HeroSection() {
                   </button>
                 ))}
               </div>
+              <label htmlFor="research-query" className="sr-only">Research query</label>
               <input
                 id="research-query"
                 type="text"
@@ -504,6 +506,8 @@ export function HeroSection() {
                 disabled={isRunning}
                 placeholder="Compare pricing for top 5 CRM tools..."
                 className="flex-1 min-w-0 w-full sm:w-auto bg-transparent outline-none text-sm md:text-base"
+                aria-label="Research query — type or speak your research question"
+                autoComplete="off"
                 style={{
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-geist)',
@@ -515,6 +519,7 @@ export function HeroSection() {
                 disabled={isRunning}
                 className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 sm:px-5 rounded-[10px] font-semibold text-white text-sm transition-all hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] w-full sm:w-auto"
                 style={{ backgroundColor: 'var(--accent)' }}
+                aria-label={isRunning ? 'Research in progress' : isComplete ? 'View research results' : 'Start research'}
               >
                 {isRunning ? (
                   <><Loader2 className="w-4 h-4 animate-spin" /> Running...</>

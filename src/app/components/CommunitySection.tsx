@@ -106,7 +106,7 @@ export function CommunitySection() {
         >
           <div
             className="text-xs uppercase tracking-wider"
-            style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}
+            style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}
           >
             POWERED BY
           </div>

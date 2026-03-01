@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+
+
 
 export function Footer() {
   const links = {
@@ -9,22 +10,22 @@ export function Footer() {
       { label: 'Architecture', href: '#architecture' },
     ],
     builtWith: [
-      { label: 'Gemini API', href: '#' },
-      { label: 'Google ADK', href: '#' },
-      { label: 'Cloud Run', href: '#' },
-      { label: 'Firestore', href: '#' },
+      { label: 'Gemini API', href: '#', external: false },
+      { label: 'Google ADK', href: '#', external: false },
+      { label: 'Cloud Run', href: '#', external: false },
+      { label: 'Firestore', href: '#', external: false },
     ],
     externalAPIs: [
-      { label: 'ElevenLabs', href: '#' },
-      { label: 'Firecrawl', href: '#' },
-      { label: 'Perplexity', href: '#' },
-      { label: 'Playwright', href: '#' },
+      { label: 'ElevenLabs', href: '#', external: false },
+      { label: 'Firecrawl', href: '#', external: false },
+      { label: 'Perplexity', href: '#', external: false },
+      { label: 'Playwright', href: '#', external: false },
     ],
     project: [
-      { label: 'GitHub', href: 'https://github.com/ibtisamafzal/voyance' },
-      { label: 'Blog (DEV)', href: 'https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h' },
-      { label: 'Devpost', href: 'https://geminiliveagentchallenge.devpost.com/' },
-      { label: 'License', href: 'https://github.com/ibtisamafzal/voyance' },
+      { label: 'GitHub', href: 'https://github.com/ibtisamafzal/voyance', external: true },
+      { label: 'Blog (DEV)', href: 'https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h', external: true },
+      { label: 'Devpost', href: 'https://geminiliveagentchallenge.devpost.com/', external: true },
+      { label: 'License', href: 'https://github.com/ibtisamafzal/voyance/blob/main/LICENSE', external: true },
     ],
   };
 
@@ -44,7 +45,7 @@ export function Footer() {
               Voyance
             </span>
           </div>
-          <p className="text-sm" style={{ color: '#64748B' }}>
+          <p className="text-sm" style={{ color: '#94A3B8' }}>
             See the web the way an analyst does.
           </p>
         </div>
@@ -54,7 +55,7 @@ export function Footer() {
           <div>
             <h4
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
-              style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
+              style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               Product
             </h4>
@@ -63,8 +64,8 @@ export function Footer() {
                 <li key={i}>
                   <a
                     href={link.href}
-                    className="text-sm transition-colors hover:text-[#3B82F6]"
-                    style={{ color: '#64748B' }}
+                    className="text-sm transition-colors hover:text-[#60A5FA]"
+                    style={{ color: '#94A3B8' }}
                   >
                     {link.label}
                   </a>
@@ -76,7 +77,7 @@ export function Footer() {
           <div>
             <h4
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
-              style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
+              style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               Built With
             </h4>
@@ -85,8 +86,9 @@ export function Footer() {
                 <li key={i}>
                   <a
                     href={link.href}
-                    className="text-sm transition-colors hover:text-[#3B82F6]"
-                    style={{ color: '#64748B' }}
+                    className="text-sm transition-colors hover:text-[#60A5FA]"
+                    style={{ color: '#94A3B8' }}
+                    aria-label={`${link.label} — technology used to build Voyance`}
                   >
                     {link.label}
                   </a>
@@ -98,7 +100,7 @@ export function Footer() {
           <div>
             <h4
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
-              style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
+              style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               External APIs
             </h4>
@@ -107,8 +109,9 @@ export function Footer() {
                 <li key={i}>
                   <a
                     href={link.href}
-                    className="text-sm transition-colors hover:text-[#3B82F6]"
-                    style={{ color: '#64748B' }}
+                    className="text-sm transition-colors hover:text-[#60A5FA]"
+                    style={{ color: '#94A3B8' }}
+                    aria-label={`${link.label} — external API used by Voyance`}
                   >
                     {link.label}
                   </a>
@@ -120,7 +123,7 @@ export function Footer() {
           <div>
             <h4
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
-              style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
+              style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               Project
             </h4>
@@ -129,9 +132,10 @@ export function Footer() {
                 <li key={i}>
                   <a
                     href={link.href}
-                    className="text-sm transition-colors hover:text-[#3B82F6]"
-                    style={{ color: '#64748B' }}
-                    {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="text-sm transition-colors hover:text-[#60A5FA]"
+                    style={{ color: '#94A3B8' }}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {link.label}
                   </a>
@@ -144,17 +148,17 @@ export function Footer() {
         {/* Bottom Bar */}
         <div
           className="pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 border-t"
-          style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
+          style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}
         >
           <p
             className="text-xs text-center md:text-left"
-            style={{ color: '#64748B', fontFamily: 'var(--font-mono)' }}
+            style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)' }}
           >
             © 2026 Voyance · Gemini Live Agent Challenge · UI Navigator Track
           </p>
           <p
             className="text-xs text-center md:text-right"
-            style={{ color: '#64748B', fontFamily: 'var(--font-mono)' }}
+            style={{ color: '#94A3B8', fontFamily: 'var(--font-mono)' }}
           >
             Made for Google · Powered by Gemini
           </p>
@@ -163,3 +167,4 @@ export function Footer() {
     </footer>
   );
 }
+
