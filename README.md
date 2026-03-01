@@ -17,6 +17,8 @@ Voyance turns **natural language** into **competitive intelligence** in minutes:
 
 No DOM hacks, no site-specific APIs. It works on any site, through redesigns, forever.
 
+The backend is deployed on **Google Cloud Run**. For demo or API access, reach out via the contact details below.
+
 ---
 
 ## Hackathon alignment
@@ -110,9 +112,9 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 ## Deployment
 
-Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). The build sets **1 GiB memory** and **1 CPU** (minimal for Playwright/Chromium; bump to 2 GiB if you see OOM). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL (no trailing slash).
+The **production backend** is deployed on **Google Cloud Run.** To deploy or redeploy your own: use `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). The build sets **1 GiB memory** and **1 CPU** (minimal for Playwright/Chromium; bump to 2 GiB if you see OOM). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL (no trailing slash).
 
-**Proof of Google Cloud:** Backend runs on Cloud Run; use `infra/cloudbuild.yaml` for build and deploy.
+**Proof of Google Cloud:** Backend runs on Cloud Run; build/deploy is automated via `infra/cloudbuild.yaml`.
 
 ### Production fixes (reference)
 
@@ -155,6 +157,13 @@ Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo r
 
 - **Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (Deadline: Mar 16, 2026)
 - **Category:** [UI Navigator](https://geminiliveagentchallenge.devpost.com/) — visual UI understanding & interaction
+
+---
+
+## Contact
+
+- **Email:** [chaudhryibtisam2003@gmail.com](mailto:chaudhryibtisam2003@gmail.com)
+- **LinkedIn:** [linkedin.com/in/ibtisamafzal](https://linkedin.com/in/ibtisamafzal/)
 
 ---
 
