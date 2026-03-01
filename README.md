@@ -26,6 +26,7 @@
   - [Environment variables](#environment-variables)
   - [Deployment](#deployment)
   - [Project structure](#project-structure)
+  - [Community & write-ups](#community--write-ups)
   - [Contact](#contact)
   - [License](#license)
 
@@ -194,6 +195,15 @@ Copy `backend/.env.example` to `backend/.env` and set:
     ├── cloudbuild.yaml   # Build & deploy to Cloud Run
     └── main.tf           # Terraform
 ```
+
+---
+
+## Community & write-ups
+
+- **Deep-dive blog**: [How We Built Voyance (DEV.to)](https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h)
+- **Reddit build log**: [How we built Voyance — an AI agent that researches the web by “seeing” it](https://www.reddit.com/user/IbtisamAfzal/comments/1rhtivl/how_we_built_voyance_an_ai_agent_that_researches/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+- **Hackathon submission**: [Gemini Live Agent Challenge — UI Navigator track](https://geminiliveagentchallenge.devpost.com/)
+- **Source code**: [Voyance on GitHub](https://github.com/ibtisamafzal/voyance)
 
 ---
 
