@@ -126,7 +126,6 @@ export function ImpactSection() {
 
               {/* Stat */}
               <div
-                className="font-bold leading-none"
                 className="font-bold text-3xl sm:text-4xl md:text-[42px] leading-none"
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -172,7 +171,7 @@ export function ImpactSection() {
         >
           <div
             className="text-xs uppercase tracking-wider"
-            style={{ fontFamily: 'var(--font-mono)', color: '#64748B' }}
+            style={{ fontFamily: 'var(--font-mono)', color: '#94A3B8' }}
           >
             BUILT ON
           </div>

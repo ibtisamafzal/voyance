@@ -177,7 +177,7 @@ export function PipelineSection() {
                     <div
                       className="text-xs leading-tight"
                       style={{
-                        color: 'var(--text-tertiary)',
+                        color: 'var(--text-secondary)',
                       }}
                     >
                       {node.description}
@@ -250,7 +250,7 @@ export function PipelineSection() {
                   </div>
                   <p
                     className="text-xs leading-relaxed"
-                    style={{ color: 'var(--text-tertiary)' }}
+                    style={{ color: 'var(--text-secondary)' }}
                   >
                     {node.description}
                   </p>

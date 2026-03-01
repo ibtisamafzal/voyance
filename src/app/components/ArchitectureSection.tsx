@@ -383,7 +383,7 @@ export function ArchitectureSection() {
           <div className="text-center mb-10">
             <div
               className="text-xs uppercase tracking-wider"
-              style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}
+              style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}
             >
               CORE TECHNOLOGIES
             </div>
@@ -479,7 +479,7 @@ function ArchBox({ icon, label, color, description, isKey, compact }: ArchBoxPro
           {label}
         </div>
         {description && (
-          <div className={`leading-relaxed ${compact ? 'text-[11px]' : 'text-xs'}`} style={{ color: 'var(--text-tertiary)' }}>
+          <div className={`leading-relaxed ${compact ? 'text-[11px]' : 'text-xs'}`} style={{ color: 'var(--text-secondary)' }}>
             {description}
           </div>
         )}
