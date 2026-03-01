@@ -9,14 +9,25 @@
 
 ## Table of contents
 
-- [What it does](#what-it-does)
-- [Quick start](#quick-start)
-- [Tech stack](#tech-stack)
-- [Architecture](#architecture)
-- [Environment variables](#environment-variables)
-- [Deployment](#deployment)
-- [Project structure](#project-structure)
-- [Contact](#contact)
+- [Voyance](#voyance)
+  - [Table of contents](#table-of-contents)
+  - [What it does](#what-it-does)
+    - [Features](#features)
+    - [Screenshots](#screenshots)
+    - [Hackathon alignment](#hackathon-alignment)
+  - [Quick start](#quick-start)
+    - [Prerequisites](#prerequisites)
+    - [1. Clone and install](#1-clone-and-install)
+    - [2. Backend](#2-backend)
+    - [3. Frontend](#3-frontend)
+    - [4. Run a research task](#4-run-a-research-task)
+  - [Tech stack](#tech-stack)
+  - [Architecture](#architecture)
+  - [Environment variables](#environment-variables)
+  - [Deployment](#deployment)
+  - [Project structure](#project-structure)
+  - [Contact](#contact)
+  - [License](#license)
 
 ---
 
@@ -31,6 +42,26 @@ Voyance turns **natural language** into **competitive intelligence** in minutes:
 | **3. You get** | A sortable comparison table, CSV/HTML export, and **Vera** (ElevenLabs) reading the briefing aloud |
 
 No DOM hacks, no site-specific APIs. Works on any site, through redesigns. Backend runs on **Google Cloud Run**.
+
+### Features
+
+- **Natural language input** — Describe your research task in plain English (e.g. compare pricing, features, or reviews).
+- **Multi-site research** — Agent visits 3–5 live websites per task with no DOM scraping or site-specific APIs.
+- **Gemini vision** — Screenshot-based page understanding; works across redesigns and any site.
+- **Comparison table** — Sortable results with company, segment, pricing, and key details.
+- **Export** — Download results as CSV or HTML.
+- **Spoken briefing (Vera)** — ElevenLabs TTS reads the summary aloud.
+- **Fact verification** — Perplexity-backed claim checks where relevant.
+
+### Screenshots
+
+**Hero** — Enter your research query and start the agent.
+
+![Hero section](public/Hero-Section.png)
+
+**Output** — Comparison table, CSV/HTML export, and *Listen to Vera*.
+
+![Output section](Public/Output-Section.png)
 
 ### Hackathon alignment
 
