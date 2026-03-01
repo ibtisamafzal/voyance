@@ -73,12 +73,12 @@ export function PipelineSection() {
     <section
       id="how-it-works"
       ref={ref}
-      className="py-28 md:py-36"
+      className="py-16 sm:py-20 md:py-28 lg:py-36"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10">
         {/* Section Header */}
-        <div className="text-center mb-20 space-y-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -189,58 +189,75 @@ export function PipelineSection() {
           </div>
         </div>
 
-        {/* Pipeline Nodes - Mobile Vertical */}
-        <div className="md:hidden space-y-6">
-          {nodes.map((node, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
-              className="flex items-start gap-4"
-            >
-              <div
-                className="relative w-14 h-14 rounded-full flex items-center justify-center border flex-shrink-0"
-                style={{
-                  backgroundColor: 'var(--bg-elevated)',
-                  borderColor: 'var(--border-strong)',
-                  color: 'var(--accent)',
-                }}
+        {/* Pipeline Nodes - Mobile: timeline + step cards */}
+        <div className="md:hidden relative">
+          {/* Vertical timeline line */}
+          <div
+            className="absolute left-5 top-2 bottom-2 w-0.5 rounded-full"
+            style={{ backgroundColor: 'var(--accent)', opacity: 0.35 }}
+          />
+
+          <div className="space-y-4">
+            {nodes.map((node, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                transition={{ delay: 0.35 + i * 0.08, duration: 0.45, ease: 'easeOut' }}
+                className="relative flex gap-4 pl-2"
               >
-                <span
-                  className="absolute -top-2 -left-2 text-[10px] font-medium px-1.5 py-0.5 rounded"
-                  style={{
-                    backgroundColor: 'var(--accent)',
-                    color: 'white',
-                    fontFamily: 'var(--font-mono)',
-                  }}
-                >
-                  {node.number}
-                </span>
-                {node.icon}
-              </div>
-              <div className="flex-1 pt-2">
+                {/* Node circle on timeline */}
                 <div
-                  className="font-semibold mb-1"
+                  className="relative z-10 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border-2 shadow-sm"
                   style={{
-                    fontSize: '15px',
-                    color: 'var(--text-primary)',
-                    fontFamily: 'var(--font-geist)',
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--accent)',
+                    color: 'var(--accent)',
                   }}
                 >
-                  {node.label}
+                  {node.icon}
                 </div>
+
+                {/* Step card */}
                 <div
-                  className="text-sm"
+                  className="flex-1 min-w-0 rounded-xl border p-4 pb-3.5"
                   style={{
-                    color: 'var(--text-tertiary)',
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
                   }}
                 >
-                  {node.description}
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span
+                      className="text-[10px] font-bold px-2 py-0.5 rounded"
+                      style={{
+                        backgroundColor: 'var(--accent-glow)',
+                        color: 'var(--accent)',
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                    >
+                      {node.number}
+                    </span>
+                    <span
+                      className="font-semibold text-sm tracking-tight"
+                      style={{
+                        color: 'var(--text-primary)',
+                        fontFamily: 'var(--font-geist)',
+                      }}
+                    >
+                      {node.label}
+                    </span>
+                  </div>
+                  <p
+                    className="text-xs leading-relaxed"
+                    style={{ color: 'var(--text-tertiary)' }}
+                  >
+                    {node.description}
+                  </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

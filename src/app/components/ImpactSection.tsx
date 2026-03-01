@@ -64,7 +64,7 @@ export function ImpactSection() {
   return (
     <section
       ref={ref}
-      className="py-28 md:py-36 relative overflow-hidden"
+      className="py-16 sm:py-20 md:py-28 lg:py-36 relative overflow-hidden"
       style={{ backgroundColor: '#060B14' }}
     >
       {/* Background Gradient */}
@@ -75,9 +75,9 @@ export function ImpactSection() {
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-20 space-y-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -106,14 +106,14 @@ export function ImpactSection() {
         </div>
 
         {/* Use Case Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {useCases.map((useCase, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
               transition={{ delay: 0.2 + i * 0.1, duration: 0.6 }}
-              className="rounded-[20px] p-9 space-y-6"
+              className="rounded-2xl sm:rounded-[20px] p-6 sm:p-7 md:p-9 space-y-4 sm:space-y-6"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -127,8 +127,8 @@ export function ImpactSection() {
               {/* Stat */}
               <div
                 className="font-bold leading-none"
+                className="font-bold text-3xl sm:text-4xl md:text-[42px] leading-none"
                 style={{
-                  fontSize: '42px',
                   fontFamily: 'var(--font-mono)',
                   color: useCase.iconColor,
                 }}

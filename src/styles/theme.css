@@ -168,10 +168,20 @@
     @apply bg-background text-foreground;
     font-family: var(--font-geist);
     transition: background-color 350ms ease, color 350ms ease;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
   html {
     font-size: var(--font-size);
+    overflow-x: hidden;
+  }
+
+  /* Responsive container padding for narrow viewports */
+  @media (max-width: 480px) {
+    html {
+      font-size: 15px;
+    }
   }
 
   h1 {

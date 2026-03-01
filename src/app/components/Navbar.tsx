@@ -40,8 +40,8 @@ export function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
         backdropFilter: scrolled ? 'blur(24px) saturate(160%)' : 'none',
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
-        <div className="flex items-center h-[52px] md:h-[60px]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10">
+        <div className="flex items-center h-[52px] sm:h-[56px] md:h-[60px]">
           {/* Logo - flex-1 left */}
           <div className="flex-1 flex justify-start">
             <div className="flex items-center gap-2">
@@ -77,22 +77,6 @@ export function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
 
           {/* Right Controls - flex-1 right */}
           <div className="flex-1 flex items-center justify-end gap-3">
-            <button
-              className="hidden md:block px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:scale-105"
-              style={{
-                backgroundColor: 'var(--accent)',
-                boxShadow: '0 0 0 0 var(--accent-glow)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 4px var(--accent-glow)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 0 var(--accent-glow)';
-              }}
-            >
-              Request Access
-            </button>
-
             {/* Dark/Light Toggle */}
             <button
               onClick={toggleDarkMode}
@@ -121,7 +105,7 @@ export function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2"
+              className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center -mr-1"
               style={{ color: 'var(--text-primary)' }}
               aria-label="Toggle menu"
             >
@@ -156,12 +140,6 @@ export function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
                   {link.label}
                 </motion.a>
               ))}
-              <button
-                className="px-4 py-2 rounded-lg text-sm font-semibold text-white w-full"
-                style={{ backgroundColor: 'var(--accent)' }}
-              >
-                Request Access
-              </button>
             </div>
           </motion.div>
         )}

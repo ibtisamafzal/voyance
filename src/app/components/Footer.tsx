@@ -21,18 +21,18 @@ export function Footer() {
       { label: 'Playwright', href: '#' },
     ],
     project: [
-      { label: 'GitHub', href: '#' },
+      { label: 'GitHub', href: 'https://github.com/ibtisamafzal/voyance' },
       { label: 'Devpost', href: '#' },
       { label: 'PRD', href: '#' },
-      { label: 'License', href: '#' },
+      { label: 'License', href: 'https://github.com/ibtisamafzal/voyance' },
     ],
   };
 
   return (
-    <footer className="py-16 md:py-20" style={{ backgroundColor: '#060B14' }}>
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+    <footer className="py-12 sm:py-16 md:py-20" style={{ backgroundColor: '#060B14' }}>
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10">
         {/* Top Row */}
-        <div className="mb-12 space-y-3">
+        <div className="mb-8 sm:mb-12 space-y-3">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full border-2 flex items-center justify-center" style={{ borderColor: '#3B82F6' }}>
               <div className="w-1.5 h-1.5 rounded-sm" style={{ backgroundColor: '#3B82F6' }} />
@@ -50,7 +50,7 @@ export function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
           <div>
             <h4
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
@@ -131,6 +131,7 @@ export function Footer() {
                     href={link.href}
                     className="text-sm transition-colors hover:text-[#3B82F6]"
                     style={{ color: '#64748B' }}
+                    {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {link.label}
                   </a>
@@ -142,7 +143,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div
-          className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t"
+          className="pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 border-t"
           style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
         >
           <p

@@ -25,13 +25,14 @@ export function ArchitectureSection() {
 
   return (
     <section
+      id="architecture"
       ref={ref}
-      className="py-24 md:py-32"
+      className="py-16 sm:py-20 md:py-24 lg:py-32"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
-      <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-5 md:px-10">
         {/* Section Header */}
-        <div className="text-center mb-24 space-y-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-24 space-y-4 sm:space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -54,7 +55,7 @@ export function ArchitectureSection() {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            GCP-native. Production-grade.
+            How Voyance works end-to-end
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
@@ -63,7 +64,7 @@ export function ArchitectureSection() {
             className="text-lg max-w-[700px] mx-auto"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Serverless infrastructure orchestrating vision, voice, and verification in real-time.
+            Your query flows through three layers: input (voice or text), processing (browser + AI vision + verification), and output (structured report + Vera’s spoken briefing). All running on Google Cloud Run.
           </motion.p>
         </div>
 
@@ -72,7 +73,7 @@ export function ArchitectureSection() {
           initial={{ opacity: 0, y: -20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="flex justify-center mb-16"
+          className="flex justify-center mb-10 sm:mb-16"
         >
           <div
             className="px-6 py-3 rounded-full"
@@ -113,16 +114,16 @@ export function ArchitectureSection() {
                       className="text-xs font-bold uppercase tracking-wider"
                       style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}
                     >
-                      01 · Input Layer
+                      01 · Your input
                     </div>
                   </div>
                 </div>
 
-                <ArchBox icon={<Mic className="w-5 h-5" />} label="User Voice" color="#94A3B8" description="Natural language query" />
+                <ArchBox icon={<Mic className="w-5 h-5" />} label="You type or speak" color="#94A3B8" description="e.g. “Compare top 5 CRM tools” — text or voice in the hero" />
                 <FlowArrow />
-                <ArchBox icon={<Brain className="w-5 h-5" />} label="Gemini Live API" color="#3B82F6" description="Realtime STT + LLM" isKey />
+                <ArchBox icon={<Brain className="w-5 h-5" />} label="Gemini 2.0 Flash" color="#3B82F6" description="Understands your intent and optional voice transcription" isKey />
                 <FlowArrow />
-                <ArchBox icon={<Brain className="w-5 h-5" />} label="ADK Agent Loop" color="#3B82F6" description="Multi-step orchestration" />
+                <ArchBox icon={<Brain className="w-5 h-5" />} label="ADK Agent Loop" color="#3B82F6" description="Plans which sites to visit and what to extract" />
               </motion.div>
 
               {/* Zone 2 - Processing */}
@@ -144,17 +145,17 @@ export function ArchitectureSection() {
                       className="text-xs font-bold uppercase tracking-wider"
                       style={{ color: '#F59E0B', fontFamily: 'var(--font-mono)' }}
                     >
-                      02 · Processing Engine
+                      02 · How we research the web
                     </div>
                   </div>
                 </div>
 
-                <ArchBox icon={<Globe className="w-5 h-5" />} label="Playwright Browser" color="#94A3B8" description="Headless navigation" />
-                <ArchBox icon={<Zap className="w-5 h-5" />} label="Firecrawl API" color="#F59E0B" description="Web scraping" />
-                <ArchBox icon={<Eye className="w-5 h-5" />} label="Gemini Vision" color="#3B82F6" description="Screenshot analysis" />
+                <ArchBox icon={<Globe className="w-5 h-5" />} label="Playwright Browser" color="#94A3B8" description="Visits live sites and captures screenshots (no DOM access)" />
+                <ArchBox icon={<Zap className="w-5 h-5" />} label="Firecrawl API" color="#F59E0B" description="Fast structured extraction when the page allows it" />
+                <ArchBox icon={<Eye className="w-5 h-5" />} label="Gemini Vision" color="#3B82F6" description="Reads screenshots like a human — works on any site" />
                 <FlowArrow />
-                <ArchBox icon={<CheckCircle className="w-5 h-5" />} label="Perplexity Verify" color="#10D97A" description="Fact checking" />
-                <ArchBox icon={<Database className="w-5 h-5" />} label="Firestore Session" color="#3B82F6" description="State persistence" />
+                <ArchBox icon={<CheckCircle className="w-5 h-5" />} label="Perplexity Verify" color="#10D97A" description="Cross-checks key facts against the live web" />
+                <ArchBox icon={<Database className="w-5 h-5" />} label="Firestore Session" color="#3B82F6" description="Stores session state and results" />
               </motion.div>
 
               {/* Zone 3 - Output */}
@@ -176,16 +177,16 @@ export function ArchitectureSection() {
                       className="text-xs font-bold uppercase tracking-wider"
                       style={{ color: '#10D97A', fontFamily: 'var(--font-mono)' }}
                     >
-                      03 · Output Layer
+                      03 · What you get
                     </div>
                   </div>
                 </div>
 
-                <ArchBox icon={<FileJson className="w-5 h-5" />} label="JSON Report" color="#10D97A" description="Structured data" />
+                <ArchBox icon={<FileJson className="w-5 h-5" />} label="Structured JSON" color="#10D97A" description="Comparison table: company, pricing, features, confidence" />
                 <FlowArrow />
-                <ArchBox icon={<Volume2 className="w-5 h-5" />} label="ElevenLabs Vera" color="#818CF8" description="Text-to-speech" />
+                <ArchBox icon={<Volume2 className="w-5 h-5" />} label="ElevenLabs Vera" color="#818CF8" description="Spoken briefing you can listen to in the app" />
                 <FlowArrow />
-                <ArchBox icon={<Monitor className="w-5 h-5" />} label="Frontend Display" color="#94A3B8" description="User interface" />
+                <ArchBox icon={<Monitor className="w-5 h-5" />} label="This app" color="#94A3B8" description="Sort, export CSV/HTML, view sources, replay Vera" />
               </motion.div>
             </div>
 
@@ -214,94 +215,160 @@ export function ArchitectureSection() {
           </div>
         </div>
 
-        {/* Architecture Diagram - Mobile/Tablet */}
-        <div className="lg:hidden space-y-10 max-w-[600px] mx-auto">
-          {/* Input */}
+        {/* Architecture Diagram - Mobile/Tablet: layer cards with step flow */}
+        <div className="lg:hidden max-w-[600px] mx-auto space-y-6">
+          {/* Step indicator: 1 — 2 — 3 */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="space-y-6"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+            className="flex items-center justify-center gap-2 sm:gap-4"
+          >
+            {[
+              { step: 1, label: 'Input', color: 'var(--accent)' },
+              { step: 2, label: 'Process', color: '#F59E0B' },
+              { step: 3, label: 'Output', color: '#10D97A' },
+            ].map(({ step, label, color }) => (
+              <div key={step} className="flex items-center gap-2">
+                <div
+                  className="flex items-center justify-center w-8 h-8 rounded-full border-2 font-bold text-xs"
+                  style={{ borderColor: color, color, fontFamily: 'var(--font-mono)' }}
+                >
+                  {step}
+                </div>
+                {step < 3 && (
+                  <div
+                    className="w-6 h-0.5 rounded"
+                    style={{ backgroundColor: 'var(--border-strong)' }}
+                  />
+                )}
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Layer 1: Input — card with accent strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="rounded-2xl border overflow-hidden"
+            style={{
+              backgroundColor: 'var(--bg-elevated)',
+              borderColor: 'var(--border-strong)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            }}
           >
             <div
-              className="inline-block px-4 py-2 rounded-lg"
+              className="px-4 py-3 flex items-center gap-2"
               style={{
                 backgroundColor: 'var(--accent-glow)',
-                border: '1px solid rgba(10, 95, 232, 0.3)',
+                borderBottom: '1px solid rgba(10, 95, 232, 0.2)',
               }}
             >
-              <div
+              <span
                 className="text-xs font-bold uppercase tracking-wider"
                 style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}
               >
-                01 · Input Layer
-              </div>
+                01 · Your input
+              </span>
             </div>
-            <ArchBox icon={<Mic className="w-5 h-5" />} label="User Voice" color="#94A3B8" description="Natural language query" />
-            <ArchBox icon={<Brain className="w-5 h-5" />} label="Gemini Live API" color="#3B82F6" description="Realtime STT + LLM" isKey />
-            <ArchBox icon={<Brain className="w-5 h-5" />} label="ADK Agent Loop" color="#3B82F6" description="Multi-step orchestration" />
+            <div className="p-4 space-y-3">
+              <ArchBox compact icon={<Mic className="w-4 h-4" />} label="You type or speak" color="#94A3B8" description="e.g. “Compare top 5 CRM tools” — text or voice in the hero" />
+              <ArchBox compact icon={<Brain className="w-4 h-4" />} label="Gemini 2.0 Flash" color="#3B82F6" description="Understands your intent and optional voice transcription" isKey />
+              <ArchBox compact icon={<Brain className="w-4 h-4" />} label="ADK Agent Loop" color="#3B82F6" description="Plans which sites to visit and what to extract" />
+            </div>
           </motion.div>
 
           <div className="flex justify-center">
-            <ArrowRight className="w-8 h-8" style={{ color: 'var(--accent)', opacity: 0.4 }} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              transition={{ delay: 0.55, duration: 0.3 }}
+              className="w-10 h-10 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: 'var(--bg-elevated)', border: '2px solid var(--border-strong)' }}
+            >
+              <ArrowRight className="w-5 h-5 rotate-90" style={{ color: 'var(--accent)', opacity: 0.8 }} />
+            </motion.div>
           </div>
 
-          {/* Processing */}
+          {/* Layer 2: Processing — card with orange strip */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ delay: 0.55, duration: 0.5 }}
+            className="rounded-2xl border overflow-hidden"
+            style={{
+              backgroundColor: 'var(--bg-elevated)',
+              borderColor: 'var(--border-strong)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            }}
           >
             <div
-              className="inline-block px-4 py-2 rounded-lg"
+              className="px-4 py-3 flex items-center gap-2"
               style={{
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                border: '1px solid rgba(245, 158, 11, 0.3)',
+                backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                borderBottom: '1px solid rgba(245, 158, 11, 0.25)',
               }}
             >
-              <div
+              <span
                 className="text-xs font-bold uppercase tracking-wider"
                 style={{ color: '#F59E0B', fontFamily: 'var(--font-mono)' }}
               >
-                02 · Processing Engine
-              </div>
+                02 · How we research the web
+              </span>
             </div>
-            <ArchBox icon={<Globe className="w-5 h-5" />} label="Playwright Browser" color="#94A3B8" description="Headless navigation" />
-            <ArchBox icon={<Zap className="w-5 h-5" />} label="Firecrawl API" color="#F59E0B" description="Web scraping" />
-            <ArchBox icon={<Eye className="w-5 h-5" />} label="Gemini Vision" color="#3B82F6" description="Screenshot analysis" />
-            <ArchBox icon={<CheckCircle className="w-5 h-5" />} label="Perplexity Verify" color="#10D97A" description="Fact checking" />
-            <ArchBox icon={<Database className="w-5 h-5" />} label="Firestore Session" color="#3B82F6" description="State persistence" />
+            <div className="p-4 space-y-3">
+              <ArchBox compact icon={<Globe className="w-4 h-4" />} label="Playwright Browser" color="#94A3B8" description="Visits live sites and captures screenshots (no DOM access)" />
+              <ArchBox compact icon={<Zap className="w-4 h-4" />} label="Firecrawl API" color="#F59E0B" description="Fast structured extraction when the page allows it" />
+              <ArchBox compact icon={<Eye className="w-4 h-4" />} label="Gemini Vision" color="#3B82F6" description="Reads screenshots like a human — works on any site" />
+              <ArchBox compact icon={<CheckCircle className="w-4 h-4" />} label="Perplexity Verify" color="#10D97A" description="Cross-checks key facts against the live web" />
+              <ArchBox compact icon={<Database className="w-4 h-4" />} label="Firestore Session" color="#3B82F6" description="Stores session state and results" />
+            </div>
           </motion.div>
 
           <div className="flex justify-center">
-            <ArrowRight className="w-8 h-8" style={{ color: 'var(--accent)', opacity: 0.4 }} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              transition={{ delay: 0.7, duration: 0.3 }}
+              className="w-10 h-10 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: 'var(--bg-elevated)', border: '2px solid var(--border-strong)' }}
+            >
+              <ArrowRight className="w-5 h-5 rotate-90" style={{ color: '#F59E0B', opacity: 0.8 }} />
+            </motion.div>
           </div>
 
-          {/* Output */}
+          {/* Layer 3: Output — card with green strip */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="rounded-2xl border overflow-hidden"
+            style={{
+              backgroundColor: 'var(--bg-elevated)',
+              borderColor: 'var(--border-strong)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            }}
           >
             <div
-              className="inline-block px-4 py-2 rounded-lg"
+              className="px-4 py-3 flex items-center gap-2"
               style={{
                 backgroundColor: 'rgba(16, 217, 122, 0.1)',
-                border: '1px solid rgba(16, 217, 122, 0.3)',
+                borderBottom: '1px solid rgba(16, 217, 122, 0.25)',
               }}
             >
-              <div
+              <span
                 className="text-xs font-bold uppercase tracking-wider"
                 style={{ color: '#10D97A', fontFamily: 'var(--font-mono)' }}
               >
-                03 · Output Layer
-              </div>
+                03 · What you get
+              </span>
             </div>
-            <ArchBox icon={<FileJson className="w-5 h-5" />} label="JSON Report" color="#10D97A" description="Structured data" />
-            <ArchBox icon={<Volume2 className="w-5 h-5" />} label="ElevenLabs Vera" color="#818CF8" description="Text-to-speech" />
-            <ArchBox icon={<Monitor className="w-5 h-5" />} label="Frontend Display" color="#94A3B8" description="User interface" />
+            <div className="p-4 space-y-3">
+              <ArchBox compact icon={<FileJson className="w-4 h-4" />} label="Structured JSON" color="#10D97A" description="Comparison table: company, pricing, features, confidence" />
+              <ArchBox compact icon={<Volume2 className="w-4 h-4" />} label="ElevenLabs Vera" color="#818CF8" description="Spoken briefing you can listen to in the app" />
+              <ArchBox compact icon={<Monitor className="w-4 h-4" />} label="This app" color="#94A3B8" description="Sort, export CSV/HTML, view sources, replay Vera" />
+            </div>
           </motion.div>
         </div>
 
@@ -310,7 +377,7 @@ export function ArchitectureSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-24 pt-16 border-t"
+          className="mt-16 sm:mt-20 md:mt-24 pt-10 sm:pt-14 md:pt-16 border-t"
           style={{ borderColor: 'var(--border)' }}
         >
           <div className="text-center mb-10">
@@ -321,7 +388,7 @@ export function ArchitectureSection() {
               CORE TECHNOLOGIES
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
             {[
               { name: 'Gemini 2.0', type: 'LLM' },
               { name: 'Google ADK', type: 'Orchestration' },
@@ -367,12 +434,13 @@ interface ArchBoxProps {
   color: string;
   description?: string;
   isKey?: boolean;
+  compact?: boolean;
 }
 
-function ArchBox({ icon, label, color, description, isKey }: ArchBoxProps) {
+function ArchBox({ icon, label, color, description, isKey, compact }: ArchBoxProps) {
   return (
     <motion.div
-      className="relative flex items-start gap-4 px-6 py-5 rounded-xl border transition-all hover:scale-[1.02]"
+      className={`relative flex items-start gap-3 sm:gap-4 rounded-xl border transition-all ${compact ? 'px-4 py-3' : 'px-6 py-5'} hover:scale-[1.02]`}
       style={{
         backgroundColor: 'var(--bg-elevated)',
         borderColor: 'var(--border-strong)',
@@ -395,7 +463,7 @@ function ArchBox({ icon, label, color, description, isKey }: ArchBoxProps) {
         </div>
       )}
       <div
-        className="flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0"
+        className={`flex items-center justify-center rounded-lg flex-shrink-0 ${compact ? 'w-9 h-9' : 'w-10 h-10'}`}
         style={{
           backgroundColor: `${color}15`,
           color: color,
@@ -405,13 +473,13 @@ function ArchBox({ icon, label, color, description, isKey }: ArchBoxProps) {
       </div>
       <div className="flex-1 min-w-0">
         <div
-          className="font-semibold text-sm mb-1"
+          className={`font-semibold mb-0.5 sm:mb-1 ${compact ? 'text-xs' : 'text-sm'}`}
           style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}
         >
           {label}
         </div>
         {description && (
-          <div className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+          <div className={`leading-relaxed ${compact ? 'text-[11px]' : 'text-xs'}`} style={{ color: 'var(--text-tertiary)' }}>
             {description}
           </div>
         )}

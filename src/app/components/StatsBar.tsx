@@ -55,7 +55,7 @@ function StatItem({ number, label, delay, icon }: StatItemProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ delay, duration: 0.5 }}
-      className="relative flex flex-col items-center justify-center py-10 px-6 group"
+      className="relative flex flex-col items-center justify-center py-6 sm:py-8 md:py-10 px-4 sm:px-6 group"
     >
       {/* Animated Background Glow */}
       <motion.div
@@ -112,7 +112,7 @@ function StatItem({ number, label, delay, icon }: StatItemProps) {
 
       {/* Number */}
       <motion.div
-        className="text-4xl md:text-5xl font-bold mb-2 relative z-10"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 relative z-10"
         style={{
           fontFamily: 'var(--font-mono)',
           color: 'var(--accent)',
@@ -152,21 +152,6 @@ function StatItem({ number, label, delay, icon }: StatItemProps) {
         animate={isInView ? { width: '60%' } : { width: 0 }}
         transition={{ delay: delay + 0.7, duration: 0.8 }}
       />
-
-      {/* Pulsing Dot */}
-      <motion.div
-        className="absolute top-8 right-8 w-2 h-2 rounded-full"
-        style={{ backgroundColor: 'var(--accent)' }}
-        animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          delay: delay,
-        }}
-      />
     </motion.div>
   );
 }
@@ -181,7 +166,7 @@ export function StatsBar() {
 
   return (
     <section
-      className="py-20 border-t border-b relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 border-t border-b relative overflow-hidden"
       style={{
         backgroundColor: 'var(--bg-elevated)',
         borderColor: 'var(--border)',
@@ -234,7 +219,7 @@ export function StatsBar() {
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: 'var(--border)' }}>
           {stats.map((stat, i) => (
             <div
