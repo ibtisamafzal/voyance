@@ -13,7 +13,7 @@
 | **AC-07** Perplexity verification | ✅ | `verify_claim(company, claim)` in `agent.py` per competitor with pricing. |
 | **AC-08** Firecrawl + Gemini fallback | ✅ | Dual-mode: `firecrawl_service.scrape_url` → `gemini_service.analyze_screenshot` fallback. |
 | **AC-09** CSV + HTML export | ✅ | One-click CSV/HTML in Output section (`handleExport` in `ResearchOutputSection.tsx`). |
-| **AC-10** Cloud Run deployment | ⚠️ | Dockerfile + `infra/cloudbuild.yaml` present; not deployed. |
+| **AC-10** Cloud Run deployment | ✅ | Backend deployed via `infra/cloudbuild.yaml`; public URL + IAM invoker configured. |
 | **F1** Voice-directed brief | ⚠️ | Text + Web Speech / Gemini transcribe; no Gemini Live end-to-end voice. |
 | **F2** Playwright + screenshots | ✅ | `browser_service.capture_screenshot`; Firecrawl used when available. |
 | **F3** Dual-mode extraction | ✅ | Firecrawl → Gemini vision (same as AC-08). |
@@ -39,12 +39,14 @@
 
 ### P0 (Required for submission)
 
-| Item | Action |
-|------|--------|
-| **AC-10** Cloud Run | Deploy backend: `gcloud run deploy` or use `infra/cloudbuild.yaml`. Push to GitHub, connect Cloud Build. |
-| **Demo video** | Record 4-min max: live navigation, voice input, Vera speaking, table rendered. Upload to YouTube/Vimeo. |
-| **GitHub repo** | Public repo with README, setup instructions, architecture diagram. |
-| **Devpost** | Submit with all URLs, category UI Navigator, disclose ElevenLabs/Firecrawl/Perplexity. |
+| Item | Status | Action |
+|------|--------|--------|
+| **AC-10** Cloud Run | ✅ Done | Backend deployed; use `gcloud run services describe voyance-backend --region=us-central1 --format="value(status.url)"` for URL. |
+| **GitHub repo** | ✅ Done | Public repo with README and setup instructions. |
+| **Demo video** | 🔲 Remaining | Record &lt;4 min: live navigation, voice input, Vera speaking, table rendered. Upload to YouTube/Vimeo, add URL to Devpost. |
+| **Architecture diagram** | 🔲 Remaining | Add clear diagram (Gemini → backend → frontend) to repo + Devpost image carousel. |
+| **Proof of GCP** | ✅ Done | Cloud Run live; record short console clip or link to deploy code for Devpost. |
+| **Devpost** | 🔲 Remaining | Submit with repo URL, video, diagram; category **UI Navigator**; disclose ElevenLabs, Firecrawl, Perplexity. |
 
 ### P1 (Recommended)
 
@@ -77,4 +79,4 @@
 | **Perplexity** | `perplexity_service.verify_claim` called in agent loop for pricing claims. |
 | **Export** | `ResearchOutputSection.tsx`: `handleExport('csv' or 'html')`, CSV/HTML buttons. |
 | **Screenshots** | `agent.py`: `_session_screenshots`; `getSessionScreenshots` API; "View sources" + carousel in Output. |
-| **Deploy / infra** | `backend/Dockerfile`, `infra/cloudbuild.yaml` present; no `infra/main.tf`. |
+| **Deploy / infra** | `backend/Dockerfile`, `infra/cloudbuild.yaml`, `infra/main.tf` (Terraform) present; backend deployed on Cloud Run. |
