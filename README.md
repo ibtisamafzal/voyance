@@ -204,7 +204,7 @@ Copy `backend/.env.example` to `backend/.env` and set:
 | **Email** | [chaudhryibtisam2003@gmail.com](mailto:chaudhryibtisam2003@gmail.com) |
 | **LinkedIn** | [linkedin.com/in/ibtisamafzal](https://linkedin.com/in/ibtisamafzal/) |
 
-**Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (Deadline: Mar 16, 2026)
+**Blog:** [How We Built Voyance (DEV)](https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h) · **Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (Deadline: Mar 16, 2026)
 
 ---
 

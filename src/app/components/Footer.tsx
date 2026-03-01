@@ -22,8 +22,8 @@ export function Footer() {
     ],
     project: [
       { label: 'GitHub', href: 'https://github.com/ibtisamafzal/voyance' },
-      { label: 'Devpost', href: '#' },
-      { label: 'PRD', href: '#' },
+      { label: 'Blog (DEV)', href: 'https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h' },
+      { label: 'Devpost', href: 'https://geminiliveagentchallenge.devpost.com/' },
       { label: 'License', href: 'https://github.com/ibtisamafzal/voyance' },
     ],
   };
