@@ -4,12 +4,15 @@ Gemini Live Agent Challenge 2026 · UI Navigator Track
 """
 
 import asyncio
+import re
 import sys
 
 # Fix Playwright + asyncio on Windows: use ProactorEventLoop for subprocess support
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -49,6 +52,17 @@ def create_app() -> FastAPI:
         docs_url="/api/docs",
         redoc_url="/api/redoc",
     )
+
+    # ─── Path normalization (//api/... → /api/...) ───────────────────────────
+    # Fixes 403 when frontend sends double slash (e.g. VITE_API_URL with trailing slash).
+    class NormalizePathMiddleware(BaseHTTPMiddleware):
+        async def dispatch(self, request: Request, call_next):
+            path = request.scope.get("path", "")
+            if "//" in path:
+                request = Request({**request.scope, "path": re.sub(r"/+", "/", path)})
+            return await call_next(request)
+
+    application.add_middleware(NormalizePathMiddleware)
 
     # ─── CORS ────────────────────────────────────────────────────────────────
     origins_raw = os.getenv("CORS_ORIGINS", "http://localhost:5173")

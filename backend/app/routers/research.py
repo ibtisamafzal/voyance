@@ -9,7 +9,10 @@ GET  /api/research/{sid}       → get session results
 
 import asyncio
 import json
+import logging
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, BackgroundTasks
+
+logger = logging.getLogger(__name__)
 from app.models import (
     ResearchRequest, ResearchResponse, VoiceInterruptRequest,
     ResearchSession, AgentUpdate, SessionStatus,
@@ -98,7 +101,9 @@ async def research_websocket(websocket: WebSocket, session_id: str):
                 # Send heartbeat ping (keeps WS alive past ~10s idle timeouts)
                 try:
                     await websocket.send_text(json.dumps({"type": "ping"}))
-                except Exception:
+                    logger.info("WS ping sent session_id=%s", session_id)
+                except Exception as e:
+                    logger.warning("WS ping failed session_id=%s err=%s", session_id, e)
                     break
     except WebSocketDisconnect:
         pass
