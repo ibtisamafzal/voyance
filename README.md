@@ -110,9 +110,17 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 ## Deployment
 
-Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). The build sets **1 GiB memory** and **1 CPU** (minimal for Playwright/Chromium; bump to 2 GiB if you see OOM). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL.
+Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). The build sets **1 GiB memory** and **1 CPU** (minimal for Playwright/Chromium; bump to 2 GiB if you see OOM). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL (no trailing slash).
 
 **Proof of Google Cloud:** Backend runs on Cloud Run; use `infra/cloudbuild.yaml` for build and deploy.
+
+### Production fixes (reference)
+
+- **Stuck on "Connecting…"** — Set `VITE_API_URL` in Vercel (or your host) to the Cloud Run URL and redeploy so the built frontend points to the backend.
+- **WebSocket 403** — The backend normalizes paths (`//api/...` → `/api/...`) so double slashes from a trailing `VITE_API_URL` no longer break the WebSocket. Frontend also strips trailing slashes from the API base URL.
+- **WebSocket disconnects after ~10s** — Backend sends a ping every 5s to avoid load-balancer idle timeouts; if the connection drops, the frontend polls `GET /api/research/{session_id}` until results are ready.
+- **Memory limit exceeded (512 MiB)** — `cloudbuild.yaml` sets `--memory=1Gi` and `--cpu=1`; increase to 2 GiB if needed.
+- **Extraction: "Unknown" company, N/A pricing** — Gemini prompt and URL-derived company fallback improve company/segment; pricing tiers include "Contact sales" / "Free trial" when no numbers are visible; Firecrawl data is used even when `company_name` is missing (company then derived from URL).
 
 ---
 
