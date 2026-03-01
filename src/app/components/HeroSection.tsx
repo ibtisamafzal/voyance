@@ -518,7 +518,7 @@ export function HeroSection() {
                 onClick={handleResearch}
                 disabled={isRunning}
                 className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 sm:px-5 rounded-[10px] font-semibold text-white text-sm transition-all hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] w-full sm:w-auto"
-                style={{ backgroundColor: 'var(--accent)' }}
+                style={{ backgroundColor: '#1D4ED8' }}
                 aria-label={isRunning ? 'Research in progress' : isComplete ? 'View research results' : 'Start research'}
               >
                 {isRunning ? (

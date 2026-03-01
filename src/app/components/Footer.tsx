@@ -53,12 +53,12 @@ export function Footer() {
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
           <div>
-            <h4
+            <h3
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
               style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               Product
-            </h4>
+            </h3>
             <ul className="space-y-2">
               {links.product.map((link, i) => (
                 <li key={i}>
@@ -75,12 +75,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
               style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               Built With
-            </h4>
+            </h3>
             <ul className="space-y-2">
               {links.builtWith.map((link, i) => (
                 <li key={i}>
@@ -98,12 +98,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
               style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               External APIs
-            </h4>
+            </h3>
             <ul className="space-y-2">
               {links.externalAPIs.map((link, i) => (
                 <li key={i}>
@@ -121,12 +121,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               className="text-sm font-semibold mb-4 uppercase tracking-wider"
               style={{ color: '#CBD5E1', fontFamily: 'var(--font-mono)', fontSize: '11px' }}
             >
               Project
-            </h4>
+            </h3>
             <ul className="space-y-2">
               {links.project.map((link, i) => (
                 <li key={i}>
