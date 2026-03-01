@@ -275,6 +275,7 @@ export function HeroSection() {
             filter: 'blur(80px)',
             bottom: '-10%',
             left: '-5%',
+            willChange: 'transform',
           }}
           animate={{
             x: [0, 20, 0],
@@ -294,6 +295,7 @@ export function HeroSection() {
             filter: 'blur(80px)',
             top: '-5%',
             right: '-5%',
+            willChange: 'transform',
           }}
           animate={{
             x: [0, -20, 0],
@@ -315,6 +317,7 @@ export function HeroSection() {
             top: '40%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
+            willChange: 'transform',
           }}
           animate={{
             x: [0, 30, 0],

@@ -120,10 +120,10 @@ function StatItem({ number, label, delay, icon }: StatItemProps) {
         animate={{
           textShadow: isInView
             ? [
-                '0 0 0px rgba(10, 95, 232, 0)',
-                '0 0 20px rgba(10, 95, 232, 0.6)',
-                '0 0 0px rgba(10, 95, 232, 0)',
-              ]
+              '0 0 0px rgba(10, 95, 232, 0)',
+              '0 0 20px rgba(10, 95, 232, 0.6)',
+              '0 0 0px rgba(10, 95, 232, 0)',
+            ]
             : '0 0 0px rgba(10, 95, 232, 0)',
         }}
         transition={{
@@ -190,6 +190,7 @@ export function StatsBar() {
         style={{
           background: 'radial-gradient(circle, var(--accent), transparent 70%)',
           filter: 'blur(60px)',
+          willChange: 'transform',
         }}
         animate={{
           x: [-20, 20, -20],
@@ -206,6 +207,7 @@ export function StatsBar() {
         style={{
           background: 'radial-gradient(circle, var(--vera-voice), transparent 70%)',
           filter: 'blur(60px)',
+          willChange: 'transform',
         }}
         animate={{
           x: [20, -20, 20],

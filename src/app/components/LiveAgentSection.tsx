@@ -122,16 +122,17 @@ export function LiveAgentSection() {
       {/* Animated Background Gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-10"
+          className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
             filter: 'blur(100px)',
             top: '10%',
             left: '10%',
+            opacity: 0.1,
+            willChange: 'transform',
           }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.1, 0.15, 0.1],
           }}
           transition={{
             duration: 8,
@@ -140,16 +141,17 @@ export function LiveAgentSection() {
           }}
         />
         <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-10"
+          className="absolute w-[500px] h-[500px] rounded-full"
           style={{
             background: 'radial-gradient(circle, var(--vera-voice) 0%, transparent 70%)',
             filter: 'blur(100px)',
             bottom: '10%',
             right: '10%',
+            opacity: 0.1,
+            willChange: 'transform',
           }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.1, 0.15, 0.1],
           }}
           transition={{
             duration: 8,
