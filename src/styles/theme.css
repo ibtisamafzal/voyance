@@ -21,11 +21,11 @@
   --border: rgba(15, 23, 42, 0.08);
   --border-strong: rgba(15, 23, 42, 0.14);
   --scan-line: rgba(10, 95, 232, 0.06);
-  
+
   /* Typography */
   --font-geist: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'DM Mono', 'Courier New', monospace;
-  
+
   /* Compatibility with Tailwind defaults */
   --font-size: 16px;
   --background: var(--bg-primary);
@@ -85,7 +85,7 @@
   --border: rgba(241, 245, 249, 0.06);
   --border-strong: rgba(241, 245, 249, 0.10);
   --scan-line: rgba(59, 130, 246, 0.05);
-  
+
   /* Compatibility with Tailwind defaults */
   --background: var(--bg-primary);
   --foreground: var(--text-primary);
@@ -177,6 +177,15 @@
     overflow-x: hidden;
   }
 
+  /* Hide native cursor on pointer devices — replaced by GlowCursor component */
+  @media (hover: hover) and (pointer: fine) {
+
+    html,
+    html * {
+      cursor: none !important;
+    }
+  }
+
   /* Responsive container padding for narrow viewports */
   @media (max-width: 480px) {
     html {
@@ -241,12 +250,19 @@
   }
 }
 
+/* Below-fold section containers: skip layout/paint until near viewport (mobile perf) */
+.section-content-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
 /* Scan line animation keyframes */
 @keyframes scanSweep {
   from {
     transform: translateY(0);
     opacity: 0.6;
   }
+
   to {
     transform: translateY(100%);
     opacity: 0;
@@ -254,18 +270,24 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
 }
 
 @keyframes waveBar {
-  0%, 100% {
+
+  0%,
+  100% {
     height: 20%;
   }
+
   50% {
     height: 80%;
   }
@@ -276,6 +298,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -287,6 +310,7 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -298,6 +322,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -306,9 +331,12 @@
 
 /* Mesh gradient animation */
 @keyframes meshDrift {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   50% {
     transform: translate(20px, -20px) scale(1.05);
   }
