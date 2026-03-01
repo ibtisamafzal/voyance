@@ -1,0 +1,768 @@
+You are a Senior Product Designer at a world-class fintech and AI design studio, 
+with deep expertise in data visualization, intelligence dashboards, and accessibility 
+interfaces. Your reference aesthetic sits exactly at the intersection of Bloomberg 
+Terminal precision, Linear's refined minimalism, and the calm confidence of a 
+high-trust AI companion.
+
+Design a complete, pixel-perfect, fully responsive web app called "Voyance" — 
+an AI-powered autonomous web research agent that navigates browsers visually, 
+thinks like a senior analyst, and delivers competitive intelligence through a 
+distinct voice persona named Vera. Built for the Gemini Live Agent Challenge 2026 
+(UI Navigator Track).
+
+The interface must impress a panel of Google engineers and product judges who 
+evaluate on Multimodal UX (40%), Technical Architecture (30%), and Demo Quality 
+(30%). Every component, animation, and layout decision must communicate: 
+intelligent, trustworthy, production-ready.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨  DESIGN SYSTEM — APPLY UNIVERSALLY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VISUAL IDENTITY:
+  The defining aesthetic is "Bloomberg Terminal meets calm AI companion."
+  Data-dense but never overwhelming. Cool-toned. Clinical precision with warmth 
+  delivered entirely through typography and motion — not decoration.
+  
+  One defining element: a subtle animated "scan line" or "radar sweep" motif 
+  that appears only on interactive elements, echoing the idea of the agent 
+  visually reading a webpage — pixels being analyzed in real time.
+
+COLORS — CSS custom properties, dual mode:
+
+Light Mode (default):
+  --bg-primary:       #F0F4FA          ← cool off-white, not pure white
+  --bg-secondary:     #E8EDF5
+  --bg-elevated:      #FFFFFF
+  --surface-glass:    rgba(255,255,255,0.70)  ← backdrop-blur: 24px
+  --accent:           #0A5FE8          ← deeper, more serious blue than Apple blue
+  --accent-glow:      rgba(10,95,232,0.18)
+  --success:          #0CBF6A
+  --success-glow:     rgba(12,191,106,0.15)
+  --warning:          #F59E0B
+  --danger:           #EF4444
+  --danger-glow:      rgba(239,68,68,0.15)
+  --vera-voice:       #6366F1          ← indigo — exclusive to Vera's voice UI
+  --vera-glow:        rgba(99,102,241,0.20)
+  --text-primary:     #0D1117
+  --text-secondary:   #4B5563
+  --text-tertiary:    #9CA3AF
+  --border:           rgba(15,23,42,0.08)
+  --border-strong:    rgba(15,23,42,0.14)
+  --scan-line:        rgba(10,95,232,0.06)
+
+Dark Mode (class="dark" on <html>):
+  --bg-primary:       #060B14          ← very deep navy-black (not pure #000)
+  --bg-secondary:     #0D1520
+  --bg-elevated:      #111927
+  --surface-glass:    rgba(13,21,32,0.80)
+  --accent:           #3B82F6
+  --accent-glow:      rgba(59,130,246,0.22)
+  --success:          #10D97A
+  --success-glow:     rgba(16,217,122,0.18)
+  --warning:          #FBBF24
+  --danger:           #F87171
+  --danger-glow:      rgba(248,113,113,0.18)
+  --vera-voice:       #818CF8
+  --vera-glow:        rgba(129,140,248,0.22)
+  --text-primary:     #F1F5F9
+  --text-secondary:   #94A3B8
+  --text-tertiary:    #64748B
+  --border:           rgba(241,245,249,0.06)
+  --border-strong:    rgba(241,245,249,0.10)
+  --scan-line:        rgba(59,130,246,0.05)
+
+TYPOGRAPHY — Geist (primary) / DM Mono (data/code) / System fallback:
+  IMPORTANT: Use Geist from Google Fonts or Vercel CDN as the primary type family.
+  It is clean, modern, and carries a subtle technical character perfect for a 
+  research AI. DM Mono for all data outputs, JSON, URLs, and pipeline labels.
+
+  Display H1:      clamp(48px, 5.5vw, 80px) / weight 700 / tracking -0.04em /
+                   line-height 1.05 / color var(--text-primary)
+  Section H2:      clamp(32px, 3.5vw, 52px) / weight 600 / tracking -0.03em
+  Card Title:      clamp(18px, 1.8vw, 22px) / weight 600 / tracking -0.01em
+  Sub-headline:    clamp(16px, 1.5vw, 20px) / weight 400 / line-height 1.6 /
+                   color var(--text-secondary)
+  Body:            16px / weight 400 / line-height 1.7
+  Data Label:      DM Mono / 13px / weight 400 / letter-spacing 0.02em /
+                   color var(--text-tertiary) / uppercase
+  CTA Primary:     16px / weight 600 / tracking -0.01em
+  Pipeline Label:  DM Mono / 12px / weight 500 / uppercase / tracking 0.08em
+  Vera Output:     18px / weight 400 / line-height 1.8 / 
+                   color var(--text-secondary) / italic
+
+SPACING — strict 8pt grid:
+  Section padding desktop:  120px vertical / max-width 1200px centered
+  Section padding tablet:   80px vertical / 40px horizontal
+  Section padding mobile:   56px vertical / 20px horizontal
+  Card padding:             28px
+  Component gap:            16px
+  Grid gap:                 20px
+  Tight component gap:      8px
+
+SHAPE & ELEVATION SYSTEM (4 levels):
+  Level 0 — flat:    no shadow, var(--border) border
+  Level 1 — lifted:  0 1px 3px rgba(0,0,0,0.06), 0 1px 0 rgba(0,0,0,0.03)
+  Level 2 — card:    0 4px 24px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.5) inset
+  Level 3 — modal:   0 24px 80px rgba(0,0,0,0.18), 0 1px 0 rgba(255,255,255,0.3) inset
+  
+  Glassmorphism cards (primary surface style):
+    background: var(--surface-glass)
+    backdrop-filter: blur(24px) saturate(160%)
+    border: 1px solid var(--border)
+    box-shadow: Level 2
+
+  Border radii:
+    Cards:           16px
+    Buttons primary: 10px (NOT fully pill — conveys precision over friendliness)
+    Buttons ghost:   10px
+    Pills / badges:  999px
+    Input fields:    8px
+    Terminal/code:   8px
+    Map container:   20px
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📐  RESPONSIVE BREAKPOINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use CSS Grid + clamp() + container queries for fluid, seamless scaling.
+Design at all 3 breakpoints as first-class experiences:
+
+DESKTOP   ≥ 1280px  12-col grid / gap 20px / max-width 1200px centered / 
+                    full split-panel layouts, large typography, live browser panel visible
+TABLET    768–1279px  8-col grid / hero stacks / 2-col features / 
+                      agent panel collapses to tab switcher
+MOBILE    < 768px   Single column / 20px side padding / 
+                    browser panel = full-screen modal / 
+                    bottom navigation bar pinned / tap targets min 44×44px (Apple HIG)
+                    Voice waveform replaces split-panel on mobile
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  SECTIONS — BUILD IN EXACT ORDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+──── 1. NAVBAR ──────────────────────────────────────────────────────────────
+
+Height: 60px desktop / 52px mobile
+Position: sticky top-0, z-index 200
+
+Default state:
+  background: transparent
+  border-bottom: none
+
+Scrolled state (triggered after 40px scroll):
+  background: var(--surface-glass)
+  backdrop-filter: blur(24px) saturate(160%)
+  border-bottom: 1px solid var(--border)
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+
+LEFT — Logo lockup:
+  Icon: A stylized eye (⊙) whose iris is shaped like a browser viewport rectangle,
+        suggesting the act of visual observation. Rendered as an SVG monogram.
+        16×16px icon + "Voyance" wordmark in Geist 600, 18px, var(--text-primary)
+  Below wordmark (desktop only): 
+    "by Gemini Live API" in DM Mono 10px var(--text-tertiary)
+
+CENTER — Nav links (desktop only, hidden on mobile):
+  How It Works | Live Agent | Features | Community | Docs
+  Style: 14px / weight 500 / color var(--text-secondary)
+  Hover: color transitions to var(--accent) + subtle underline draws from left
+         (200ms ease, 2px height, accent color)
+  Active page: accent color + dot indicator below
+
+RIGHT — Controls:
+  a) "Request Access" pill button: 
+     background var(--accent) / text white / padding 8px 16px / radius 8px
+     Subtle animated border: rotating gradient conic border (2px) on hover
+  b) Dark/Light toggle:
+     Pill shape 52×28px. Icon morphs: sun ↔ moon with 180° rotation + scale 
+     toggle. Thumb slides with spring: damping 20, stiffness 280.
+     Light bg: var(--bg-secondary). Dark bg: var(--bg-elevated).
+  c) Mobile: hamburger → full-screen overlay menu with staggered link reveal
+
+──── 2. HERO SECTION ────────────────────────────────────────────────────────
+
+Layout: Two-column split on desktop (55% left / 45% right). 
+        Stacked on tablet/mobile.
+Min-height: 100vh
+Background: var(--bg-primary) with a barely-perceptible animated mesh gradient
+  (three orbs: accent blue bottom-left, vera indigo top-right, 
+   success green center — opacity 0.04 light / 0.08 dark, 
+   slow drift animation: 12s infinite alternating, filter: blur(80px))
+
+LEFT COLUMN — Text + CTAs:
+
+  Eyebrow label:
+    Pill chip: "GEMINI LIVE AGENT CHALLENGE 2026 — UI NAVIGATOR"
+    Background var(--accent-glow) / border var(--accent) 0.3 opacity /
+    DM Mono 11px / color var(--accent) / uppercase / tracking 0.06em
+    Animate: fades in first (0ms, 400ms)
+
+  Main headline (animate word by word, stagger 60ms, spring enter):
+    Line 1: "See the Web."  (var(--text-primary))
+    Line 2: "Hear the Insight."  (var(--text-primary))
+    Line 3: "In Seconds."  (var(--accent) — accent color for final line only)
+    
+    Each word wraps in a <span> with overflow:hidden + translateY reveal.
+    
+  Sub-headline (animate after headline, 300ms delay, fade-up 24px):
+    "Voyance navigates any website visually — no APIs, no DOM access. 
+    Just pure AI vision, orchestrated by Gemini + Google ADK, 
+    delivered through Vera's voice."
+    18px / var(--text-secondary) / max-width 480px
+
+  CTA row (animate after sub-headline, 450ms delay):
+    Primary: "Start Researching →" 
+      background var(--accent) / text white / padding 12px 24px /
+      radius 10px / font 600 16px
+      Hover: background lightens 8% + box-shadow var(--accent-glow) 0 0 0 4px
+      
+    Secondary: "▶ Watch Agent Run" 
+      background transparent / border 1px var(--border-strong) /
+      text var(--text-primary) / same padding + radius
+      Hover: background var(--bg-secondary)
+
+  Trust signals row (below CTAs, 12px gap):
+    Three micro-chips in a row:
+    ✓ Gemini Live API   ✓ Google Cloud Run   ✓ ADK Orchestrated
+    Each: DM Mono 11px / var(--text-tertiary) / no border
+
+RIGHT COLUMN — Live Agent Preview Panel:
+  This is the HERO visual — a floating card simulating the Voyance split-panel UI.
+  It must look like a real, working product screenshot.
+
+  Card shape: 16px radius / Level 3 shadow / glass surface
+  Size: roughly 480×380px on desktop
+
+  LEFT half of card (browser view panel):
+    Dark mini-browser chrome (16px radius top / 0 bottom):
+      3 traffic light dots (red/amber/green, 8px each)
+      URL bar: DM Mono 11px "hubspot.com/pricing" with lock icon
+    
+    Below chrome: screenshot placeholder of a webpage
+      Add colored AI annotation overlays:
+        Green bounding box labeled "Pricing Grid — Extracted ✓" 
+        Blue bounding box labeled "Feature List — Reading..."
+        Small amber dot labeled "Navigation: Step 3/7"
+      These overlays use Geist 11px labels, subtle drop shadows
+
+  RIGHT half of card (Vera output panel):
+    Top: Voice waveform — 32 bars of varying height, indigo color (var(--vera-voice))
+         Animate: bars pulse with breathing rhythm (CSS keyframe, 
+         each bar has different animation-delay 0–400ms, 
+         height oscillates between 20–80% of container)
+    
+    Middle: Text output card:
+      "HubSpot Starter — $20/seat/month"   (DM Mono 13px, var(--success))
+      "Core CRM, Email, 1,000 contacts"     (14px body)
+      "Source verified via Perplexity ✓"   (DM Mono 11px, var(--text-tertiary))
+    
+    Bottom: Status strip (dark surface):
+      "Step 4 of 7 · Visiting Pipedrive..."
+      Thin animated progress bar in accent color
+
+  Card entrance: floats in from right (translateX 40px → 0, 
+                 600ms cubic-bezier(0.16, 1, 0.3, 1))
+  Idle animation: gentle float (translateY -6px ↔ 0, 4s ease-in-out infinite)
+  Parallax: moves at 0.25× scroll speed on scroll down
+
+  SCAN LINE EFFECT on the card:
+    A horizontal line sweeps top to bottom every 4 seconds (3s duration, 
+    linear), color var(--scan-line), 2px height — like a radar sweep.
+    This is the signature animation of Voyance.
+
+  Scroll indicator (below CTAs, mobile hidden):
+    Thin vertical line (1px, var(--border-strong), 48px height) 
+    with a dot that animates downward in a loop (2s infinite)
+
+──── 3. STATS BAR ───────────────────────────────────────────────────────────
+
+Layout: Full-width strip, 80px vertical padding
+Background: var(--bg-elevated) / border-top and bottom: 1px var(--border)
+
+4 stat blocks in a row, separated by 1px var(--border) vertical dividers:
+  [3+ Sites Per Session] [< 3 sec Research] [3 APIs Orchestrated] [100% Free]
+
+Each stat block:
+  Number: clamp(36px, 4vw, 56px) / weight 700 / var(--accent) / DM Mono
+  Label:  13px / DM Mono / uppercase / letter-spacing 0.06em / var(--text-tertiary)
+  
+  Count-up animation triggers on IntersectionObserver entry:
+    Duration: 1400ms / easing: easeOutQuart
+    Numbers count from 0 to final value
+
+  Mobile: 2×2 grid layout
+
+──── 4. HOW IT WORKS — PIPELINE SECTION ─────────────────────────────────────
+
+Background: var(--bg-secondary)
+Padding: 120px vertical
+
+Section label: "THE AGENT PIPELINE" — DM Mono pill, var(--accent)
+Section title: "AI chain. Under 3 seconds." — H2
+
+Desktop: Horizontal timeline of 6 nodes, evenly spaced
+Mobile: Vertical step list
+
+Nodes (6 total):
+  01  CAPTURE      📷  Playwright headless browser takes screenshot
+  02  INTERPRET    👁  Gemini 2.0 Flash reads pixels — zero DOM
+  03  EXTRACT      ⚡  Firecrawl fast-path OR Gemini vision fallback
+  04  VERIFY       🔍  Perplexity grounds key facts live
+  05  SYNTHESIZE   🧠  ADK agent loop compiles structured JSON
+  06  DELIVER      🔊  ElevenLabs Vera speaks the briefing
+
+Each node component:
+  Outer ring: 56px circle / 1px border var(--border-strong) / 
+              background var(--bg-elevated)
+  Number:     DM Mono 12px / var(--accent) / top-left of circle
+  Icon:       24px centered
+  Below circle:
+    Node label: Geist 600 15px / var(--text-primary)
+    Brief desc: 12px / var(--text-tertiary) / max 2 lines / max-width 120px
+
+Connecting line between nodes:
+  Desktop: horizontal SVG line (2px, dashed)
+  The SVG path uses stroke-dashoffset animation:
+    On scroll entry: draws from left to right as user scrolls through section
+    Dash pattern: 6px dash / 4px gap / var(--accent) color
+  
+  At node connection points: small diamond ◆ accent marker (8px)
+
+Active node state (as scan line passes over during animation):
+  Outer ring pulses: box-shadow 0 0 0 8px var(--accent-glow) (300ms spring)
+  Icon brightens
+
+──── 5. LIVE AGENT DEMO SECTION ─────────────────────────────────────────────
+
+Layout: Full-width / dark background section regardless of mode
+Background: #060B14 (dark navy) with subtle radial gradient center glow (accent blue)
+Text on this section always uses dark-mode color tokens.
+Min-height: 80vh
+
+Section label: "VOYANCE IN ACTION" — DM Mono pill, indigo (var(--vera-voice))
+Section title: "Watch Vera work." — H2, white
+
+Split layout (50/50 on desktop, stacked on mobile):
+
+LEFT — Agent Browser Panel (phone-sized): 
+  Vertical smartphone frame (375×720px proportions) with screen content:
+    Browser chrome at top (dark, 44px height)
+    URL bar showing: "pipedrive.com/pricing"
+    
+    Website screenshot inside with 3 AI annotation boxes:
+      [GREEN box]  "Pricing: $14/seat/month — CAPTURED"
+      [BLUE box]   "Feature grid — analyzing..."
+      [AMBER box]  "CTAs detected: 2"
+    
+    Bottom strip in frame: 
+      "Gemini Vision · Step 5 of 7" progress indicator
+    
+    Scan line sweeps across the screen every 3 seconds
+
+RIGHT — Vera Output Panel (card):
+  Top section — Voice visualization:
+    Vera avatar: circular 48px / indigo gradient bg / stylized "V" monogram
+    Name: "Vera · Voyance Research Agent" — Geist 600 15px
+    Status: "● Speaking" — green dot + DM Mono 12px
+    
+    Waveform: Full-width / 48px height / 40 bars / 
+              indigo to blue gradient fill on bars /
+              active breathing animation (stagger each bar)
+
+  Middle section — Live transcript:
+    Typed text animation (character by character, 40ms per char):
+    "Pipedrive Essential: $14 per seat per month.
+     Core CRM, full pipeline management, 3,000 open deals.
+     Perplexity verified — confirmed as of March 2026.
+     Moving to next target: monday.com..."
+    
+    Font: Geist 16px / var(--text-secondary) / line-height 1.8
+
+  Bottom section — Source trail:
+    Three pill chips showing visited sites (with favicon placeholder):
+    ✓ HubSpot   ✓ Salesforce   ● Pipedrive (active, pulsing)
+
+  Below card — large editorial quote:
+    " 5 competitors. 47 data points.
+      Verified. Structured. Delivered.
+      Under 90 seconds. "
+    Font: 28px / weight 500 / italic / var(--text-secondary) / max-width 560px
+
+  CTA: "Run Your Own Research →" — accent button
+
+──── 6. FEATURES SECTION ────────────────────────────────────────────────────
+
+Background: var(--bg-primary)
+Section label: "CAPABILITIES" — DM Mono pill
+Section title: "Built for precision. Designed for trust."
+
+6 feature cards in 3×2 grid (desktop) / 2×3 (tablet) / 1×6 (mobile)
+
+Card specs:
+  Size: roughly 360px wide on desktop
+  Background: var(--surface-glass) / backdrop-blur 24px
+  Border: 1px var(--border)
+  Radius: 16px
+  Padding: 28px
+  Entrance: translateY(32px) → 0, opacity 0→1, stagger 80ms per card,
+            triggered on IntersectionObserver entry
+
+Each card content:
+  Icon container: 44×44px / radius 10px / 
+                  background = unique tinted bg per card (see below)
+  Icon: 22px / SVG / matches card accent color
+  Title: Geist 600 17px / var(--text-primary) / margin-top 16px
+  Description: 14px / var(--text-secondary) / line-height 1.6 / 2-3 lines
+  Bottom tag: DM Mono 11px / uppercase / card accent color / 
+              "powered by [API]" 
+
+Card hover state:
+  translateY(-5px) / box-shadow intensifies (Level 2 → Level 3) /
+  border-color transitions to card accent color (opacity 0.4) /
+  duration: 200ms ease-out
+  
+  Scan line plays once across card on hover entry
+
+6 Cards — each with unique accent tint:
+
+  a) Visual Navigation
+     Icon: eye/cursor hybrid SVG
+     Accent: var(--accent) blue
+     Bg tint: rgba(10,95,232,0.06)
+     Desc: "Gemini 2.0 Flash reads full webpages from screenshots.
+            No DOM. No APIs. Works on any site, forever."
+     Tag: "POWERED BY GEMINI VISION"
+
+  b) Vera Voice Briefings  
+     Icon: soundwave SVG
+     Accent: var(--vera-voice) indigo
+     Bg tint: rgba(99,102,241,0.06)
+     Desc: "ElevenLabs Vera persona delivers spoken research 
+            briefings with a warm, analyst-grade voice."
+     Tag: "POWERED BY ELEVENLABS"
+
+  c) Verified Intelligence
+     Icon: shield checkmark SVG
+     Accent: var(--success) green
+     Bg tint: rgba(12,191,106,0.06)
+     Desc: "Perplexity cross-references every extracted 
+            fact against the live web before reporting."
+     Tag: "POWERED BY PERPLEXITY"
+
+  d) Fast Extraction
+     Icon: lightning bolt SVG
+     Accent: var(--warning) amber
+     Bg tint: rgba(245,158,11,0.06)
+     Desc: "Firecrawl provides sub-2s structured extraction 
+            when available. Gemini vision handles the rest."
+     Tag: "POWERED BY FIRECRAWL"
+
+  e) ADK Agent Loop
+     Icon: loop/cycle SVG
+     Accent: var(--accent) blue
+     Bg tint: rgba(10,95,232,0.04)
+     Desc: "Google Agent Development Kit orchestrates 
+            Plan → Navigate → Extract → Verify → Report."
+     Tag: "POWERED BY GOOGLE ADK"
+
+  f) Voice Redirection
+     Icon: microphone with arrow SVG
+     Accent: var(--vera-voice) indigo
+     Bg tint: rgba(99,102,241,0.04)
+     Desc: "Interrupt Vera mid-session by voice. 
+            Agent replans in under 5 seconds."
+     Tag: "GEMINI LIVE BARGE-IN"
+
+──── 7. IMPACT & USE CASES SECTION ─────────────────────────────────────────
+
+Background: deep dark strip — #060B14 regardless of light/dark mode
+            Faint blue radial gradient (var(--accent) at 4% opacity, center top)
+Text: always light mode tokens on this section
+Padding: 120px vertical
+
+Section label: "REAL IMPACT" — DM Mono pill, accent
+Section title: "Hours of research. Seconds to deliver." — H2, white
+
+3 large use-case cards (horizontal scroll on mobile, 3-col on desktop):
+
+Card style: background rgba(255,255,255,0.04) / border rgba(255,255,255,0.08) /
+            radius 20px / padding 36px
+
+  Card 1 — Competitive Intelligence
+    Icon: chart/target SVG (accent blue, 32px)
+    Stat: "5 competitors" — 48px / weight 700 / DM Mono / var(--accent)
+    Title: "Researched in 90 seconds."
+    Desc: "A SaaS founder gets pricing, features, and positioning 
+           for 5 rivals before their investor meeting."
+    Bottom badge: "STARTUP FOUNDERS" — DM Mono pill
+
+  Card 2 — Market Analysis
+    Icon: magnifying glass SVG (vera indigo)
+    Stat: "47 data points"
+    Title: "Structured and verified."
+    Desc: "Management consultants build industry benchmarks 
+           with zero manual browsing or copy-paste."
+    Bottom badge: "CONSULTANTS"
+
+  Card 3 — Portfolio Research
+    Icon: briefcase SVG (success green)
+    Stat: "< 3 minutes"
+    Title: "Full landscape map."
+    Desc: "Investment analysts map competitive landscapes 
+           for entire portfolio verticals, on demand."
+    Bottom badge: "INVESTMENT ANALYSTS"
+
+Below cards — Tech stack trust bar:
+  Label: "BUILT ON" — DM Mono 11px centered / var(--text-tertiary)
+  Row of 5 logo chips:
+    Gemini Live API | Google ADK | Cloud Run | ElevenLabs | Perplexity
+    Each: dark pill chip / DM Mono 12px / var(--text-secondary) /
+          border rgba(255,255,255,0.10) / padding 6px 14px / radius 999px
+    Hover: border brightens to rgba(255,255,255,0.22)
+
+──── 8. ARCHITECTURE DIAGRAM SECTION ────────────────────────────────────────
+
+Background: var(--bg-secondary)
+Section label: "SYSTEM ARCHITECTURE" — DM Mono pill
+Section title: "GCP-native. Production-grade." — H2
+
+Display a clean architecture visualization (not a boring table, a visual diagram):
+
+  Horizontal flow diagram on desktop, vertical on mobile.
+  
+  3 zones (visually separated by subtle background color shifts):
+  
+  ZONE 1 — INPUT (left)
+    Box: "User Voice" → microphone icon
+    Arrow → 
+    Box: "Gemini Live API" (accent blue, slightly larger, "key service" indicator)
+    Arrow →
+    Box: "ADK Agent Loop" (accent blue)
+  
+  ZONE 2 — PROCESSING (center)
+    From ADK, 3 branches (fork arrow) going to:
+    Box: "Playwright Browser" (gray)
+    Box: "Firecrawl API" (amber)  
+    Box: "Gemini Vision" (accent blue)
+    These merge back into:
+    Box: "Perplexity Verify" (success green)
+    Box: "Firestore Session" (accent blue)
+  
+  ZONE 3 — OUTPUT (right)
+    Box: "JSON Report" (success green)
+    Box: "ElevenLabs Vera" (indigo)
+    Box: "Frontend Display" (gray)
+  
+  Box style: 
+    rounded rect / radius 10px / padding 12px 20px /
+    DM Mono 13px label / icon 16px left of text /
+    background var(--bg-elevated) / border var(--border-strong)
+  
+  Arrows: 2px / var(--accent) at 40% opacity / with arrowhead
+  GCP badge floats above Zone 2: 
+    "HOSTED ON GOOGLE CLOUD RUN" pill / accent color / DM Mono
+
+──── 9. COMMUNITY / OPEN SOURCE SECTION ─────────────────────────────────────
+
+Background: var(--bg-primary)
+Simple centered section:
+
+  Large centered text:
+    "Voyance is open source."
+    Sub: "Built during Gemini Live Agent Challenge 2026. 
+          All code on GitHub. All credits disclosed."
+  
+  Two buttons centered:
+    "★ View on GitHub" — ghost button / border var(--border-strong)
+    "📄 Read the Docs" — ghost button
+
+  Credits row (DM Mono chips):
+    "Gemini Live API" | "Google ADK" | "ElevenLabs" | "Firecrawl" | "Perplexity"
+    Each chip styled: var(--bg-elevated) / border var(--border) / 
+                      DM Mono 12px / radius 8px
+
+──── 10. FOOTER ──────────────────────────────────────────────────────────────
+
+Background: #060B14 (always dark)
+Padding: 64px top / 40px bottom
+
+Top row: Logo lockup (light version) + tagline 
+         "See the web the way an analyst does."
+         Tagline: 14px / var(--text-tertiary)
+
+Middle: 4-column link grid
+  Product: How It Works / Features / Live Demo / Architecture
+  Built With: Gemini API / Google ADK / Cloud Run / Firestore
+  External APIs: ElevenLabs / Firecrawl / Perplexity / Playwright
+  Project: GitHub / Devpost / PRD / License
+
+Bottom bar (border-top: 1px rgba(255,255,255,0.06)):
+  Left: "© 2026 Voyance · Gemini Live Agent Challenge · UI Navigator Track"
+        DM Mono 12px / var(--text-tertiary)
+  Right: "Made for Google · Powered by Gemini" 
+         DM Mono 12px / var(--text-tertiary)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡  INTERACTIONS & ANIMATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PAGE LOAD SEQUENCE (staggered orchestration):
+  0ms:    Navbar slides in from top (400ms, cubic-bezier(0.16,1,0.3,1))
+  100ms:  Eyebrow pill fades in + scales from 0.96 (300ms spring)
+  200ms:  Hero headline line 1 reveals (word-by-word, 50ms stagger, 
+          translateY overflow reveal, 500ms spring per word)
+  400ms:  Hero headline line 2 reveals (same)
+  550ms:  Hero headline line 3 reveals (accent line — same)
+  700ms:  Sub-headline fades up from 20px (400ms, standard ease)
+  850ms:  CTA buttons scale in from 0.95 (350ms spring, damping 20, stiffness 300)
+  950ms:  Trust signal chips fade in with 60ms stagger
+  1000ms: Hero panel card floats in from right + starts idle float (600ms spring)
+  1200ms: Scan line begins its first sweep across the hero panel
+  
+SCROLL-TRIGGERED ANIMATIONS:
+  Stats bar:
+    Count-up animation on first entry (1400ms, easeOutQuart)
+    Each stat staggered 150ms
+
+  Pipeline nodes:
+    Nodes fade + scale in (0.9→1) staggered 100ms per node
+    SVG connecting line draws left-to-right using stroke-dashoffset
+    tied to scroll position within the section
+
+  Feature cards:
+    translateY(32px)→0 + opacity 0→1
+    Stagger: 80ms per card (left to right, top to bottom)
+    Duration: 500ms / spring enter easing
+
+  Section headings:
+    All H2s: translateY(24px)→0 + opacity 0→1 on first 15% viewport entry
+    Duration: 600ms / spring enter
+
+  Hero panel parallax:
+    Panel moves at 0.25× scroll speed (opposite direction)
+    Implemented as CSS transform: translateY(calc(scrollY * -0.25px))
+    
+HOVER STATES:
+  Feature cards:
+    translateY(-5px) + shadow Level 2→Level 3 + border accent flash
+    Scan line plays once (200ms ease-out total state)
+    
+  CTA primary button:
+    scale(1.02) + box-shadow 0 0 0 4px var(--accent-glow)
+    Duration: 150ms / quick feedback easing
+    
+  Nav links:
+    Underline draws from left: ::after pseudo / scaleX(0→1) / 150ms ease
+    Color: var(--accent)
+    
+  Agent hero card:
+    On hover: glow halo appears (0 0 40px var(--accent-glow)) /
+              scan line immediately plays
+    Scale: 1.01 (300ms spring)
+
+DARK/LIGHT MODE TOGGLE:
+  Toggle thumb slides with spring (damping 18, stiffness 250)
+  Full page: CSS custom properties transition 350ms ease
+  Sun icon: rotates 180° + scales 0.6→1 (300ms)
+  Moon icon: rotates -180° + scales 0.6→1 (300ms)
+  Background orbs in hero shift color over 500ms
+
+CLICK / TAP:
+  "Start Researching": 
+    Ripple effect from click point → slides up to camera/agent view
+  "Watch Vera Work" / "Watch Demo":
+    Modal scale-in (0.88→1, 350ms spring) + backdrop blur fade (400ms)
+  Architecture diagram nodes:
+    Click → tooltip expands with tech detail card (scale 0.95→1, 250ms spring)
+  Pipeline node click:
+    Active node pulses glow ring × 2 then stabilizes in active state
+
+SIGNATURE ANIMATION — THE SCAN LINE:
+  Appears across any surface that represents "the agent reading":
+    - Hero panel card
+    - Pipeline section background
+    - Feature card on hover
+    - Architecture diagram boxes
+  Implementation: 
+    ::after pseudo-element / position absolute / 
+    width 100%, height 2px, 
+    background: linear-gradient(90deg, transparent, var(--scan-line), transparent)
+    animation: scanSweep 3s linear infinite (hero) / 
+               once on hover (feature cards)
+    
+  @keyframes scanSweep {
+    from { transform: translateY(0); opacity: 0.6; }
+    to   { transform: translateY(100%); opacity: 0; }
+  }
+
+EASING REFERENCE:
+  Standard:       cubic-bezier(0.25, 0.46, 0.45, 0.94)
+  Spring enter:   cubic-bezier(0.16, 1, 0.3, 1)       — 400–600ms
+  Quick feedback: cubic-bezier(0.4, 0, 0.2, 1)         — 100–200ms  
+  Page transit:   cubic-bezier(0.76, 0, 0.24, 1)       — 500ms
+
+DURATIONS:
+  Micro (hover, tap feedback):    100–150ms
+  Standard (toggle, reveal):      250–350ms
+  Entrance (cards, headings):     400–600ms
+  Page transitions:               500ms
+  Scan line sweep:                2.5–3s infinite
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧  FIGMA COMPONENTS TO BUILD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Build all components with Auto Layout, responsive constraints, 
+properly named layers, and Figma Variables for light/dark tokens.
+Every component needs: Default / Hover / Active / Dark variant.
+
+  01  Navbar — transparent + scrolled state, light + dark, desktop + mobile
+  02  Logo lockup — icon + wordmark + API credit label
+  03  Hero split frame — full layout at 1440px, 768px, 375px
+  04  Agent preview panel card — browser half + Vera output half
+  05  Scan line overlay component — reusable, variants for speed
+  06  Voice waveform bar set — 40 bars, idle + active + speaking variants
+  07  Vera status indicator — avatar + name + status + waveform
+  08  Stat counter chip — number + label + count-up state
+  09  Feature card — default / hover / dark, all 6 accent tint variants
+  10  Pipeline node — numbered circle + icon + label + description
+  11  Pipeline connector — horizontal + vertical, animated draw state
+  12  Architecture diagram frame — full composition
+  13  Use-case card — dark variant only
+  14  Tech stack chip — logo + name, dark pill style
+  15  CTA button — primary / ghost / loading / success states
+  16  Dark/Light mode toggle — both states, transition frame
+  17  Modal overlay — demo modal frame with backdrop
+  18  Footer — full dark variant, 4-col layout
+  19  Mobile bottom nav bar — pinned, 5 items
+  20  Eyebrow pill label — accent color, DM Mono style
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  OUTPUT QUALITY REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The output must pass all of the following criteria to be considered complete:
+
+1. VISUAL HIERARCHY — At any screen size, a first-time viewer must immediately 
+   know: (a) what the product does, (b) how it works, (c) what action to take next.
+
+2. PREMIUM DENSITY — Not sparse. Not cluttered. Data-rich surfaces with enough 
+   breathing room that the eye lands exactly where intended.
+
+3. TYPOGRAPHY PRECISION — Heading sizes must feel architectural — large enough 
+   to command attention, never gaudy. Body text must be effortlessly readable.
+   DM Mono used exclusively for machine-generated content, data, and labels.
+
+4. MOTION COHERENCE — Animations must feel like a unified system, not scattered 
+   effects. The scan line is the brand's kinetic signature — treat it as such.
+
+5. DARK MODE EXCELLENCE — Dark mode must be a first-class experience, not an 
+   inverted light mode. Surfaces should have subtle depth differentiation.
+
+6. RESPONSIVENESS — At 375px, not a single element should overflow, clip, 
+   or lose legibility. The agent demo works as a full-screen modal on mobile.
+
+7. JUDGE-READY AESTHETIC — The design must communicate:
+   "This was built by engineers who care deeply about user experience."
+   Not: "This was assembled from a template."

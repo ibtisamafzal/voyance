@@ -1,0 +1,32 @@
+# Cloud Build — Deploy Voyance Backend to Cloud Run
+# Trigger: push to main (or manual)
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/voyance-backend:$BUILD_ID'
+      - '-f'
+      - 'backend/Dockerfile'
+      - 'backend'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/voyance-backend:$BUILD_ID'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'voyance-backend'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/voyance-backend:$BUILD_ID'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/$PROJECT_ID/voyance-backend:$BUILD_ID'

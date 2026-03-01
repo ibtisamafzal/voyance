@@ -1,0 +1,305 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Voyance Design System - Light Mode */
+  --bg-primary: #F0F4FA;
+  --bg-secondary: #E8EDF5;
+  --bg-elevated: #FFFFFF;
+  --surface-glass: rgba(255, 255, 255, 0.70);
+  --accent: #0A5FE8;
+  --accent-glow: rgba(10, 95, 232, 0.18);
+  --success: #0CBF6A;
+  --success-glow: rgba(12, 191, 106, 0.15);
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --danger-glow: rgba(239, 68, 68, 0.15);
+  --vera-voice: #6366F1;
+  --vera-glow: rgba(99, 102, 241, 0.20);
+  --text-primary: #0D1117;
+  --text-secondary: #4B5563;
+  --text-tertiary: #9CA3AF;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.14);
+  --scan-line: rgba(10, 95, 232, 0.06);
+  
+  /* Typography */
+  --font-geist: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  
+  /* Compatibility with Tailwind defaults */
+  --font-size: 16px;
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+  --card: var(--bg-elevated);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--bg-secondary);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-secondary);
+  --muted-foreground: var(--text-secondary);
+  --destructive: var(--danger);
+  --destructive-foreground: #ffffff;
+  --input: transparent;
+  --input-background: var(--bg-elevated);
+  --switch-background: var(--bg-secondary);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: var(--accent);
+  --chart-1: var(--accent);
+  --chart-2: var(--vera-voice);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: var(--danger);
+  --radius: 0.625rem;
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--bg-secondary);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent);
+}
+
+.dark {
+  /* Voyance Design System - Dark Mode */
+  --bg-primary: #060B14;
+  --bg-secondary: #0D1520;
+  --bg-elevated: #111927;
+  --surface-glass: rgba(13, 21, 32, 0.80);
+  --accent: #3B82F6;
+  --accent-glow: rgba(59, 130, 246, 0.22);
+  --success: #10D97A;
+  --success-glow: rgba(16, 217, 122, 0.18);
+  --warning: #FBBF24;
+  --danger: #F87171;
+  --danger-glow: rgba(248, 113, 113, 0.18);
+  --vera-voice: #818CF8;
+  --vera-glow: rgba(129, 140, 248, 0.22);
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+  --border: rgba(241, 245, 249, 0.06);
+  --border-strong: rgba(241, 245, 249, 0.10);
+  --scan-line: rgba(59, 130, 246, 0.05);
+  
+  /* Compatibility with Tailwind defaults */
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+  --card: var(--bg-elevated);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--bg-secondary);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-secondary);
+  --muted-foreground: var(--text-secondary);
+  --destructive: var(--danger);
+  --destructive-foreground: #ffffff;
+  --input: var(--bg-elevated);
+  --ring: var(--accent);
+  --chart-1: var(--accent);
+  --chart-2: var(--vera-voice);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: var(--danger);
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--bg-secondary);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-geist);
+    transition: background-color 350ms ease, color 350ms ease;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: clamp(48px, 5.5vw, 80px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: var(--text-primary);
+  }
+
+  h2 {
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  h3 {
+    font-size: clamp(18px, 1.8vw, 22px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+
+  h4 {
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
+
+/* Scan line animation keyframes */
+@keyframes scanSweep {
+  from {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes waveBar {
+  0%, 100% {
+    height: 20%;
+  }
+  50% {
+    height: 80%;
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mesh gradient animation */
+@keyframes meshDrift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.05);
+  }
+}
