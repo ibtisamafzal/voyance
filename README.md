@@ -61,7 +61,7 @@ No DOM hacks, no site-specific APIs. Works on any site, through redesigns. Backe
 
 **Output** — Comparison table, CSV/HTML export, and *Listen to Vera*.
 
-![Output section](Public/Output-Section.png)
+![Output section](public/Output-Section.png)
 
 ### Hackathon alignment
 
