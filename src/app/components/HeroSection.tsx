@@ -339,18 +339,18 @@ export function HeroSection() {
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 py-8 sm:py-10 md:py-12 relative z-10">
         <div className="text-center max-w-[900px] mx-auto space-y-8">
-          {/* Eyebrow Label */}
+          {/* Eyebrow Label — solid tint + primary text for WCAG contrast */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.3, type: 'spring' }}
             className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border text-center max-w-[95vw]"
             style={{
-              backgroundColor: 'var(--accent-glow)',
-              borderColor: 'rgba(10, 95, 232, 0.3)',
+              backgroundColor: 'var(--accent-pill-bg)',
+              borderColor: 'var(--accent-pill-border)',
               fontFamily: 'var(--font-mono)',
               fontSize: 'clamp(9px, 2.2vw, 11px)',
-              color: 'var(--accent)',
+              color: 'var(--text-primary)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
             }}

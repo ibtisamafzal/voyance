@@ -8,6 +8,8 @@
   --surface-glass: rgba(255, 255, 255, 0.70);
   --accent: #0A5FE8;
   --accent-glow: rgba(10, 95, 232, 0.18);
+  --accent-pill-bg: rgba(10, 95, 232, 0.14);
+  --accent-pill-border: rgba(10, 95, 232, 0.35);
   --success: #0CBF6A;
   --success-glow: rgba(12, 191, 106, 0.15);
   --warning: #F59E0B;
@@ -72,6 +74,9 @@
   --surface-glass: rgba(13, 21, 32, 0.80);
   --accent: #3B82F6;
   --accent-glow: rgba(59, 130, 246, 0.22);
+  /* Pill/badge: opaque enough for WCAG with --text-primary */
+  --accent-pill-bg: rgba(59, 130, 246, 0.32);
+  --accent-pill-border: rgba(59, 130, 246, 0.5);
   --success: #10D97A;
   --success-glow: rgba(16, 217, 122, 0.18);
   --warning: #FBBF24;
