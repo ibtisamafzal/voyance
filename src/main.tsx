@@ -1,7 +1,8 @@
+import { createRoot } from 'react-dom/client';
+import './styles/index.css';
 
-  import { createRoot } from "react-dom/client";
-  import App from "./app/App.tsx";
-  import "./styles/index.css";
-
-  createRoot(document.getElementById("root")!).render(<App />);
+// Load app shell in a separate chunk to shorten critical request chain and reduce initial parse
+import('./app/App').then(({ default: App }) => {
+  createRoot(document.getElementById('root')!).render(<App />);
+});
   
