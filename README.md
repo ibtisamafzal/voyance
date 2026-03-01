@@ -68,7 +68,7 @@ No DOM hacks, no site-specific APIs. Works on any site, through redesigns. Backe
 | Requirement | Voyance |
 | ----------- | ------- |
 | **Gemini model** | Gemini 2.0 Flash (planning, screenshot analysis, synthesis) |
-| **Google GenAI SDK / ADK** | `google-generativeai` + ADK-style loop (plan → navigate → extract → verify) |
+| **Google GenAI SDK / ADK** | **Google GenAI SDK** (`google-generativeai`): Gemini for planning, vision, synthesis. Custom agent loop (plan → navigate → extract → verify), not the ADK library. |
 | **Google Cloud service** | Backend on **Google Cloud Run** |
 | **UI Navigator** | Screenshots analyzed by Gemini vision; agent outputs navigation and extraction actions |
 
