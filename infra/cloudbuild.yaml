@@ -27,6 +27,8 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--memory=1Gi'
+      - '--cpu=1'
 
 images:
   - 'gcr.io/$PROJECT_ID/voyance-backend:$BUILD_ID'

@@ -110,7 +110,7 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 ## Deployment
 
-Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL.
+Backend: deploy to **Google Cloud Run** via `infra/cloudbuild.yaml` (from repo root: `gcloud builds submit --config=infra/cloudbuild.yaml .`). The build sets **1 GiB memory** and **1 CPU** (minimal for Playwright/Chromium; bump to 2 GiB if you see OOM). Frontend can be hosted on Vercel or any static host; set `VITE_API_URL` to your Cloud Run URL.
 
 **Proof of Google Cloud:** Backend runs on Cloud Run; use `infra/cloudbuild.yaml` for build and deploy.
 
