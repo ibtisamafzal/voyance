@@ -23,6 +23,7 @@
     - [4. Run a research task](#4-run-a-research-task)
   - [Tech stack](#tech-stack)
   - [Architecture](#architecture)
+  - [Voyance mind map](#voyance-mind-map)
   - [Environment variables](#environment-variables)
   - [Deployment](#deployment)
   - [Project structure](#project-structure)
@@ -147,6 +148,18 @@ Frontend: **<http://localhost:5173>**
 User and frontend → backend on Google Cloud Run → Gemini, Playwright, Firecrawl, Perplexity, ElevenLabs.
 
 ![Voyance architecture](Architecture%20diagram%20for%20Voyance.png)
+
+---
+
+## Voyance mind map
+
+> **From idea to implementation at a glance.**
+>
+> This mind map captures the core of Voyance for the Gemini Live Agent Challenge — from the problem and solution, through key features and technical stack, to user personas and submission requirements.
+
+<p align="center">
+  <img src="public/Voyance-mind-map.png" alt="Voyance mind map for Gemini Live Agent Challenge" width="75%" />
+</p>
 
 ---
 
