@@ -178,13 +178,36 @@ export function HeroSection() {
         },
         () => {
           if (isRunning) {
-            setIsRunning(false);
-            setIsComplete(true);
             const sid = currentSidRef.current;
             if (sid) {
-              getResearchResults(sid).then((data) => {
-                setResults(sid, data.results ?? [], data.message, q, data.total_sites ?? 0);
-              });
+              // WS dropped (e.g. LB idle timeout). Poll for results so we still get them.
+              let attempts = 0;
+              const maxAttempts = 24; // 2 min at 5s
+              const poll = () => {
+                attempts += 1;
+                getResearchResults(sid)
+                  .then((data) => {
+                    const done = data.status === 'complete' || data.status === 'error' || attempts >= maxAttempts;
+                    if (done) {
+                      setIsRunning(false);
+                      setIsComplete(true);
+                      setResults(sid, data.results ?? [], data.vera_summary ?? data.message, q, data.total_sites ?? data.results?.length ?? 0);
+                      return;
+                    }
+                    if (attempts < maxAttempts) setTimeout(poll, 5000);
+                  })
+                  .catch(() => {
+                    if (attempts < maxAttempts) setTimeout(poll, 5000);
+                    else {
+                      setIsRunning(false);
+                      setIsComplete(true);
+                      setResults(sid, [], 'Connection lost. Partial results may be available.', q, 0);
+                    }
+                  });
+              };
+              poll();
+            } else {
+              setIsRunning(false);
             }
           }
         }

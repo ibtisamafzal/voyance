@@ -81,10 +81,11 @@ async def research_websocket(websocket: WebSocket, session_id: str):
                 "data": session_data,
             }))
 
-        # Keep connection alive, receive interrupts from frontend
+        # Keep connection alive, receive interrupts from frontend.
+        # Ping every 8s so load balancers (e.g. Cloud Run) don't close the WS as idle.
         while True:
             try:
-                msg = await asyncio.wait_for(websocket.receive_text(), timeout=30.0)
+                msg = await asyncio.wait_for(websocket.receive_text(), timeout=8.0)
                 data = json.loads(msg)
                 if data.get("type") == "interrupt":
                     instruction = data.get("instruction", "")
@@ -94,7 +95,7 @@ async def research_websocket(websocket: WebSocket, session_id: str):
                         "instruction": instruction,
                     }))
             except asyncio.TimeoutError:
-                # Send heartbeat ping
+                # Send heartbeat ping (keeps WS alive past ~10s idle timeouts)
                 try:
                     await websocket.send_text(json.dumps({"type": "ping"}))
                 except Exception:
