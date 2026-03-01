@@ -13,13 +13,13 @@
   <!-- Google Fonts — preconnect first, then non-blocking stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Desktop: non-blocking swap; mobile: optional for faster LCP (no FOIT) -->
+  <!-- Non-blocking: desktop swap, mobile optional (avoids render-blocking font requests) -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap"
     media="print" onload="this.media='all'" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=optional"
-    media="(max-width: 768px)" />
+    media="print" onload="this.media='(max-width: 768px)'" />
   <noscript>
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap" />

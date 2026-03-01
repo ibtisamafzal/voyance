@@ -2,9 +2,11 @@ import { useState, useEffect, Suspense, lazy } from 'react';
 import { ResearchProvider } from './context/ResearchContext';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
-import { ScrollToTop } from './components/ScrollToTop';
-import { GlowCursor } from './components/GlowCursor';
 import { LazyOnView } from './components/LazyOnView';
+
+// Defer loading to shrink main bundle (improves TBT / unused JS audit)
+const ScrollToTop = lazy(() => import('./components/ScrollToTop').then(m => ({ default: m.ScrollToTop })));
+const GlowCursor = lazy(() => import('./components/GlowCursor').then(m => ({ default: m.GlowCursor })));
 
 // Eagerly loaded: above-fold critical components
 // Lazy loaded: below-fold sections — chunks load only when section is near viewport (mobile perf)
@@ -100,8 +102,10 @@ export default function App() {
             <Footer />
           </Suspense>
         </LazyOnView>
-        <ScrollToTop />
-        <GlowCursor />
+        <Suspense fallback={null}>
+          <ScrollToTop />
+          <GlowCursor />
+        </Suspense>
       </div>
     </ResearchProvider>
   );
