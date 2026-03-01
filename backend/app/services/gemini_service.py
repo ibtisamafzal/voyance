@@ -8,6 +8,7 @@ import base64
 import json
 import re
 from typing import Optional
+from urllib.parse import urlparse
 import google.generativeai as genai
 from app.models import CompetitorData, PricingTier, ConfidenceLevel
 
@@ -57,40 +58,66 @@ Respond ONLY with valid JSON. No markdown.
         }
 
 
-async def analyze_screenshot(screenshot_b64: str, context: str = "") -> dict:
+def _extract_json_from_text(text: str) -> Optional[dict]:
+    """Parse JSON from model output, tolerating markdown and extra text."""
+    text = text.strip()
+    text = re.sub(r'^```(?:json)?\s*\n?', '', text).rstrip('`').strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        start = text.find('{')
+        end = text.rfind('}')
+        if start != -1 and end != -1 and end > start:
+            try:
+                return json.loads(text[start : end + 1])
+            except json.JSONDecodeError:
+                pass
+    return None
+
+
+async def analyze_screenshot(screenshot_b64: str, context: str = "", page_url: str = "") -> dict:
     """
     Send a screenshot to Gemini Vision and extract structured competitive data.
-    Returns raw extraction dict.
+    Returns raw extraction dict. page_url is used to infer company if the image is ambiguous.
     """
+    url_hint = f" Page URL: {page_url}" if page_url else ""
     prompt = f"""You are a visual research analyst. Analyze this webpage screenshot.
-Context: {context}
+Context: {context}{url_hint}
 
-Extract and return ONLY valid JSON with these fields:
-- company_name: string
+Extract structured data. Rules:
+- company_name: Infer from logo, page title, header, or domain. Use the URL domain if nothing else is visible (e.g. assetpanda.com → "Asset Panda"). Never return "Unknown" unless the page is completely unreadable or blank.
 - page_type: "pricing" | "features" | "homepage" | "other"
-- pricing_tiers: array of {{name, price, period, seats}}
-- key_features: array of strings (max 8)
-- target_segment: string (e.g., "Enterprise", "SMB", "Startup")
-- cta_text: string (primary call to action button text)
-- confidence: float 0-1 (how confident you are in the data)
-- notes: any other relevant observations
+- pricing_tiers: List every price or plan you see. Include "Contact sales", "Request demo", "Free trial", "Custom" as tiers with price "Contact" or "Custom" when no number is shown. At least one tier if any pricing/plan info exists.
+- key_features: List 4–8 concrete features, product names, or value propositions visible on the page (e.g. "Asset tracking", "Barcode scanning", "API access"). Use "-" only if the page truly has no feature-like text.
+- target_segment: Infer from copy (e.g. "Enterprise", "SMB", "Mid-market", "Startup"). Use "Business" if unclear.
+- confidence: 0.0–1.0. Use ≥0.6 if you extracted company + at least one of pricing/features; 0.4–0.6 if partial; <0.4 only if page is mostly unreadable.
 
-Respond ONLY with valid JSON. No markdown.
+Return ONLY valid JSON with these keys: company_name, page_type, pricing_tiers, key_features, target_segment, confidence. No markdown, no code fences.
 """
     try:
         model = genai.GenerativeModel(MODEL_NAME)
         image_part = {"inline_data": {"mime_type": "image/png", "data": screenshot_b64}}
         response = model.generate_content([prompt, image_part])
-        text = response.text.strip()
-        text = re.sub(r'^```(?:json)?\n?', '', text).rstrip('`').strip()
-        return json.loads(text)
-    except Exception as e:
+        text = (response.text or "").strip()
+        parsed = _extract_json_from_text(text)
+        if parsed:
+            return parsed
+        # Last resort: return minimal so URL-based company fallback can run
         return {
-            "company_name": "Unknown",
+            "company_name": "",
             "page_type": "other",
             "pricing_tiers": [],
             "key_features": [],
-            "target_segment": "Unknown",
+            "target_segment": "",
+            "confidence": 0.4,
+        }
+    except Exception as e:
+        return {
+            "company_name": "",
+            "page_type": "other",
+            "pricing_tiers": [],
+            "key_features": [],
+            "target_segment": "",
             "confidence": 0.3,
             "error": str(e),
         }
@@ -148,8 +175,26 @@ async def transcribe_audio(audio_bytes: bytes, mime_type: str = "audio/webm") ->
         raise ValueError(f"Gemini transcription failed: {e}") from e
 
 
+def _company_from_url(url: str) -> str:
+    """Derive a readable company name from URL when extraction returns empty/Unknown."""
+    try:
+        host = urlparse(url).netloc or url
+        host = host.lower().replace("www.", "")
+        parts = [p for p in host.split(".") if p and p not in ("com", "io", "org", "net", "co", "uk", "us")]
+        if not parts:
+            return "Unknown"
+        # Use last two parts for subdomains (e.g. dynamics.microsoft.com → Microsoft Dynamics)
+        if len(parts) >= 2:
+            name = " ".join(p.replace("-", " ").title() for p in parts[-2:])
+        else:
+            name = parts[-1].replace("-", " ").title()
+        return name or "Unknown"
+    except Exception:
+        return "Unknown"
+
+
 def structure_competitor_data(raw: dict, url: str) -> CompetitorData:
-    """Convert raw Gemini extraction into a CompetitorData model."""
+    """Convert raw Gemini/Firecrawl extraction into a CompetitorData model."""
     conf_score = raw.get("confidence", 0.5)
     if conf_score >= 0.8:
         confidence = ConfidenceLevel.VERIFIED
@@ -168,12 +213,26 @@ def structure_competitor_data(raw: dict, url: str) -> CompetitorData:
                 period=str(t.get("period", "month")),
             ))
 
+    company = (raw.get("company_name") or "").strip()
+    if not company or company.lower() == "unknown":
+        company = _company_from_url(url)
+
+    key_features = raw.get("key_features") or []
+    if isinstance(key_features, list):
+        key_features = [str(x).strip() for x in key_features if str(x).strip() and str(x).strip() != "-"]
+    else:
+        key_features = []
+
+    target_segment = (raw.get("target_segment") or "").strip()
+    if not target_segment or target_segment.lower() == "unknown":
+        target_segment = "Business"
+
     return CompetitorData(
-        company=raw.get("company_name", "Unknown"),
+        company=company,
         website=url,
         pricing_tiers=tiers,
-        key_features=raw.get("key_features", []),
-        target_segment=raw.get("target_segment", ""),
+        key_features=key_features,
+        target_segment=target_segment,
         source_url=url,
         confidence_score=conf_score,
         confidence=confidence,

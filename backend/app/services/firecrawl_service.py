@@ -61,7 +61,9 @@ async def scrape_url(url: str, timeout: float = 8.0) -> Optional[dict]:
             if resp.status_code == 200:
                 data = resp.json()
                 extracted = data.get("data", {}).get("extract", {})
-                if extracted and extracted.get("company_name"):
+                if extracted:
+                    if not extracted.get("company_name"):
+                        extracted["company_name"] = ""  # structure_competitor_data will derive from URL
                     extracted["confidence"] = 0.85  # Firecrawl = high confidence
                     extracted["page_type"] = "extracted"
                     return extracted

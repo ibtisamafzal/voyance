@@ -208,6 +208,7 @@ async def run_research(
                 raw_data = await gemini_service.analyze_screenshot(
                     screenshot_b64,
                     context=f"User researching: {session.query}. Focus on pricing and features.",
+                    page_url=url,
                 )
 
             if not raw_data:
