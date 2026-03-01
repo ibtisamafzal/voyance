@@ -33,6 +33,6 @@ Thumbs.db
 *.log
 npm-debug.log*
 
-# Optional
-prd_extracted/
+# Optional / archive (remove before public view)
+_to_remove/
 *.local

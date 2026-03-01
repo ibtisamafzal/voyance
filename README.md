@@ -139,9 +139,7 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 ---
 
-## Implementation status (PRD)
-
-See **[PRD_AUDIT.md](PRD_AUDIT.md)** for acceptance criteria and status. Summary:
+## Implementation status
 
 - **Done:** 3+ sites per task, Gemini vision (zero DOM), Firecrawl + Gemini fallback, Perplexity verification, ElevenLabs Vera, CSV/HTML export, voice redirect (Type | Speak), Cloud Run deployment, Terraform + Cloud Build, screenshot replay.
 - **Partial:** Voice brief via Web Speech / Gemini transcribe (Gemini Live API not wired end-to-end).
