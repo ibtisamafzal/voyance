@@ -96,6 +96,14 @@ Frontend: **http://localhost:5173**
 
 ---
 
+## Architecture
+
+High-level system design: user and frontend, backend on Google Cloud Run, and how Gemini, Playwright, Firecrawl, Perplexity, and ElevenLabs connect.
+
+![Voyance architecture — Frontend, Backend (Cloud Run), Gemini, Playwright, Firecrawl, Perplexity, ElevenLabs](Architecture%20diagram%20for%20Voyance.png)
+
+---
+
 ## Environment variables
 
 Copy `backend/.env.example` to `backend/.env` and set:
@@ -149,7 +157,7 @@ The **production backend** is deployed on **Google Cloud Run.** To deploy or red
 
 - **Done:** 3+ sites per task, Gemini vision (zero DOM), Firecrawl + Gemini fallback, Perplexity verification, ElevenLabs Vera, CSV/HTML export, voice redirect (Type | Speak), Cloud Run deployment, Terraform + Cloud Build, screenshot replay.
 - **Partial:** Voice brief via Web Speech / Gemini transcribe (Gemini Live API not wired end-to-end).
-- **Remaining for submission:** Demo video (&lt;4 min), architecture diagram, Devpost submission with all links and disclosures.
+- **Remaining for submission:** Demo video (&lt;4 min), Devpost submission with all links and disclosures.
 
 ---
 
