@@ -87,12 +87,12 @@ export function FeaturesSection() {
     <section
       id="features"
       ref={ref}
-      className="py-28 md:py-36"
+      className="py-16 sm:py-20 md:py-28 lg:py-36"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10">
         {/* Section Header */}
-        <div className="text-center mb-20 space-y-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -120,7 +120,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {features.map((feature, i) => (
             <FeatureCard
               key={i}
@@ -151,7 +151,7 @@ function FeatureCard({ feature, delay, inView }: FeatureCardProps) {
       transition={{ delay, duration: 0.5, type: 'spring' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative rounded-2xl p-7 transition-all duration-200 group cursor-pointer overflow-hidden"
+      className="relative rounded-2xl p-5 sm:p-6 md:p-7 transition-all duration-200 group cursor-pointer overflow-hidden"
       style={{
         backgroundColor: 'var(--surface-glass)',
         backdropFilter: 'blur(24px)',

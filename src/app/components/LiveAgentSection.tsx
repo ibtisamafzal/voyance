@@ -116,7 +116,7 @@ export function LiveAgentSection() {
     <section
       id="live-agent"
       ref={ref}
-      className="py-24 md:py-32 flex items-center relative overflow-hidden"
+      className="py-16 sm:py-20 md:py-24 lg:py-32 flex items-center relative overflow-hidden"
       style={{ backgroundColor: '#060B14' }}
     >
       {/* Animated Background Gradients */}
@@ -160,9 +160,9 @@ export function LiveAgentSection() {
         />
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-5 md:px-10 relative z-10 w-full">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-5 md:px-10 relative z-10 w-full">
         {/* Section Header */}
-        <div className="text-center mb-24 space-y-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-24 space-y-4 sm:space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -199,7 +199,7 @@ export function LiveAgentSection() {
           </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 xl:gap-24 items-center">
           {/* Left - Dynamic Browser Screen */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -240,14 +240,14 @@ export function LiveAgentSection() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ duration: 0.4 }}
-                className="relative rounded-3xl overflow-hidden shadow-2xl"
+                className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
                 style={{
                   width: '100%',
                   maxWidth: '400px',
-                  height: '680px',
+                  height: 'min(680px, 85vh)',
                   margin: '0 auto',
                   backgroundColor: 'var(--bg-elevated)',
-                  border: '14px solid var(--bg-secondary)',
+                  border: 'clamp(8px, 3vw, 14px) solid var(--bg-secondary)',
                 }}
               >
                 {/* Scan Line */}
@@ -446,7 +446,7 @@ export function LiveAgentSection() {
 
             {/* Vera Card */}
             <div
-              className="rounded-2xl p-8 space-y-8"
+              className="rounded-2xl p-5 sm:p-6 md:p-8 space-y-6 sm:space-y-8"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -559,7 +559,7 @@ export function LiveAgentSection() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {[
                 { label: 'Sites/Session', value: '5+' },
                 { label: 'Avg Time', value: '2.8s' },
@@ -570,14 +570,14 @@ export function LiveAgentSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ delay: 1 + i * 0.1 }}
-                  className="text-center p-4 rounded-xl"
+                  className="text-center p-3 sm:p-4 rounded-xl"
                   style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.04)',
                     border: '1px solid rgba(255, 255, 255, 0.08)',
                   }}
                 >
                   <div
-                    className="text-2xl font-bold mb-1"
+                    className="text-xl sm:text-2xl font-bold mb-1"
                     style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}
                   >
                     {stat.value}
@@ -594,7 +594,7 @@ export function LiveAgentSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ delay: 1.3 }}
-              className="w-full md:w-auto px-8 py-4 rounded-[10px] font-semibold text-white transition-all hover:scale-105"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-[10px] font-semibold text-white transition-all hover:scale-105"
               style={{ backgroundColor: 'var(--accent)' }}
               whileHover={{ boxShadow: '0 0 0 4px var(--accent-glow)' }}
             >

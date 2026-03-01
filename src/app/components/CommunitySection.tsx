@@ -29,10 +29,10 @@ export function CommunitySection() {
     <section
       id="community"
       ref={ref}
-      className="py-28 md:py-36"
+      className="py-16 sm:py-20 md:py-28 lg:py-36"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      <div className="max-w-[800px] mx-auto px-5 md:px-10 text-center">
+      <div className="max-w-[800px] mx-auto px-4 sm:px-5 md:px-10 text-center">
         {/* Main Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,9 +53,12 @@ export function CommunitySection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-12"
         >
-          <button
+          <a
+            href="https://github.com/ibtisamafzal/voyance"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-[10px] font-medium border transition-all hover:scale-105"
             style={{
               borderColor: 'var(--border-strong)',
@@ -71,8 +74,11 @@ export function CommunitySection() {
           >
             <Github className="w-5 h-5" />
             View on GitHub
-          </button>
-          <button
+          </a>
+          <a
+            href="https://github.com/ibtisamafzal/voyance#readme"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-[10px] font-medium border transition-all hover:scale-105"
             style={{
               borderColor: 'var(--border-strong)',
@@ -88,7 +94,7 @@ export function CommunitySection() {
           >
             <FileText className="w-5 h-5" />
             Read the Docs
-          </button>
+          </a>
         </motion.div>
 
         {/* Credits */}

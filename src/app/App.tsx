@@ -11,6 +11,7 @@ import { ResearchOutputSection } from './components/ResearchOutputSection';
 import { ArchitectureSection } from './components/ArchitectureSection';
 import { CommunitySection } from './components/CommunitySection';
 import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -18,6 +19,11 @@ export default function App() {
   useEffect(() => {
     // Always start in dark mode; apply class immediately
     document.documentElement.classList.add('dark');
+  }, []);
+
+  useEffect(() => {
+    // Scroll to top on load/reload so page always starts at top
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -35,7 +41,7 @@ export default function App() {
 
   return (
     <ResearchProvider>
-    <div className="min-h-screen" style={{ fontFamily: 'var(--font-geist)' }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: 'var(--font-geist)' }}>
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <HeroSection />
@@ -49,6 +55,7 @@ export default function App() {
         <CommunitySection />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
     </ResearchProvider>
   );

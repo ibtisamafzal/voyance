@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Mic, MicOff, Loader2, CheckCircle, Play, Navigation } from 'lucide-react';
+import { ArrowRight, Mic, MicOff, Loader2, CheckCircle, Play, Navigation, Globe, Sparkles } from 'lucide-react';
 import { startResearch, connectToResearchStream, getResearchResults, sendInterruptViaWS, interruptResearch, transcribeAudio, type AgentUpdate } from '../../lib/api';
 import { useResearch } from '../context/ResearchContext';
 
@@ -27,8 +27,8 @@ export function HeroSection() {
   const [error, setError] = useState('');
   const [showRedirect, setShowRedirect] = useState(false);
   const [redirectInstruction, setRedirectInstruction] = useState('');
-  /** Input mode: 'text' | 'browser_voice' | 'gemini_voice' — all options visible in toggle */
-  const [inputMode, setInputMode] = useState<'text' | 'browser_voice' | 'gemini_voice'>('text');
+  /** Input mode: which voice engine — browser (Web Speech API) or Gemini transcribe. Voice is always allowed. */
+  const [inputMode, setInputMode] = useState<'browser_voice' | 'gemini_voice'>('gemini_voice');
   const [isGeminiTranscribing, setIsGeminiTranscribing] = useState(false);
   /** Voice barge-in: recording redirect instruction by voice */
   const [isRedirectRecording, setIsRedirectRecording] = useState(false);
@@ -55,9 +55,6 @@ export function HeroSection() {
       setRedirectInstruction('');
     }
   }, [isRunning]);
-
-  const useGeminiVoice = inputMode === 'gemini_voice';
-  const isVoiceMode = inputMode === 'browser_voice' || inputMode === 'gemini_voice';
 
   const toggleVoiceInput = useCallback(async () => {
     if (inputMode === 'gemini_voice') {
@@ -129,8 +126,6 @@ export function HeroSection() {
       setIsRecording(true);
       return;
     }
-
-    // Text mode: no mic action
   }, [isRecording, inputMode]);
 
   const handleResearch = async () => {
@@ -335,19 +330,19 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 py-10 md:py-12 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 py-8 sm:py-10 md:py-12 relative z-10">
         <div className="text-center max-w-[900px] mx-auto space-y-8">
           {/* Eyebrow Label */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.3, type: 'spring' }}
-            className="inline-block px-4 py-2 rounded-full border"
+            className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border text-center max-w-[95vw]"
             style={{
               backgroundColor: 'var(--accent-glow)',
               borderColor: 'rgba(10, 95, 232, 0.3)',
               fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
+              fontSize: 'clamp(9px, 2.2vw, 11px)',
               color: 'var(--accent)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
@@ -357,10 +352,10 @@ export function HeroSection() {
           </motion.div>
 
           {/* Main Headline */}
-          <div className="space-y-2">
+          <div className="space-y-2 px-1">
             <h1 className="overflow-hidden">
               {/* Line 1 */}
-              <div className="flex gap-3 md:gap-4 justify-center">
+              <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
                 {words1.map((word, i) => (
                   <motion.span
                     key={i}
@@ -381,7 +376,7 @@ export function HeroSection() {
               </div>
 
               {/* Line 2 */}
-              <div className="flex gap-3 md:gap-4 justify-center">
+              <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
                 {words2.map((word, i) => (
                   <motion.span
                     key={i}
@@ -402,7 +397,7 @@ export function HeroSection() {
               </div>
 
               {/* Line 3 - Accent Color */}
-              <div className="flex gap-3 md:gap-4 justify-center">
+              <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
                 {words3.map((word, i) => (
                   <motion.span
                     key={i}
@@ -428,7 +423,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.4 }}
-              className="text-lg md:text-xl max-w-[700px] mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-xl max-w-[700px] mx-auto leading-relaxed px-1"
               style={{ color: 'var(--text-secondary)' }}
             >
               Voyance navigates any website visually — no APIs, no DOM access. Just pure AI vision,
@@ -444,24 +439,24 @@ export function HeroSection() {
             className="w-full max-w-[720px] mx-auto"
           >
             <div
-              className="relative flex items-center gap-3 p-2 rounded-[14px] shadow-2xl"
+              className="relative flex flex-wrap items-center gap-2 sm:gap-3 p-2 sm:p-2.5 rounded-[14px] shadow-2xl"
               style={{
                 backgroundColor: 'var(--bg-elevated)',
                 border: '1.5px solid var(--border-strong)',
                 boxShadow: isRecording ? '0 0 20px rgba(14, 165, 233, 0.4)' : '0 0 0 0 var(--accent-glow)',
               }}
             >
-              {/* Mic: start voice input when in Browser or Gemini voice mode */}
+              {/* Mic: voice prompt always allowed — uses Browser or Gemini based on toggle */}
               <button
                 type="button"
                 onClick={toggleVoiceInput}
-                disabled={isRunning || isGeminiTranscribing || inputMode === 'text'}
-                className="shrink-0 ml-2 p-2 rounded-full transition-all hover:scale-110 disabled:opacity-50"
+                disabled={isRunning || isGeminiTranscribing}
+                className="shrink-0 ml-0 sm:ml-2 p-2 rounded-full transition-all hover:scale-110 disabled:opacity-50 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
                 style={{
                   color: isRecording || isGeminiTranscribing ? 'var(--vera-voice)' : 'var(--accent)',
                   backgroundColor: isRecording || isGeminiTranscribing ? 'rgba(14, 165, 233, 0.15)' : 'transparent',
                 }}
-                title={inputMode === 'text' ? 'Switch to voice to use mic' : (isRecording ? 'Stop recording' : isGeminiTranscribing ? 'Transcribing...' : 'Start voice input')}
+                title={isRecording ? 'Stop recording' : isGeminiTranscribing ? 'Transcribing...' : 'Start voice input'}
               >
                 {isRecording || isGeminiTranscribing ? (
                   <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
@@ -471,28 +466,32 @@ export function HeroSection() {
                   <Mic className="w-5 h-5" />
                 )}
               </button>
-              {/* Input mode: Text | Browser voice | Gemini voice — both options visible (AC-01) */}
+              {/* Voice engine: Browser (Web Speech) or Gemini — icons on mobile, text on desktop */}
               <div
                 className="shrink-0 flex rounded-lg border overflow-hidden"
                 style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
                 role="group"
-                aria-label="Input mode"
+                aria-label="Voice engine"
               >
-                {(['text', 'browser_voice', 'gemini_voice'] as const).map((mode) => (
+                {([
+                  { mode: 'browser_voice' as const, label: 'Browser', icon: Globe, title: 'Voice via browser (Web Speech API)' },
+                  { mode: 'gemini_voice' as const, label: 'Gemini', icon: Sparkles, title: 'Voice via Gemini transcription' },
+                ]).map(({ mode, label, icon: Icon, title }) => (
                   <button
                     key={mode}
                     type="button"
                     onClick={() => !isRunning && !isRecording && setInputMode(mode)}
                     disabled={isRunning || isRecording}
-                    className="px-2.5 py-1.5 text-[10px] font-semibold transition-all disabled:opacity-50"
+                    className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-2.5 text-[10px] font-semibold transition-all disabled:opacity-50 min-w-[36px] sm:min-w-0"
                     style={{
                       borderColor: inputMode === mode ? 'var(--accent)' : 'transparent',
                       color: inputMode === mode ? 'var(--accent)' : 'var(--text-tertiary)',
                       backgroundColor: inputMode === mode ? 'rgba(10, 95, 232, 0.12)' : 'transparent',
                     }}
-                    title={mode === 'text' ? 'Type your query' : mode === 'browser_voice' ? 'Voice (browser)' : 'Voice (Gemini)'}
+                    title={title}
                   >
-                    {mode === 'text' ? 'Text' : mode === 'browser_voice' ? 'Browser' : 'Gemini'}
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                    <span className="hidden sm:inline">{label}</span>
                   </button>
                 ))}
               </div>
@@ -504,7 +503,7 @@ export function HeroSection() {
                 onKeyDown={handleKeyDown}
                 disabled={isRunning}
                 placeholder="Compare pricing for top 5 CRM tools..."
-                className="flex-1 bg-transparent outline-none text-sm md:text-base"
+                className="flex-1 min-w-0 w-full sm:w-auto bg-transparent outline-none text-sm md:text-base"
                 style={{
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-geist)',
@@ -514,7 +513,7 @@ export function HeroSection() {
                 id="start-research-btn"
                 onClick={handleResearch}
                 disabled={isRunning}
-                className="shrink-0 flex items-center gap-2 px-5 py-3 rounded-[10px] font-semibold text-white text-sm transition-all hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 sm:px-5 rounded-[10px] font-semibold text-white text-sm transition-all hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] w-full sm:w-auto"
                 style={{ backgroundColor: 'var(--accent)' }}
               >
                 {isRunning ? (
@@ -603,7 +602,7 @@ export function HeroSection() {
                             value={redirectInstruction}
                             onChange={(e) => setRedirectInstruction(e.target.value)}
                             placeholder="e.g. skip Salesforce, focus on HubSpot"
-                            className="flex-1 min-w-[180px] px-3 py-2 rounded-lg text-xs bg-transparent border outline-none"
+                            className="flex-1 min-w-0 sm:min-w-[180px] px-3 py-2 rounded-lg text-xs bg-transparent border outline-none"
                             style={{
                               borderColor: 'var(--border-strong)',
                               color: 'var(--text-primary)',
@@ -678,7 +677,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.3 }}
-              className="flex flex-wrap justify-center gap-2 mt-4"
+              className="flex flex-wrap justify-center gap-2 mt-4 px-1"
             >
               {SAMPLE_PROMPTS.map((prompt, i) => (
                 <button

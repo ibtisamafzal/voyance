@@ -199,7 +199,7 @@ export function ResearchOutputSection() {
         <section
             id="output"
             ref={ref}
-            className="py-24 md:py-32 relative overflow-hidden"
+            className="py-16 sm:py-20 md:py-24 lg:py-32 relative overflow-hidden"
             style={{ backgroundColor: 'var(--bg-secondary)' }}
         >
             {/* Background decoration */}
@@ -208,9 +208,9 @@ export function ResearchOutputSection() {
                 style={{ background: 'radial-gradient(ellipse at 50% 0%, var(--accent), transparent 60%)' }}
             />
 
-            <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
+            <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 relative z-10">
                 {/* Section Header */}
-                <div className="text-center mb-16 space-y-5">
+                <div className="text-center mb-10 sm:mb-14 md:mb-16 space-y-4 sm:space-y-5">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -260,7 +260,7 @@ export function ResearchOutputSection() {
                 >
                     {/* Table Header Bar */}
                     <div
-                        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 py-4 border-b"
+                        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 border-b"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
                     >
                         <div className="flex items-center gap-3">
@@ -411,7 +411,7 @@ export function ResearchOutputSection() {
                                     ].map(({ label, field }) => (
                                         <th
                                             key={label}
-                                            className={`px-6 py-3 text-left text-xs uppercase tracking-wider ${field ? 'cursor-pointer select-none' : ''}`}
+                                            className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-left text-xs uppercase tracking-wider ${field ? 'cursor-pointer select-none' : ''}`}
                                             style={{
                                                 fontFamily: 'var(--font-mono)',
                                                 color: 'var(--text-tertiary)',
@@ -431,7 +431,7 @@ export function ResearchOutputSection() {
                             <tbody>
                                 {sorted.length === 0 && state.sessionId ? (
                                     <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                                        <td colSpan={6} className="px-6 py-12 text-center">
+                                        <td colSpan={6} className="px-4 sm:px-6 py-8 sm:py-12 text-center">
                                             <p className="text-sm" style={{ color: 'var(--text-secondary)', marginBottom: 4 }}>
                                                 No results — 0 sites visited
                                             </p>
@@ -455,7 +455,7 @@ export function ResearchOutputSection() {
                                             onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
                                         >
                                             {/* Company */}
-                                            <td className="px-6 py-4">
+                                            <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                                                 <div className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>
                                                     {row.company}
                                                 </div>
@@ -467,7 +467,7 @@ export function ResearchOutputSection() {
                                                 </div>
                                             </td>
                                             {/* Pricing */}
-                                            <td className="px-6 py-4">
+                                            <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                                                 <span
                                                     className="font-semibold text-sm"
                                                     style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-primary)' }}
@@ -476,13 +476,13 @@ export function ResearchOutputSection() {
                                                 </span>
                                             </td>
                                             {/* Key Feature */}
-                                            <td className="px-6 py-4 max-w-[240px]">
+                                            <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 max-w-[180px] sm:max-w-[240px]">
                                                 <span className="text-sm leading-snug" style={{ color: 'var(--text-secondary)' }}>
                                                     {row.keyFeature}
                                                 </span>
                                             </td>
                                             {/* Segment */}
-                                            <td className="px-6 py-4">
+                                            <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                                                 <span
                                                     className="px-3 py-1 rounded-full text-xs font-medium"
                                                     style={{
@@ -495,7 +495,7 @@ export function ResearchOutputSection() {
                                                 </span>
                                             </td>
                                             {/* Confidence Badge */}
-                                            <td className="px-6 py-4">
+                                            <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                                                 <div
                                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
                                                     style={{ backgroundColor: conf.bg, color: conf.color, fontFamily: 'var(--font-mono)' }}
@@ -505,7 +505,7 @@ export function ResearchOutputSection() {
                                                 </div>
                                             </td>
                                             {/* Screenshot ref */}
-                                            <td className="px-6 py-4">
+                                            <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                                                 {row.screenshot ? (
                                                     <div
                                                         className="flex items-center gap-1.5 text-xs"
@@ -534,7 +534,7 @@ export function ResearchOutputSection() {
 
                     {/* Table Footer */}
                     <div
-                        className="px-6 py-3 flex items-center justify-between border-t"
+                        className="px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 border-t"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
                     >
                         <span
@@ -561,7 +561,7 @@ export function ResearchOutputSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
-                    className="mt-8 rounded-xl p-6 overflow-x-auto"
+                    className="mt-6 sm:mt-8 rounded-xl p-4 sm:p-6 overflow-x-auto"
                     style={{
                         backgroundColor: 'var(--bg-primary)',
                         border: '1px solid var(--border)',
@@ -595,7 +595,7 @@ export function ResearchOutputSection() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
                             style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
                             onClick={() => setScreenshotsOpen(false)}
                         >
@@ -603,7 +603,7 @@ export function ResearchOutputSection() {
                                 initial={{ scale: 0.95 }}
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0.95 }}
-                                className="relative max-w-4xl w-full rounded-2xl overflow-hidden"
+                                className="relative max-w-4xl w-full max-h-[95vh] overflow-y-auto rounded-2xl"
                                 style={{
                                     backgroundColor: 'var(--bg-elevated)',
                                     border: '1px solid var(--border-strong)',
