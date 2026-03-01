@@ -2,7 +2,8 @@
  * Voyance API Client — Frontend ↔ Backend communication
  */
 
-const API_BASE = (import.meta as { env?: { VITE_API_URL?: string } }).env?.VITE_API_URL ?? 'http://localhost:8000';
+const raw = (import.meta as { env?: { VITE_API_URL?: string } }).env?.VITE_API_URL ?? 'http://localhost:8000';
+const API_BASE = raw.replace(/\/+$/, ''); // no trailing slash (avoids double slashes, helps WebSocket)
 const WS_BASE = API_BASE.replace(/^http/, 'ws');
 
 export interface ResearchRequest {
