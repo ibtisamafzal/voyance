@@ -3,13 +3,10 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 import { ResearchProvider } from './context/ResearchContext';
 import { Navbar } from './components/Navbar';
 import { TourGuide } from './components/TourGuide';
-import { LazyOnView } from './components/LazyOnView';
+import { ScrollToTop } from './components/ScrollToTop';
+import { Footer } from './components/Footer';
 
-// Defer loading to shrink main bundle (improves TBT / unused JS audit)
-const ScrollToTop = lazy(() => import('./components/ScrollToTop').then(m => ({ default: m.ScrollToTop })));
-const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
-
-// Route-level code splitting
+// Route-level code splitting — only split pages the user hasn't navigated to yet
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const AppPage = lazy(() => import('./pages/AppPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -74,14 +71,8 @@ function AppShell() {
           </Routes>
         </Suspense>
       </main>
-      <LazyOnView fallbackHeight={200}>
-        <Suspense fallback={null}>
-          <Footer />
-        </Suspense>
-      </LazyOnView>
-      <Suspense fallback={null}>
-        <ScrollToTop />
-      </Suspense>
+      <Footer />
+      <ScrollToTop />
       <TourGuide isOpen={guideOpen} onClose={closeGuide} />
     </div>
   );

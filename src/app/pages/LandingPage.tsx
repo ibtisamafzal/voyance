@@ -1,21 +1,14 @@
-import { Suspense, lazy } from 'react';
 import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
-import { LazyOnView } from '../components/LazyOnView';
 import { LandingHero } from '../components/LandingHero';
-
-const StatsBar = lazy(() => import('../components/StatsBar').then(m => ({ default: m.StatsBar })));
-const PipelineSection = lazy(() => import('../components/PipelineSection').then(m => ({ default: m.PipelineSection })));
-const LiveAgentSection = lazy(() => import('../components/LiveAgentSection').then(m => ({ default: m.LiveAgentSection })));
-const FeaturesSection = lazy(() => import('../components/FeaturesSection').then(m => ({ default: m.FeaturesSection })));
-const WhyVoyanceSection = lazy(() => import('../components/WhyVoyanceSection').then(m => ({ default: m.WhyVoyanceSection })));
-const ImpactSection = lazy(() => import('../components/ImpactSection').then(m => ({ default: m.ImpactSection })));
-const ArchitectureSection = lazy(() => import('../components/ArchitectureSection').then(m => ({ default: m.ArchitectureSection })));
-const CommunitySection = lazy(() => import('../components/CommunitySection').then(m => ({ default: m.CommunitySection })));
-
-function SectionSkeleton() {
-  return <div style={{ minHeight: '1px' }} aria-hidden="true" />;
-}
+import { StatsBar } from '../components/StatsBar';
+import { WhyVoyanceSection } from '../components/WhyVoyanceSection';
+import { FeaturesSection } from '../components/FeaturesSection';
+import { LiveAgentSection } from '../components/LiveAgentSection';
+import { PipelineSection } from '../components/PipelineSection';
+import { ImpactSection } from '../components/ImpactSection';
+import { ArchitectureSection } from '../components/ArchitectureSection';
+import { CommunitySection } from '../components/CommunitySection';
 
 export default function LandingPage() {
   return (
@@ -23,60 +16,28 @@ export default function LandingPage() {
       <LandingHero />
 
       {/* Capability cards */}
-      <LazyOnView fallbackHeight={140}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <StatsBar />
-        </Suspense>
-      </LazyOnView>
+      <StatsBar />
 
       {/* Why Voyance — differentiator */}
-      <LazyOnView fallbackHeight={400}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <WhyVoyanceSection />
-        </Suspense>
-      </LazyOnView>
+      <WhyVoyanceSection />
 
       {/* Features */}
-      <LazyOnView fallbackHeight={360}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <FeaturesSection />
-        </Suspense>
-      </LazyOnView>
+      <FeaturesSection />
 
       {/* Live Demo */}
-      <LazyOnView fallbackHeight={400}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <LiveAgentSection />
-        </Suspense>
-      </LazyOnView>
+      <LiveAgentSection />
 
       {/* Pipeline — how it works */}
-      <LazyOnView fallbackHeight={320}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <PipelineSection />
-        </Suspense>
-      </LazyOnView>
+      <PipelineSection />
 
       {/* Impact */}
-      <LazyOnView fallbackHeight={380}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <ImpactSection />
-        </Suspense>
-      </LazyOnView>
+      <ImpactSection />
 
       {/* Architecture */}
-      <LazyOnView fallbackHeight={420}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <ArchitectureSection />
-        </Suspense>
-      </LazyOnView>
+      <ArchitectureSection />
 
       {/* Community */}
-      <LazyOnView fallbackHeight={340}>
-        <Suspense fallback={<SectionSkeleton />}>
-          <CommunitySection />
-        </Suspense>
-      </LazyOnView>
+      <CommunitySection />
 
       {/* ── CTA banner ── */}
       <section
