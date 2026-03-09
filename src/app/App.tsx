@@ -7,7 +7,6 @@ import { LazyOnView } from './components/LazyOnView';
 
 // Defer loading to shrink main bundle (improves TBT / unused JS audit)
 const ScrollToTop = lazy(() => import('./components/ScrollToTop').then(m => ({ default: m.ScrollToTop })));
-const GlowCursor = lazy(() => import('./components/GlowCursor').then(m => ({ default: m.GlowCursor })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
 // Route-level code splitting
@@ -82,7 +81,6 @@ function AppShell() {
       </LazyOnView>
       <Suspense fallback={null}>
         <ScrollToTop />
-        <GlowCursor />
       </Suspense>
       <TourGuide isOpen={guideOpen} onClose={closeGuide} />
     </div>

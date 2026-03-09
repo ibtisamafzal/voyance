@@ -188,14 +188,6 @@
     overflow-x: clip;
   }
 
-  /* Hide native cursor on pointer devices — replaced by GlowCursor component */
-  @media (hover: hover) and (pointer: fine) {
-    html,
-    html * {
-      cursor: none !important;
-    }
-  }
-
   /* Responsive container padding for narrow viewports */
   @media (max-width: 480px) {
     html {
