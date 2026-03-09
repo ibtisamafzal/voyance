@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 from app.services.firestore_service import init_firestore
-from app.routers import research, sessions, voice, health
+from app.routers import research, sessions, voice, health, contact
 
 
 @asynccontextmanager
@@ -82,6 +82,7 @@ def create_app() -> FastAPI:
     application.include_router(sessions.router, prefix="/api/sessions")
     application.include_router(research.router, prefix="/api/research")
     application.include_router(voice.router, prefix="/api/voice")
+    application.include_router(contact.router, prefix="/api")
 
     @application.get("/")
     async def root():

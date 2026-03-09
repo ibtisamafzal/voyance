@@ -29,10 +29,10 @@ export function CommunitySection() {
     <section
       id="community"
       ref={ref}
-      className="py-16 sm:py-20 md:py-28 lg:py-36"
+      className="py-14 sm:py-18 md:py-24 lg:py-28"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      <div className="max-w-[800px] mx-auto px-4 sm:px-5 md:px-10 text-center">
+      <div className="max-w-[800px] mx-auto px-4 sm:px-6 md:px-10 text-center">
         {/* Main Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

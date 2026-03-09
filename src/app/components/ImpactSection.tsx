@@ -1,15 +1,39 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Target, Search, Briefcase } from 'lucide-react';
+import { Target, BarChart3, Briefcase, Clock, CheckCircle2, TrendingUp } from 'lucide-react';
 
-interface UseCase {
-  icon: React.ReactNode;
-  stat: string;
-  title: string;
-  description: string;
-  badge: string;
-  iconColor: string;
-}
+const USE_CASES = [
+  {
+    icon: <Target className="w-5 h-5" />,
+    persona: 'Startup Founders',
+    headline: '5 competitors researched in 90 seconds',
+    description:
+      'Get pricing, features, and positioning for every rival — ready before your next investor meeting.',
+    color: 'var(--accent)',
+  },
+  {
+    icon: <BarChart3 className="w-5 h-5" />,
+    persona: 'Consultants',
+    headline: '47 data points extracted and verified',
+    description:
+      'Build industry benchmarks automatically — no manual browsing or copy-paste required.',
+    color: 'var(--vera-voice)',
+  },
+  {
+    icon: <Briefcase className="w-5 h-5" />,
+    persona: 'Investment Analysts',
+    headline: 'Full landscape map in under 3 minutes',
+    description:
+      'Map competitive landscapes for entire portfolio verticals, on demand, with cited sources.',
+    color: 'var(--success)',
+  },
+];
+
+const STATS = [
+  { icon: <Clock className="w-4 h-4" />, value: '< 90s', label: 'Per research' },
+  { icon: <CheckCircle2 className="w-4 h-4" />, value: '98%', label: 'Accuracy' },
+  { icon: <TrendingUp className="w-4 h-4" />, value: '10×', label: 'Faster than manual' },
+];
 
 export function ImpactSection() {
   const [inView, setInView] = useState(false);
@@ -18,77 +42,34 @@ export function ImpactSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
+        if (entry.isIntersecting) setInView(true);
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
-
-  const useCases: UseCase[] = [
-    {
-      icon: <Target className="w-8 h-8" />,
-      stat: '5 competitors',
-      title: 'Researched in 90 seconds.',
-      description: 'A SaaS founder gets pricing, features, and positioning for 5 rivals before their investor meeting.',
-      badge: 'STARTUP FOUNDERS',
-      iconColor: '#3B82F6',
-    },
-    {
-      icon: <Search className="w-8 h-8" />,
-      stat: '47 data points',
-      title: 'Structured and verified.',
-      description: 'Management consultants build industry benchmarks with zero manual browsing or copy-paste.',
-      badge: 'CONSULTANTS',
-      iconColor: '#818CF8',
-    },
-    {
-      icon: <Briefcase className="w-8 h-8" />,
-      stat: '< 3 minutes',
-      title: 'Full landscape map.',
-      description: 'Investment analysts map competitive landscapes for entire portfolio verticals, on demand.',
-      badge: 'INVESTMENT ANALYSTS',
-      iconColor: '#10D97A',
-    },
-  ];
-
-  const techStack = ['Gemini Live API', 'Google ADK', 'Cloud Run', 'ElevenLabs', 'Perplexity'];
 
   return (
     <section
       ref={ref}
-      className="py-16 sm:py-20 md:py-28 lg:py-36 relative overflow-hidden"
-      style={{ backgroundColor: '#060B14' }}
+      className="py-14 sm:py-18 md:py-24 lg:py-28 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      {/* Background Gradient */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          background: 'radial-gradient(circle at center top, var(--accent), transparent 60%)',
-        }}
-      />
-
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-5">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
             className="inline-block px-4 py-2 rounded-full"
             style={{
-              backgroundColor: 'rgba(59, 130, 246, 0.2)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
+              backgroundColor: 'var(--accent-glow)',
+              border: '1px solid var(--accent-pill-border)',
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
-              color: '#3B82F6',
+              color: 'var(--accent)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
             }}
@@ -99,108 +80,95 @@ export function ImpactSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            style={{ color: '#F1F5F9' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             Hours of research. Seconds to deliver.
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            transition={{ delay: 0.15, duration: 0.6 }}
+            className="text-base sm:text-lg max-w-[600px] mx-auto"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            See how real professionals use Voyance to accelerate their research workflows.
+          </motion.p>
         </div>
 
-        {/* Use Case Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
-          {useCases.map((useCase, i) => (
+        {/* Use case cards — stacked rows */}
+        <div className="space-y-4 mb-12 sm:mb-16">
+          {USE_CASES.map((uc, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 32 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-              transition={{ delay: 0.2 + i * 0.1, duration: 0.6 }}
-              className="rounded-2xl sm:rounded-[20px] p-6 sm:p-7 md:p-9 space-y-4 sm:space-y-6"
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+              className="rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                backgroundColor: 'var(--bg-elevated)',
+                border: '1px solid var(--border-strong)',
+                borderLeft: `3px solid ${uc.color}`,
               }}
             >
-              {/* Icon */}
-              <div style={{ color: useCase.iconColor }}>
-                {useCase.icon}
+              {/* Icon + persona */}
+              <div className="flex items-center gap-3 flex-shrink-0 sm:w-[180px]">
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: `${uc.color}15`, color: uc.color }}
+                >
+                  {uc.icon}
+                </div>
+                <span
+                  className="text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: uc.color, fontFamily: 'var(--font-mono)' }}
+                >
+                  {uc.persona}
+                </span>
               </div>
 
-              {/* Stat */}
-              <div
-                className="font-bold text-3xl sm:text-4xl md:text-[42px] leading-none"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  color: useCase.iconColor,
-                }}
-              >
-                {useCase.stat}
-              </div>
-
-              {/* Title */}
-              <h3 className="text-lg font-semibold leading-tight" style={{ color: '#F1F5F9' }}>
-                {useCase.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-sm leading-relaxed" style={{ color: '#94A3B8' }}>
-                {useCase.description}
-              </p>
-
-              {/* Badge */}
-              <div
-                className="inline-block px-4 py-2 rounded-full text-xs uppercase"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                  color: '#94A3B8',
-                  fontFamily: 'var(--font-mono)',
-                  letterSpacing: '0.05em',
-                  fontWeight: 600,
-                }}
-              >
-                {useCase.badge}
+              {/* Content */}
+              <div className="flex-1 min-w-0 space-y-1.5">
+                <h3 className="text-base sm:text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
+                  {uc.headline}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  {uc.description}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Tech Stack */}
+        {/* Stats strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-center space-y-6"
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="grid grid-cols-3 gap-3 sm:gap-6 max-w-[640px] mx-auto"
         >
-          <div
-            className="text-xs uppercase tracking-wider"
-            style={{ fontFamily: 'var(--font-mono)', color: '#94A3B8' }}
-          >
-            BUILT ON
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {techStack.map((tech, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                transition={{ delay: 0.7 + i * 0.05, duration: 0.3 }}
-                className="px-4 py-2 rounded-full text-xs transition-all hover:border-opacity-100"
-                style={{
-                  backgroundColor: 'transparent',
-                  border: '1px solid rgba(255, 255, 255, 0.10)',
-                  color: '#94A3B8',
-                  fontFamily: 'var(--font-mono)',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.10)';
-                }}
+          {STATS.map((stat, i) => (
+            <div
+              key={i}
+              className="text-center p-4 sm:p-6 rounded-xl"
+              style={{
+                backgroundColor: 'var(--bg-elevated)',
+                border: '1px solid var(--border-strong)',
+              }}
+            >
+              <div className="flex justify-center mb-3" style={{ color: 'var(--accent)' }}>
+                {stat.icon}
+              </div>
+              <div
+                className="text-xl sm:text-2xl font-bold mb-1"
+                style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}
               >
-                {tech}
-              </motion.span>
-            ))}
-          </div>
+                {stat.value}
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

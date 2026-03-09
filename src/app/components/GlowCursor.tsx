@@ -55,7 +55,7 @@ export function GlowCursor() {
         document.documentElement.addEventListener('mouseenter', onMouseEnter);
 
         // Animation loop — dot snaps instantly, glow follows with easing
-        const EASE = 0.1; // glow lag factor (lower = more lag)
+        const EASE = 0.25; // glow lag factor (higher = snappier)
         const animate = () => {
             // Interpolate glow toward dot
             glowPos.current.x += (pos.current.x - glowPos.current.x) * EASE;
@@ -101,8 +101,8 @@ export function GlowCursor() {
                     marginTop: isHovering ? '-28px' : '-18px',
                     borderRadius: '50%',
                     background: isHovering
-                        ? 'radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(99,102,241,0.15) 60%, transparent 80%)'
-                        : 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(99,102,241,0.1) 60%, transparent 80%)',
+                        ? 'radial-gradient(circle, rgba(13,148,136,0.45) 0%, rgba(124,58,237,0.15) 60%, transparent 80%)'
+                        : 'radial-gradient(circle, rgba(13,148,136,0.3) 0%, rgba(124,58,237,0.1) 60%, transparent 80%)',
                     filter: isHovering ? 'blur(10px)' : 'blur(8px)',
                     pointerEvents: 'none',
                     zIndex: 99998,
@@ -125,10 +125,10 @@ export function GlowCursor() {
                     marginLeft: isHovering ? '-3px' : '-3.5px',
                     marginTop: isHovering ? '-3px' : '-3.5px',
                     borderRadius: '50%',
-                    backgroundColor: isHovering ? '#93C5FD' : '#BFDBFE',
+                    backgroundColor: isHovering ? '#5EEAD4' : '#99F6E4',
                     boxShadow: isHovering
-                        ? '0 0 8px 3px rgba(147,197,253,0.8), 0 0 16px 4px rgba(59,130,246,0.5)'
-                        : '0 0 6px 2px rgba(191,219,254,0.6), 0 0 12px 3px rgba(59,130,246,0.35)',
+                        ? '0 0 8px 3px rgba(94,234,212,0.8), 0 0 16px 4px rgba(13,148,136,0.5)'
+                        : '0 0 6px 2px rgba(153,246,228,0.6), 0 0 12px 3px rgba(13,148,136,0.35)',
                     pointerEvents: 'none',
                     zIndex: 99999,
                     opacity: isVisible ? 1 : 0,
