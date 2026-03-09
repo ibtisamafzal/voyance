@@ -1,44 +1,43 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 import { ResearchProvider } from './context/ResearchContext';
 import { Navbar } from './components/Navbar';
-import { HeroSection } from './components/HeroSection';
+import { TourGuide } from './components/TourGuide';
 import { LazyOnView } from './components/LazyOnView';
 
 // Defer loading to shrink main bundle (improves TBT / unused JS audit)
 const ScrollToTop = lazy(() => import('./components/ScrollToTop').then(m => ({ default: m.ScrollToTop })));
 const GlowCursor = lazy(() => import('./components/GlowCursor').then(m => ({ default: m.GlowCursor })));
-
-// Eagerly loaded: above-fold critical components
-// Lazy loaded: below-fold sections — chunks load only when section is near viewport (mobile perf)
-const StatsBar = lazy(() => import('./components/StatsBar').then(m => ({ default: m.StatsBar })));
-const PipelineSection = lazy(() => import('./components/PipelineSection').then(m => ({ default: m.PipelineSection })));
-const LiveAgentSection = lazy(() => import('./components/LiveAgentSection').then(m => ({ default: m.LiveAgentSection })));
-const FeaturesSection = lazy(() => import('./components/FeaturesSection').then(m => ({ default: m.FeaturesSection })));
-const ImpactSection = lazy(() => import('./components/ImpactSection').then(m => ({ default: m.ImpactSection })));
-const ResearchOutputSection = lazy(() => import('./components/ResearchOutputSection').then(m => ({ default: m.ResearchOutputSection })));
-const ArchitectureSection = lazy(() => import('./components/ArchitectureSection').then(m => ({ default: m.ArchitectureSection })));
-const CommunitySection = lazy(() => import('./components/CommunitySection').then(m => ({ default: m.CommunitySection })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
-function SectionSkeleton() {
-  return <div style={{ minHeight: '1px' }} aria-hidden="true" />;
+// Route-level code splitting
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const AppPage = lazy(() => import('./pages/AppPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+
+function PageSkeleton() {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div
+        className="w-6 h-6 rounded-full border-2 border-t-transparent animate-spin"
+        style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }}
+      />
+    </div>
+  );
 }
 
-export default function App() {
-  const [darkMode, setDarkMode] = useState(true);
+function AppShell() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    // Always start in dark mode; apply class immediately
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('dark');
   }, []);
 
   useEffect(() => {
-    // Scroll to top on load/reload so page always starts at top
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    // Apply dark mode class to html element
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -46,67 +45,56 @@ export default function App() {
     }
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+  // Show guide automatically every time the user lands on "/"
+  useEffect(() => {
+    if (location.pathname === '/') {
+      const timer = setTimeout(() => setGuideOpen(true), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]);
+
+  const closeGuide = () => {
+    setGuideOpen(false);
   };
 
+  const toggleDarkMode = () => setDarkMode(!darkMode);
+
   return (
-    <ResearchProvider>
-      <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: 'var(--font-geist)' }}>
-        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <main>
-          <HeroSection />
-          <LazyOnView fallbackHeight={140}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <StatsBar />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={320}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <PipelineSection />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={400}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <LiveAgentSection />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={360}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <FeaturesSection />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={380}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <ImpactSection />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={200}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <ResearchOutputSection />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={420}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <ArchitectureSection />
-            </Suspense>
-          </LazyOnView>
-          <LazyOnView fallbackHeight={340}>
-            <Suspense fallback={<SectionSkeleton />}>
-              <CommunitySection />
-            </Suspense>
-          </LazyOnView>
-        </main>
-        <LazyOnView fallbackHeight={200}>
-          <Suspense fallback={<SectionSkeleton />}>
-            <Footer />
-          </Suspense>
-        </LazyOnView>
-        <Suspense fallback={null}>
-          <ScrollToTop />
-          <GlowCursor />
+    <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: 'var(--font-geist)' }}>
+      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onStartGuide={() => setGuideOpen(true)} />
+      {/* Spacer for fixed navbar */}
+      <div className="h-[56px] sm:h-[60px] md:h-[64px]" />
+      <main>
+        <Suspense fallback={<PageSkeleton />}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/research" element={<AppPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
         </Suspense>
-      </div>
-    </ResearchProvider>
+      </main>
+      <LazyOnView fallbackHeight={200}>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </LazyOnView>
+      <Suspense fallback={null}>
+        <ScrollToTop />
+        <GlowCursor />
+      </Suspense>
+      <TourGuide isOpen={guideOpen} onClose={closeGuide} />
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ResearchProvider>
+        <AppShell />
+      </ResearchProvider>
+    </BrowserRouter>
   );
 }

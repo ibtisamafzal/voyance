@@ -39,7 +39,7 @@ export function FeaturesSection() {
       description: 'Gemini 2.0 Flash reads full webpages from screenshots. No DOM. No APIs. Works on any site, forever.',
       tag: 'POWERED BY GEMINI VISION',
       accentColor: 'var(--accent)',
-      bgTint: 'rgba(10, 95, 232, 0.06)',
+      bgTint: 'rgba(13, 148, 136, 0.06)',
     },
     {
       icon: <Volume2 className="w-5 h-5" />,
@@ -47,7 +47,7 @@ export function FeaturesSection() {
       description: 'ElevenLabs Vera persona delivers spoken research briefings with a warm, analyst-grade voice.',
       tag: 'POWERED BY ELEVENLABS',
       accentColor: 'var(--vera-voice)',
-      bgTint: 'rgba(99, 102, 241, 0.06)',
+      bgTint: 'rgba(124, 58, 237, 0.06)',
     },
     {
       icon: <Shield className="w-5 h-5" />,
@@ -55,7 +55,7 @@ export function FeaturesSection() {
       description: 'Perplexity cross-references every extracted fact against the live web before reporting.',
       tag: 'POWERED BY PERPLEXITY',
       accentColor: 'var(--success)',
-      bgTint: 'rgba(12, 191, 106, 0.06)',
+      bgTint: 'rgba(5, 150, 105, 0.06)',
     },
     {
       icon: <Zap className="w-5 h-5" />,
@@ -71,7 +71,7 @@ export function FeaturesSection() {
       description: 'Google Agent Development Kit orchestrates Plan → Navigate → Extract → Verify → Report.',
       tag: 'POWERED BY GOOGLE ADK',
       accentColor: 'var(--accent)',
-      bgTint: 'rgba(10, 95, 232, 0.04)',
+      bgTint: 'rgba(13, 148, 136, 0.04)',
     },
     {
       icon: <Mic className="w-5 h-5" />,
@@ -79,7 +79,7 @@ export function FeaturesSection() {
       description: 'Interrupt Vera mid-session by voice. Agent replans in under 5 seconds.',
       tag: 'GEMINI LIVE BARGE-IN',
       accentColor: 'var(--vera-voice)',
-      bgTint: 'rgba(99, 102, 241, 0.04)',
+      bgTint: 'rgba(124, 58, 237, 0.04)',
     },
   ];
 
@@ -87,10 +87,10 @@ export function FeaturesSection() {
     <section
       id="features"
       ref={ref}
-      className="py-16 sm:py-20 md:py-28 lg:py-36"
+      className="py-14 sm:py-18 md:py-24 lg:py-28"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
           <motion.div
@@ -100,7 +100,7 @@ export function FeaturesSection() {
             className="inline-block px-4 py-2 rounded-full"
             style={{
               backgroundColor: 'var(--accent-glow)',
-              border: '1px solid rgba(10, 95, 232, 0.3)',
+              border: '1px solid var(--accent-pill-border)',
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
               color: 'var(--accent)',

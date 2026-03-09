@@ -430,7 +430,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.4 }}
-              className="text-base sm:text-lg md:text-xl max-w-[700px] mx-auto leading-relaxed px-1"
+              className="text-base sm:text-lg max-w-[700px] mx-auto px-1"
               style={{ color: 'var(--text-secondary)' }}
             >
               Voyance navigates any website visually — no APIs, no DOM access. Just pure AI vision,
@@ -494,7 +494,7 @@ export function HeroSection() {
                     style={{
                       borderColor: inputMode === mode ? 'var(--accent)' : 'transparent',
                       color: inputMode === mode ? 'var(--accent)' : 'var(--text-tertiary)',
-                      backgroundColor: inputMode === mode ? 'rgba(10, 95, 232, 0.12)' : 'transparent',
+                      backgroundColor: inputMode === mode ? 'var(--accent-glow)' : 'transparent',
                     }}
                     title={title}
                   >
@@ -525,7 +525,7 @@ export function HeroSection() {
                 onClick={handleResearch}
                 disabled={isRunning}
                 className="shrink-0 flex items-center justify-center gap-2 px-4 py-3 sm:px-5 rounded-[10px] font-semibold text-white text-sm transition-all hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] w-full sm:w-auto"
-                style={{ backgroundColor: '#1D4ED8' }}
+                style={{ backgroundColor: 'var(--accent)' }}
                 aria-label={isRunning ? 'Research in progress' : isComplete ? 'View research results' : 'Start research'}
               >
                 {isRunning ? (
@@ -596,7 +596,7 @@ export function HeroSection() {
                         style={{
                           borderColor: 'var(--accent)',
                           color: 'var(--accent)',
-                          backgroundColor: 'rgba(10, 95, 232, 0.08)',
+                          backgroundColor: 'var(--accent-glow)',
                         }}
                       >
                         <Navigation className="w-3.5 h-3.5" /> Redirect research

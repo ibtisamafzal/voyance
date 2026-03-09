@@ -1,32 +1,33 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Voyance Design System - Light Mode */
-  --bg-primary: #F0F4FA;
-  --bg-secondary: #E8EDF5;
-  --bg-elevated: #FFFFFF;
-  --surface-glass: rgba(255, 255, 255, 0.70);
-  --accent: #0A5FE8;
-  --accent-glow: rgba(10, 95, 232, 0.18);
-  --accent-pill-bg: rgba(10, 95, 232, 0.14);
-  --accent-pill-border: rgba(10, 95, 232, 0.35);
-  --success: #0CBF6A;
-  --success-glow: rgba(12, 191, 106, 0.15);
-  --warning: #F59E0B;
-  --danger: #EF4444;
-  --danger-glow: rgba(239, 68, 68, 0.15);
-  --vera-voice: #6366F1;
-  --vera-glow: rgba(99, 102, 241, 0.20);
-  --text-primary: #0D1117;
-  --text-secondary: #4B5563;
-  --text-tertiary: #9CA3AF;
-  --border: rgba(15, 23, 42, 0.08);
-  --border-strong: rgba(15, 23, 42, 0.14);
-  --scan-line: rgba(10, 95, 232, 0.06);
+  /* Voyance Design System - Light Mode (Default) */
+  --bg-primary: #fafbfd;
+  --bg-secondary: #f1f4f9;
+  --bg-elevated: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.78);
+  --accent: #0d9488;
+  --accent-glow: rgba(13, 148, 136, 0.14);
+  --accent-pill-bg: rgba(13, 148, 136, 0.1);
+  --accent-pill-border: rgba(13, 148, 136, 0.3);
+  --success: #059669;
+  --success-glow: rgba(5, 150, 105, 0.12);
+  --warning: #d97706;
+  --danger: #dc2626;
+  --danger-glow: rgba(220, 38, 38, 0.12);
+  --vera-voice: #7c3aed;
+  --vera-glow: rgba(124, 58, 237, 0.14);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --border: rgba(15, 23, 42, 0.07);
+  --border-strong: rgba(15, 23, 42, 0.13);
+  --scan-line: rgba(13, 148, 136, 0.06);
 
   /* Typography */
-  --font-geist: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'DM Mono', 'Courier New', monospace;
+  --font-geist:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "DM Mono", "Courier New", monospace;
 
   /* Compatibility with Tailwind defaults */
   --font-size: 16px;
@@ -68,28 +69,27 @@
 
 .dark {
   /* Voyance Design System - Dark Mode */
-  --bg-primary: #060B14;
-  --bg-secondary: #0D1520;
-  --bg-elevated: #111927;
-  --surface-glass: rgba(13, 21, 32, 0.80);
-  --accent: #3B82F6;
-  --accent-glow: rgba(59, 130, 246, 0.22);
-  /* Pill/badge: opaque enough for WCAG with --text-primary */
-  --accent-pill-bg: rgba(59, 130, 246, 0.32);
-  --accent-pill-border: rgba(59, 130, 246, 0.5);
-  --success: #10D97A;
-  --success-glow: rgba(16, 217, 122, 0.18);
-  --warning: #FBBF24;
-  --danger: #F87171;
+  --bg-primary: #0b1120;
+  --bg-secondary: #111827;
+  --bg-elevated: #1e293b;
+  --surface-glass: rgba(11, 17, 32, 0.82);
+  --accent: #14b8a6;
+  --accent-glow: rgba(20, 184, 166, 0.2);
+  --accent-pill-bg: rgba(20, 184, 166, 0.28);
+  --accent-pill-border: rgba(20, 184, 166, 0.45);
+  --success: #34d399;
+  --success-glow: rgba(52, 211, 153, 0.18);
+  --warning: #fbbf24;
+  --danger: #f87171;
   --danger-glow: rgba(248, 113, 113, 0.18);
-  --vera-voice: #818CF8;
-  --vera-glow: rgba(129, 140, 248, 0.22);
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --text-tertiary: #7C8CA0;
+  --vera-voice: #a78bfa;
+  --vera-glow: rgba(167, 139, 250, 0.22);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
   --border: rgba(241, 245, 249, 0.06);
-  --border-strong: rgba(241, 245, 249, 0.10);
-  --scan-line: rgba(59, 130, 246, 0.05);
+  --border-strong: rgba(241, 245, 249, 0.1);
+  --scan-line: rgba(20, 184, 166, 0.05);
 
   /* Compatibility with Tailwind defaults */
   --background: var(--bg-primary);
@@ -172,19 +172,24 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-geist);
-    transition: background-color 350ms ease, color 350ms ease;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition:
+      background-color 350ms ease,
+      color 350ms ease;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
   }
 
   html {
     font-size: var(--font-size);
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Hide native cursor on pointer devices — replaced by GlowCursor component */
   @media (hover: hover) and (pointer: fine) {
-
     html,
     html * {
       cursor: none !important;
@@ -199,41 +204,46 @@
   }
 
   h1 {
-    font-size: clamp(48px, 5.5vw, 80px);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.05;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
     color: var(--text-primary);
+    font-family: var(--font-geist);
   }
 
   h2 {
-    font-size: clamp(32px, 3.5vw, 52px);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
     color: var(--text-primary);
+    font-family: var(--font-geist);
   }
 
   h3 {
-    font-size: clamp(18px, 1.8vw, 22px);
+    font-size: clamp(17px, 1.6vw, 22px);
     font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
     color: var(--text-primary);
+    font-family: var(--font-geist);
   }
 
   h4 {
-    font-size: clamp(16px, 1.5vw, 20px);
-    font-weight: 400;
-    line-height: 1.6;
+    font-size: clamp(15px, 1.3vw, 18px);
+    font-weight: 500;
+    line-height: 1.5;
     color: var(--text-secondary);
+    font-family: var(--font-geist);
   }
 
   p {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.75;
     color: var(--text-secondary);
+    font-family: var(--font-geist);
   }
 
   label {
@@ -275,7 +285,6 @@
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -287,7 +296,6 @@
 }
 
 @keyframes waveBar {
-
   0%,
   100% {
     height: 20%;
@@ -336,7 +344,6 @@
 
 /* Mesh gradient animation */
 @keyframes meshDrift {
-
   0%,
   100% {
     transform: translate(0, 0) scale(1);

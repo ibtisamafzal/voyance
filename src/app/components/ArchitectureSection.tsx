@@ -27,12 +27,12 @@ export function ArchitectureSection() {
     <section
       id="architecture"
       ref={ref}
-      className="py-16 sm:py-20 md:py-24 lg:py-32"
+      className="py-14 sm:py-18 md:py-24 lg:py-28"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-5 md:px-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 md:mb-24 space-y-4 sm:space-y-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ export function ArchitectureSection() {
             className="inline-block px-4 py-2 rounded-full"
             style={{
               backgroundColor: 'var(--accent-glow)',
-              border: '1px solid rgba(10, 95, 232, 0.3)',
+              border: '1px solid var(--accent-pill-border)',
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
               color: 'var(--accent)',
@@ -61,10 +61,10 @@ export function ArchitectureSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-lg max-w-[700px] mx-auto"
+            className="text-base sm:text-lg max-w-[700px] mx-auto"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Your query flows through three layers: input (voice or text), processing (browser + AI vision + verification), and output (structured report + Vera’s spoken briefing). All running on Google Cloud Run.
+            Your query flows through three layers: input, processing (browser + AI vision + verification), and output (structured report + Vera's spoken briefing).
           </motion.p>
         </div>
 
@@ -76,18 +76,18 @@ export function ArchitectureSection() {
           className="flex justify-center mb-10 sm:mb-16"
         >
           <div
-            className="px-6 py-3 rounded-full"
+            className="px-5 py-2.5 rounded-full border"
             style={{
-              backgroundColor: 'var(--accent)',
-              color: 'white',
+              backgroundColor: 'var(--bg-elevated)',
+              borderColor: 'var(--accent-pill-border)',
+              color: 'var(--accent)',
               fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
+              fontSize: '11px',
               fontWeight: 600,
               letterSpacing: '0.05em',
-              boxShadow: '0 0 0 4px var(--accent-glow)',
             }}
           >
-            ☁️ HOSTED ON GOOGLE CLOUD RUN
+            Hosted on Google Cloud Run
           </div>
         </motion.div>
 
@@ -107,7 +107,7 @@ export function ArchitectureSection() {
                     className="inline-block px-4 py-2 rounded-lg"
                     style={{
                       backgroundColor: 'var(--accent-glow)',
-                      border: '1px solid rgba(10, 95, 232, 0.3)',
+                      border: '1px solid var(--accent-pill-border)',
                     }}
                   >
                     <div
@@ -119,11 +119,11 @@ export function ArchitectureSection() {
                   </div>
                 </div>
 
-                <ArchBox icon={<Mic className="w-5 h-5" />} label="You type or speak" color="#94A3B8" description="e.g. “Compare top 5 CRM tools” — text or voice in the hero" />
+                <ArchBox icon={<Mic className="w-5 h-5" />} label="You type or speak" color="var(--text-secondary)" description="e.g. &#34;Compare top 5 CRM tools&#34; — text or voice in the hero" />
                 <FlowArrow />
-                <ArchBox icon={<Brain className="w-5 h-5" />} label="Gemini 2.0 Flash" color="#3B82F6" description="Understands your intent and optional voice transcription" isKey />
+                <ArchBox icon={<Brain className="w-5 h-5" />} label="Gemini 2.0 Flash" color="var(--accent)" description="Understands your intent and optional voice transcription" isKey />
                 <FlowArrow />
-                <ArchBox icon={<Brain className="w-5 h-5" />} label="ADK Agent Loop" color="#3B82F6" description="Plans which sites to visit and what to extract" />
+                <ArchBox icon={<Brain className="w-5 h-5" />} label="ADK Agent Loop" color="var(--accent)" description="Plans which sites to visit and what to extract" />
               </motion.div>
 
               {/* Zone 2 - Processing */}
@@ -143,19 +143,19 @@ export function ArchitectureSection() {
                   >
                     <div
                       className="text-xs font-bold uppercase tracking-wider"
-                      style={{ color: '#F59E0B', fontFamily: 'var(--font-mono)' }}
+                      style={{ color: 'var(--warning)', fontFamily: 'var(--font-mono)' }}
                     >
                       02 · How we research the web
                     </div>
                   </div>
                 </div>
 
-                <ArchBox icon={<Globe className="w-5 h-5" />} label="Playwright Browser" color="#94A3B8" description="Visits live sites and captures screenshots (no DOM access)" />
-                <ArchBox icon={<Zap className="w-5 h-5" />} label="Firecrawl API" color="#F59E0B" description="Fast structured extraction when the page allows it" />
-                <ArchBox icon={<Eye className="w-5 h-5" />} label="Gemini Vision" color="#3B82F6" description="Reads screenshots like a human — works on any site" />
+                <ArchBox icon={<Globe className="w-5 h-5" />} label="Playwright Browser" color="var(--text-secondary)" description="Visits live sites and captures screenshots (no DOM access)" />
+                <ArchBox icon={<Zap className="w-5 h-5" />} label="Firecrawl API" color="var(--warning)" description="Fast structured extraction when the page allows it" />
+                <ArchBox icon={<Eye className="w-5 h-5" />} label="Gemini Vision" color="var(--accent)" description="Reads screenshots like a human — works on any site" />
                 <FlowArrow />
-                <ArchBox icon={<CheckCircle className="w-5 h-5" />} label="Perplexity Verify" color="#10D97A" description="Cross-checks key facts against the live web" />
-                <ArchBox icon={<Database className="w-5 h-5" />} label="Firestore Session" color="#3B82F6" description="Stores session state and results" />
+                <ArchBox icon={<CheckCircle className="w-5 h-5" />} label="Perplexity Verify" color="var(--success)" description="Cross-checks key facts against the live web" />
+                <ArchBox icon={<Database className="w-5 h-5" />} label="Firestore Session" color="var(--accent)" description="Stores session state and results" />
               </motion.div>
 
               {/* Zone 3 - Output */}
@@ -175,18 +175,18 @@ export function ArchitectureSection() {
                   >
                     <div
                       className="text-xs font-bold uppercase tracking-wider"
-                      style={{ color: '#10D97A', fontFamily: 'var(--font-mono)' }}
+                      style={{ color: 'var(--success)', fontFamily: 'var(--font-mono)' }}
                     >
                       03 · What you get
                     </div>
                   </div>
                 </div>
 
-                <ArchBox icon={<FileJson className="w-5 h-5" />} label="Structured JSON" color="#10D97A" description="Comparison table: company, pricing, features, confidence" />
+                <ArchBox icon={<FileJson className="w-5 h-5" />} label="Structured JSON" color="var(--success)" description="Comparison table: company, pricing, features, confidence" />
                 <FlowArrow />
-                <ArchBox icon={<Volume2 className="w-5 h-5" />} label="ElevenLabs Vera" color="#818CF8" description="Spoken briefing you can listen to in the app" />
+                <ArchBox icon={<Volume2 className="w-5 h-5" />} label="ElevenLabs Vera" color="var(--vera-voice)" description="Spoken briefing you can listen to in the app" />
                 <FlowArrow />
-                <ArchBox icon={<Monitor className="w-5 h-5" />} label="This app" color="#94A3B8" description="Sort, export CSV/HTML, view sources, replay Vera" />
+                <ArchBox icon={<Monitor className="w-5 h-5" />} label="This app" color="var(--text-secondary)" description="Sort, export CSV/HTML, view sources, replay Vera" />
               </motion.div>
             </div>
 
@@ -195,8 +195,8 @@ export function ArchitectureSection() {
               <defs>
                 <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" style={{ stopColor: 'var(--accent)', stopOpacity: 0.3 }} />
-                  <stop offset="50%" style={{ stopColor: '#F59E0B', stopOpacity: 0.3 }} />
-                  <stop offset="100%" style={{ stopColor: '#10D97A', stopOpacity: 0.3 }} />
+                  <stop offset="50%" style={{ stopColor: 'var(--warning)', stopOpacity: 0.3 }} />
+                  <stop offset="100%" style={{ stopColor: 'var(--success)', stopOpacity: 0.3 }} />
                 </linearGradient>
               </defs>
               <motion.line
@@ -226,8 +226,8 @@ export function ArchitectureSection() {
           >
             {[
               { step: 1, label: 'Input', color: 'var(--accent)' },
-              { step: 2, label: 'Process', color: '#F59E0B' },
-              { step: 3, label: 'Output', color: '#10D97A' },
+              { step: 2, label: 'Process', color: 'var(--warning)' },
+              { step: 3, label: 'Output', color: 'var(--success)' },
             ].map(({ step, label, color }) => (
               <div key={step} className="flex items-center gap-2">
                 <div
@@ -262,7 +262,7 @@ export function ArchitectureSection() {
               className="px-4 py-3 flex items-center gap-2"
               style={{
                 backgroundColor: 'var(--accent-glow)',
-                borderBottom: '1px solid rgba(10, 95, 232, 0.2)',
+                borderBottom: '1px solid var(--accent-pill-border)',
               }}
             >
               <span
@@ -273,9 +273,9 @@ export function ArchitectureSection() {
               </span>
             </div>
             <div className="p-4 space-y-3">
-              <ArchBox compact icon={<Mic className="w-4 h-4" />} label="You type or speak" color="#94A3B8" description="e.g. “Compare top 5 CRM tools” — text or voice in the hero" />
-              <ArchBox compact icon={<Brain className="w-4 h-4" />} label="Gemini 2.0 Flash" color="#3B82F6" description="Understands your intent and optional voice transcription" isKey />
-              <ArchBox compact icon={<Brain className="w-4 h-4" />} label="ADK Agent Loop" color="#3B82F6" description="Plans which sites to visit and what to extract" />
+              <ArchBox compact icon={<Mic className="w-4 h-4" />} label="You type or speak" color="var(--text-secondary)" description="e.g. &#34;Compare top 5 CRM tools&#34; — text or voice in the hero" />
+              <ArchBox compact icon={<Brain className="w-4 h-4" />} label="Gemini 2.0 Flash" color="var(--accent)" description="Understands your intent and optional voice transcription" isKey />
+              <ArchBox compact icon={<Brain className="w-4 h-4" />} label="ADK Agent Loop" color="var(--accent)" description="Plans which sites to visit and what to extract" />
             </div>
           </motion.div>
 
@@ -312,17 +312,17 @@ export function ArchitectureSection() {
             >
               <span
                 className="text-xs font-bold uppercase tracking-wider"
-                style={{ color: '#F59E0B', fontFamily: 'var(--font-mono)' }}
+                style={{ color: 'var(--warning)', fontFamily: 'var(--font-mono)' }}
               >
                 02 · How we research the web
               </span>
             </div>
             <div className="p-4 space-y-3">
-              <ArchBox compact icon={<Globe className="w-4 h-4" />} label="Playwright Browser" color="#94A3B8" description="Visits live sites and captures screenshots (no DOM access)" />
-              <ArchBox compact icon={<Zap className="w-4 h-4" />} label="Firecrawl API" color="#F59E0B" description="Fast structured extraction when the page allows it" />
-              <ArchBox compact icon={<Eye className="w-4 h-4" />} label="Gemini Vision" color="#3B82F6" description="Reads screenshots like a human — works on any site" />
-              <ArchBox compact icon={<CheckCircle className="w-4 h-4" />} label="Perplexity Verify" color="#10D97A" description="Cross-checks key facts against the live web" />
-              <ArchBox compact icon={<Database className="w-4 h-4" />} label="Firestore Session" color="#3B82F6" description="Stores session state and results" />
+              <ArchBox compact icon={<Globe className="w-4 h-4" />} label="Playwright Browser" color="var(--text-secondary)" description="Visits live sites and captures screenshots (no DOM access)" />
+              <ArchBox compact icon={<Zap className="w-4 h-4" />} label="Firecrawl API" color="var(--warning)" description="Fast structured extraction when the page allows it" />
+              <ArchBox compact icon={<Eye className="w-4 h-4" />} label="Gemini Vision" color="var(--accent)" description="Reads screenshots like a human — works on any site" />
+              <ArchBox compact icon={<CheckCircle className="w-4 h-4" />} label="Perplexity Verify" color="var(--success)" description="Cross-checks key facts against the live web" />
+              <ArchBox compact icon={<Database className="w-4 h-4" />} label="Firestore Session" color="var(--accent)" description="Stores session state and results" />
             </div>
           </motion.div>
 
@@ -334,7 +334,7 @@ export function ArchitectureSection() {
               className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{ backgroundColor: 'var(--bg-elevated)', border: '2px solid var(--border-strong)' }}
             >
-              <ArrowRight className="w-5 h-5 rotate-90" style={{ color: '#F59E0B', opacity: 0.8 }} />
+              <ArrowRight className="w-5 h-5 rotate-90" style={{ color: 'var(--warning)', opacity: 0.8 }} />
             </motion.div>
           </div>
 
@@ -359,70 +359,18 @@ export function ArchitectureSection() {
             >
               <span
                 className="text-xs font-bold uppercase tracking-wider"
-                style={{ color: '#10D97A', fontFamily: 'var(--font-mono)' }}
+                style={{ color: 'var(--success)', fontFamily: 'var(--font-mono)' }}
               >
                 03 · What you get
               </span>
             </div>
             <div className="p-4 space-y-3">
-              <ArchBox compact icon={<FileJson className="w-4 h-4" />} label="Structured JSON" color="#10D97A" description="Comparison table: company, pricing, features, confidence" />
-              <ArchBox compact icon={<Volume2 className="w-4 h-4" />} label="ElevenLabs Vera" color="#818CF8" description="Spoken briefing you can listen to in the app" />
-              <ArchBox compact icon={<Monitor className="w-4 h-4" />} label="This app" color="#94A3B8" description="Sort, export CSV/HTML, view sources, replay Vera" />
+              <ArchBox compact icon={<FileJson className="w-4 h-4" />} label="Structured JSON" color="var(--success)" description="Comparison table: company, pricing, features, confidence" />
+              <ArchBox compact icon={<Volume2 className="w-4 h-4" />} label="ElevenLabs Vera" color="var(--vera-voice)" description="Spoken briefing you can listen to in the app" />
+              <ArchBox compact icon={<Monitor className="w-4 h-4" />} label="This app" color="var(--text-secondary)" description="Sort, export CSV/HTML, view sources, replay Vera" />
             </div>
           </motion.div>
         </div>
-
-        {/* Key Technologies Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-16 sm:mt-20 md:mt-24 pt-10 sm:pt-14 md:pt-16 border-t"
-          style={{ borderColor: 'var(--border)' }}
-        >
-          <div className="text-center mb-10">
-            <div
-              className="text-xs uppercase tracking-wider"
-              style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}
-            >
-              CORE TECHNOLOGIES
-            </div>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-            {[
-              { name: 'Gemini 2.0', type: 'LLM' },
-              { name: 'Google ADK', type: 'Orchestration' },
-              { name: 'Playwright', type: 'Browser' },
-              { name: 'Firecrawl', type: 'Scraping' },
-              { name: 'Perplexity', type: 'Verification' },
-              { name: 'ElevenLabs', type: 'Voice' },
-              { name: 'Firestore', type: 'Database' },
-              { name: 'Cloud Run', type: 'Hosting' },
-            ].map((tech, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                transition={{ delay: 0.9 + i * 0.05, duration: 0.3 }}
-                className="px-5 py-3 rounded-lg border"
-                style={{
-                  backgroundColor: 'var(--bg-elevated)',
-                  borderColor: 'var(--border-strong)',
-                }}
-              >
-                <div className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
-                  {tech.name}
-                </div>
-                <div
-                  className="text-xs"
-                  style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}
-                >
-                  {tech.type}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

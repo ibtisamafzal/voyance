@@ -2,6 +2,6 @@
    Font-face fallback definitions keep layout stable before fonts arrive. */
 
 :root {
-    --font-geist: 'Geist', system-ui, -apple-system, sans-serif;
-    --font-mono: 'DM Mono', ui-monospace, 'Cascadia Code', monospace;
+  --font-geist: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "Cascadia Code", monospace;
 }
