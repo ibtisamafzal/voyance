@@ -36,3 +36,4 @@ npm-debug.log*
 # Optional / archive (remove before public view)
 _to_remove/
 *.local
+.vercel

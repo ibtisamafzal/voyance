@@ -32,8 +32,12 @@ export default defineConfig({
         // Manual chunk splitting — separates large vendor libs from app code
         // This gives Vercel/CDN better caching granularity
         manualChunks(id) {
-          // Core React runtime — tiny, always needed
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+          // Core React runtime + router — must be together to avoid circular deps
+          if (
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/react-router')
+          ) {
             return 'react-core';
           }
           // Motion/framer — large animation library, used everywhere but can be deferred
