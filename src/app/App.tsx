@@ -28,6 +28,7 @@ function AppShell() {
   const [darkMode, setDarkMode] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const location = useLocation();
+  const heroRoute = location.pathname === '/' || location.pathname === '/research';
 
   useEffect(() => {
     // Prevent browsers from restoring stale scroll positions between routes.
@@ -64,9 +65,9 @@ function AppShell() {
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: 'var(--font-geist)' }}>
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onStartGuide={() => setGuideOpen(true)} />
-      {/* Spacer for fixed navbar */}
-      <div className="h-[56px] sm:h-[60px] md:h-[64px]" />
-      <main>
+      {/* Spacer for fixed navbar - skipped on hero routes where section paddings already account for navbar height */}
+      {!heroRoute && <div className="h-[56px] sm:h-[60px] md:h-[64px]" />}
+      <main className="overflow-x-hidden">
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
             <Route path="/" element={<LandingPage />} />

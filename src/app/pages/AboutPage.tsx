@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Target, Cpu, Lock, Bot, Eye, Brain, Volume2, Shield, Zap, Database } from 'lucide-react';
+import { useReduceMotion } from '../hooks/useReduceMotion';
 
 const PILLARS = [
   {
@@ -38,6 +39,8 @@ const TECH_STACK = [
 const TITLE_WORDS = ['About', 'Voyance'];
 
 export default function AboutPage() {
+  const reduceMotion = useReduceMotion();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -50,17 +53,35 @@ export default function AboutPage() {
       transition={{ duration: 0.4 }}
     >
       {/* Header */}
-      <section className="pt-12 sm:pt-16 pb-12 sm:pb-16 text-center">
+      <section className="pt-8 sm:pt-10 pb-12 sm:pb-16 text-center">
         <div className="max-w-[800px] mx-auto px-4 sm:px-6 md:px-10 space-y-5">
-          <h1 className="overflow-hidden">
+          <motion.div
+            initial={reduceMotion ? {} : { opacity: 0, scale: 0.96 }}
+            animate={reduceMotion ? {} : { opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.3, type: 'spring' }}
+          >
+            <span
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider"
+              style={{
+                backgroundColor: 'var(--accent-glow)',
+                color: 'var(--accent)',
+                border: '1px solid var(--accent-pill-border)',
+                fontFamily: 'var(--font-mono)',
+                letterSpacing: '0.08em',
+              }}
+            >
+              About
+            </span>
+          </motion.div>
+          <h1>
             <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
               {TITLE_WORDS.map((word, i) => (
                 <motion.span
                   key={i}
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
+                  initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
+                  animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 + i * 0.05, duration: 0.5, type: 'spring', damping: 20, stiffness: 300 }}
-                  style={{ color: 'var(--text-primary)', display: 'inline-block' }}
+                  style={{ color: i === TITLE_WORDS.length - 1 ? 'var(--accent)' : 'var(--text-primary)', display: 'inline-block' }}
                 >
                   {word}
                 </motion.span>
@@ -68,10 +89,10 @@ export default function AboutPage() {
             </div>
           </h1>
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduceMotion ? {} : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.4 }}
-            className="text-base sm:text-lg"
+            className="text-base sm:text-lg max-w-[700px] mx-auto"
             style={{ color: 'var(--text-secondary)' }}
           >
             An AI-powered research agent that sees the web like an analyst does —

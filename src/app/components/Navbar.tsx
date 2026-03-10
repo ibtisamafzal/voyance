@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X, HelpCircle, Rocket } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation } from 'react-router';
+import { BrandLogo } from './BrandLogo';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -40,12 +41,12 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+      className={`fixed top-0 left-0 right-0 z-50 overflow-x-clip transition-all duration-300 ${scrolled
         ? 'shadow-sm border-b'
         : ''
         }`}
       style={{
-        backgroundColor: scrolled ? 'var(--surface-glass)' : 'var(--bg-primary)',
+        backgroundColor: scrolled ? 'var(--surface-glass)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
         borderColor: scrolled ? 'var(--border)' : 'transparent',
@@ -56,21 +57,11 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
           {/* Logo */}
           <div className="flex-1 flex justify-start">
             <Link to="/" className="flex items-center gap-2.5 group">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105"
-                style={{ backgroundColor: 'var(--accent)', color: 'white' }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 2L14 6V10L8 14L2 10V6L8 2Z" fill="currentColor" fillOpacity="0.9"/>
-                  <circle cx="8" cy="8" r="2.5" fill="white" fillOpacity="0.9"/>
-                </svg>
-              </div>
-              <span
-                className="text-lg font-bold tracking-tight"
-                style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-geist)' }}
-              >
-                Voyance
-              </span>
+              <BrandLogo
+                iconSize={32}
+                iconClassName="transition-transform group-hover:scale-105"
+                textClassName="text-lg"
+              />
             </Link>
           </div>
 
