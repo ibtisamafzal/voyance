@@ -267,7 +267,7 @@ export function HeroSection() {
   }, [isRedirectRecording, sendRedirect]);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="hero" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Animated Mesh Gradient Background — skipped on mobile for perf */}
       {!reduceMotion && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -337,8 +337,8 @@ export function HeroSection() {
         </div>
       )}
 
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 py-8 sm:py-10 md:py-12 relative z-10">
-        <div className="text-center max-w-[900px] mx-auto space-y-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 pt-[72px] pb-8 sm:pt-[80px] sm:pb-10 md:py-12 relative z-10">
+        <div className="text-center max-w-[900px] mx-auto space-y-6 sm:space-y-8">
           {/* Eyebrow Label — solid tint + primary text for WCAG contrast */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
