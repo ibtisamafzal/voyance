@@ -13,6 +13,7 @@ interface NavbarProps {
 export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [touchDesktopView, setTouchDesktopView] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -28,6 +29,35 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const coarseQuery = window.matchMedia('(pointer: coarse)');
+    const updateTouchDesktopView = () => {
+      const isTouch = coarseQuery.matches || navigator.maxTouchPoints > 0;
+      setTouchDesktopView(isTouch && window.innerWidth >= 760);
+    };
+
+    updateTouchDesktopView();
+    window.addEventListener('resize', updateTouchDesktopView, { passive: true });
+
+    if (typeof coarseQuery.addEventListener === 'function') {
+      coarseQuery.addEventListener('change', updateTouchDesktopView);
+    } else {
+      coarseQuery.addListener(updateTouchDesktopView);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateTouchDesktopView);
+      if (typeof coarseQuery.removeEventListener === 'function') {
+        coarseQuery.removeEventListener('change', updateTouchDesktopView);
+      } else {
+        coarseQuery.removeListener(updateTouchDesktopView);
+      }
+    };
+  }, []);
+
+  const touchMode = touchDesktopView;
+  const navElevated = scrolled || touchMode;
+
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'Research Lab', href: '/research' },
@@ -41,19 +71,19 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 overflow-x-clip transition-all duration-300 ${scrolled
+      className={`fixed top-0 left-0 right-0 z-50 overflow-x-clip transition-all duration-300 ${navElevated
         ? 'shadow-sm border-b'
         : ''
         }`}
       style={{
-        backgroundColor: scrolled ? 'var(--surface-glass)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        borderColor: scrolled ? 'var(--border)' : 'transparent',
+        backgroundColor: navElevated ? 'var(--surface-glass)' : 'transparent',
+        backdropFilter: navElevated ? 'blur(20px) saturate(180%)' : 'none',
+        WebkitBackdropFilter: navElevated ? 'blur(20px) saturate(180%)' : 'none',
+        borderColor: navElevated ? 'var(--border)' : 'transparent',
       }}
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
-        <div className="flex items-center h-[56px] sm:h-[60px] md:h-[64px]">
+        <div className={`flex items-center ${touchMode ? 'h-[60px]' : 'h-[56px] sm:h-[60px] md:h-[64px]'}`}>
           {/* Logo */}
           <div className="flex-1 flex justify-start">
             <Link to="/" className="flex items-center gap-2.5 group">
@@ -66,7 +96,7 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
           </div>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className={`${touchMode ? 'hidden' : 'hidden md:flex'} items-center gap-1`}>
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href;
               return (
@@ -103,7 +133,7 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
             {onStartTour && (
               <button
                 onClick={onStartTour}
-                className="hidden sm:flex items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-lg transition-colors"
+                className={`${touchMode ? 'hidden' : 'hidden sm:flex'} items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-lg transition-colors`}
                 style={{ color: 'var(--text-secondary)' }}
                 onMouseEnter={e => {
                   e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
@@ -124,7 +154,7 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
             {location.pathname !== '/research' && (
               <Link
                 to="/research"
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-all hover:scale-105"
+                className={`${touchMode ? 'hidden' : 'hidden sm:inline-flex'} items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-all hover:scale-105`}
                 style={{ backgroundColor: 'var(--accent)' }}
               >
                 <Rocket className="w-3.5 h-3.5" />
@@ -161,7 +191,7 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg transition-colors"
+              className={`${touchMode ? 'flex' : 'md:hidden flex'} items-center justify-center w-10 h-10 rounded-lg transition-colors`}
               style={{ color: 'var(--text-primary)' }}
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
@@ -180,7 +210,7 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden border-t"
+            className={`${touchMode ? '' : 'md:hidden'} overflow-hidden border-t`}
             style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border)' }}
           >
             <div className="px-4 py-3 flex flex-col gap-1">
