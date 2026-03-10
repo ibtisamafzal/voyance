@@ -89,28 +89,40 @@ export function LandingHero() {
         <h1 className="mb-6">
           <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
             {words1.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
-                animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 + i * 0.05, duration: 0.5, type: 'spring', damping: 20, stiffness: 300 }}
-                style={{ color: 'var(--text-primary)', display: 'inline-block' }}
-              >
-                {word}
-              </motion.span>
+              reduceMotion ? (
+                <span key={i} style={{ color: 'var(--text-primary)', display: 'inline-block' }}>
+                  {word}
+                </span>
+              ) : (
+                <motion.span
+                  key={i}
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 + i * 0.05, duration: 0.5, type: 'spring', damping: 20, stiffness: 300 }}
+                  style={{ color: 'var(--text-primary)', display: 'inline-block' }}
+                >
+                  {word}
+                </motion.span>
+              )
             ))}
           </div>
           <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
             {words2.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
-                animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
-                transition={{ delay: 0.45 + i * 0.05, duration: 0.5, type: 'spring', damping: 20, stiffness: 300 }}
-                style={{ color: 'var(--accent)', display: 'inline-block' }}
-              >
-                {word}
-              </motion.span>
+              reduceMotion ? (
+                <span key={i} style={{ color: 'var(--accent)', display: 'inline-block' }}>
+                  {word}
+                </span>
+              ) : (
+                <motion.span
+                  key={i}
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.45 + i * 0.05, duration: 0.5, type: 'spring', damping: 20, stiffness: 300 }}
+                  style={{ color: 'var(--accent)', display: 'inline-block' }}
+                >
+                  {word}
+                </motion.span>
+              )
             ))}
           </div>
         </h1>

@@ -5,10 +5,10 @@ import { Navbar } from './components/Navbar';
 import { TourGuide } from './components/TourGuide';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Footer } from './components/Footer';
+import LandingPage from './pages/LandingPage';
+import AppPage from './pages/AppPage';
 
 // Route-level code splitting — only split pages the user hasn't navigated to yet
-const LandingPage = lazy(() => import('./pages/LandingPage'));
-const AppPage = lazy(() => import('./pages/AppPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
@@ -54,14 +54,6 @@ function AppShell() {
       window.scrollTo(0, 0);
     }
   }, [location.pathname, location.hash]);
-
-  // Show guide automatically every time the user lands on "/"
-  useEffect(() => {
-    if (location.pathname === '/') {
-      const timer = setTimeout(() => setGuideOpen(true), 600);
-      return () => clearTimeout(timer);
-    }
-  }, [location.pathname]);
 
   const closeGuide = () => {
     setGuideOpen(false);

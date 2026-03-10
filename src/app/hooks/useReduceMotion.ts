@@ -5,14 +5,24 @@ import { useState, useEffect } from 'react';
  * Use to skip heavy blur/scale animations on mobile for better performance.
  */
 export function useReduceMotion(): boolean {
-  const [reduce, setReduce] = useState(false);
+  const [reduce, setReduce] = useState(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return false;
+    }
+    return window.matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)').matches;
+  });
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)');
     const update = () => setReduce(mq.matches);
     update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', update);
+      return () => mq.removeEventListener('change', update);
+    }
+    // Safari fallback
+    mq.addListener(update);
+    return () => mq.removeListener(update);
   }, []);
 
   return reduce;
