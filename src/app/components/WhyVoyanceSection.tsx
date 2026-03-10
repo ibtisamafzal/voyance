@@ -15,7 +15,7 @@ const COMPARISONS: ComparisonRow[] = [
   { feature: 'Structures data into comparison tables', manual: false, chatbots: false, voyance: true },
   { feature: 'Cross-checks facts automatically', manual: false, chatbots: false, voyance: true },
   { feature: 'Delivers spoken analyst briefings', manual: false, chatbots: false, voyance: true },
-  { feature: 'Completes in under 90 seconds', manual: false, chatbots: true, voyance: true },
+  { feature: 'Completes in minutes', manual: false, chatbots: true, voyance: true },
 ];
 
 const DIFFERENTIATORS = [
@@ -27,12 +27,12 @@ const DIFFERENTIATORS = [
   {
     icon: <ShieldCheck className="w-5 h-5" />,
     title: 'Built-In Fact Checking',
-    description: 'Every extracted data point is cross-verified through Perplexity before it reaches you. No hallucinated numbers.',
+    description: 'Key pricing claims are cross-verified through Perplexity before results are finalized.',
   },
   {
     icon: <Globe className="w-5 h-5" />,
     title: 'Works on Any Website',
-    description: 'No APIs or integrations needed. If you can see it in a browser, Voyance can read and extract from it.',
+    description: 'No APIs or integrations needed. If content is visible in a browser screenshot, Voyance can attempt to read and extract it.',
   },
   {
     icon: <Headphones className="w-5 h-5" />,

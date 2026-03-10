@@ -452,7 +452,7 @@ export function HeroSection() {
               style={{ color: 'var(--text-secondary)' }}
             >
               Voyance navigates any website visually — no APIs, no DOM access. Just pure AI vision,
-              orchestrated by Gemini + Google ADK, delivered through Vera's voice.
+              powered by Gemini + a custom agent loop, delivered through Vera's voice.
             </motion.p>
           </div>
 
@@ -761,7 +761,7 @@ export function HeroSection() {
             transition={{ delay: 0.95, duration: 0.3, staggerChildren: 0.06 }}
             className="flex flex-wrap justify-center gap-4"
           >
-            {['✓ Gemini Live API', '✓ Google Cloud Run', '✓ ADK Orchestrated'].map((item, i) => (
+            {['✓ Google GenAI SDK', '✓ Google Cloud Run', '✓ Custom Agent Loop'].map((item, i) => (
               <motion.span
                 key={i}
                 initial={{ opacity: 0 }}

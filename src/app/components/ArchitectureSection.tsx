@@ -123,7 +123,7 @@ export function ArchitectureSection() {
                 <FlowArrow />
                 <ArchBox icon={<Brain className="w-5 h-5" />} label="Gemini 2.0 Flash" color="var(--accent)" description="Understands your intent and optional voice transcription" isKey />
                 <FlowArrow />
-                <ArchBox icon={<Brain className="w-5 h-5" />} label="ADK Agent Loop" color="var(--accent)" description="Plans which sites to visit and what to extract" />
+                <ArchBox icon={<Brain className="w-5 h-5" />} label="Custom Agent Loop" color="var(--accent)" description="Plans which sites to visit and what to extract" />
               </motion.div>
 
               {/* Zone 2 - Processing */}
@@ -231,7 +231,7 @@ const CAROUSEL_CARDS = [
     items: [
       { icon: <Mic className="w-4 h-4" />, label: 'You type or speak', color: 'var(--text-secondary)', description: 'e.g. "Compare top 5 CRM tools" — text or voice in the hero' },
       { icon: <Brain className="w-4 h-4" />, label: 'Gemini 2.0 Flash', color: 'var(--accent)', description: 'Understands your intent and optional voice transcription', isKey: true },
-      { icon: <Brain className="w-4 h-4" />, label: 'ADK Agent Loop', color: 'var(--accent)', description: 'Plans which sites to visit and what to extract' },
+      { icon: <Brain className="w-4 h-4" />, label: 'Custom Agent Loop', color: 'var(--accent)', description: 'Plans which sites to visit and what to extract' },
     ],
   },
   {

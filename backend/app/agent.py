@@ -1,5 +1,5 @@
 """
-Voyance Agent — ADK-style Plan → Navigate → Extract → Verify → Report loop.
+Voyance Agent — Plan → Navigate → Extract → Verify → Report loop.
 Orchestrates all sub-services and streams real-time updates over WebSocket.
 """
 
@@ -46,7 +46,7 @@ async def run_research(
     on_update: UpdateCallback,
 ) -> ResearchSession:
     """
-    Main ADK agent loop. Runs asynchronously, calls on_update for each step.
+    Main custom async agent loop. Runs asynchronously, calls on_update for each step.
     """
     _active_sessions[session.session_id] = session
     session.status = SessionStatus.RUNNING
