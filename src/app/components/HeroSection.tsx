@@ -267,7 +267,7 @@ export function HeroSection() {
   }, [isRedirectRecording, sendRedirect]);
 
   return (
-    <section id="hero" className="relative min-h-[100dvh] flex items-start md:items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="hero" className="relative min-h-[100dvh] flex items-start md:items-center justify-center overflow-x-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Animated Mesh Gradient Background — skipped on mobile for perf */}
       {!reduceMotion && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -337,7 +337,7 @@ export function HeroSection() {
         </div>
       )}
 
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 pt-[72px] pb-8 sm:pt-[80px] sm:pb-10 md:py-12 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-5 md:px-10 pt-[calc(72px+env(safe-area-inset-top))] pb-8 sm:pt-[84px] sm:pb-10 md:pt-[96px] md:pb-12 relative z-10">
         <div className="text-center max-w-[900px] mx-auto space-y-6 sm:space-y-8">
           {/* Eyebrow Label — solid tint + primary text for WCAG contrast */}
           <motion.div
@@ -360,14 +360,14 @@ export function HeroSection() {
 
           {/* Main Headline */}
           <div className="space-y-2 px-1">
-            <h1 className="overflow-hidden">
+            <h1>
               {/* Line 1 */}
               <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
                 {words1.map((word, i) => (
                   <motion.span
                     key={i}
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
+                    initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
+                    animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
                     transition={{
                       delay: 0.2 + i * 0.05,
                       duration: 0.5,
@@ -387,8 +387,8 @@ export function HeroSection() {
                 {words2.map((word, i) => (
                   <motion.span
                     key={i}
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
+                    initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
+                    animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
                     transition={{
                       delay: 0.4 + i * 0.05,
                       duration: 0.5,
@@ -408,8 +408,8 @@ export function HeroSection() {
                 {words3.map((word, i) => (
                   <motion.span
                     key={i}
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
+                    initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
+                    animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
                     transition={{
                       delay: 0.55 + i * 0.05,
                       duration: 0.5,
