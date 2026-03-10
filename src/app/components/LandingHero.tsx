@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router';
@@ -12,10 +12,28 @@ interface DotPoint {
   vx: number;
   vy: number;
   r: number;
+  phaseX: number;
+  phaseY: number;
+  amp: number;
+  speed: number;
 }
 
 export function LandingHero() {
   const reduceMotion = useReduceMotion();
+  const [compactTouchDesktopHero, setCompactTouchDesktopHero] = useState(false);
+
+  useEffect(() => {
+    const updateCompactMode = () => {
+      // Mobile browsers in "desktop site" mode report a wide viewport but still coarse pointer.
+      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const isDesktopWidth = window.innerWidth >= 900;
+      setCompactTouchDesktopHero(isTouch && isDesktopWidth);
+    };
+
+    updateCompactMode();
+    window.addEventListener('resize', updateCompactMode);
+    return () => window.removeEventListener('resize', updateCompactMode);
+  }, []);
 
   const words1 = ['Research', 'the', 'web', 'the', 'way'];
   const words2 = ['an', 'analyst', 'does'];
@@ -23,7 +41,10 @@ export function LandingHero() {
   return (
     <section
       className="relative min-h-[100dvh] overflow-hidden"
-      style={{ backgroundColor: 'var(--bg-primary)' }}
+      style={{
+        backgroundColor: 'var(--bg-primary)',
+        minHeight: compactTouchDesktopHero ? '88dvh' : '100dvh',
+      }}
     >
       {/* Atmospheric + cursor-reactive dots background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -216,14 +237,26 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const spacing = width < 640 ? 20 : 24;
-      const jitter = spacing * 0.1;
+      const spacing = width < 640 ? 28 : 24;
+      const jitter = spacing * 0.08;
       const nextDots: DotPoint[] = [];
       for (let y = 0; y <= height + spacing; y += spacing) {
         for (let x = 0; x <= width + spacing; x += spacing) {
           const jx = x + (Math.random() - 0.5) * jitter;
           const jy = y + (Math.random() - 0.5) * jitter;
-          nextDots.push({ baseX: jx, baseY: jy, x: jx, y: jy, vx: 0, vy: 0, r: 1.15 });
+          nextDots.push({
+            baseX: jx,
+            baseY: jy,
+            x: jx,
+            y: jy,
+            vx: 0,
+            vy: 0,
+            r: 1.15,
+            phaseX: Math.random() * Math.PI * 2,
+            phaseY: Math.random() * Math.PI * 2,
+            amp: 0.8 + Math.random() * 1.2,
+            speed: 0.00024 + Math.random() * 0.00024,
+          });
         }
       }
       dotsRef.current = nextDots;
@@ -235,24 +268,32 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
 
       const { x: mx, y: my, active } = pointerRef.current;
       const now = performance.now();
+      const isMobile = width < 640;
       const idleDelayMs = 2200;
       const idleDimStrength = 0.33;
-      const isIdle = pointerStartedRef.current && now - lastPointerMoveAtRef.current > idleDelayMs;
-      const intensityTarget = isIdle ? idleDimStrength : 1;
-      intensityRef.current += (intensityTarget - intensityRef.current) * 0.08;
+      const isIdle = !isMobile && pointerStartedRef.current && now - lastPointerMoveAtRef.current > idleDelayMs;
+      const intensityTarget = isMobile ? 0.62 : (isIdle ? idleDimStrength : 1);
+      intensityRef.current += (intensityTarget - intensityRef.current) * (isMobile ? 0.045 : 0.08);
       const intensity = intensityRef.current;
-      const interactionActive = active && !isIdle;
+      const interactionActive = !isMobile && active && !isIdle;
 
-      const radius = width < 640 ? 150 : 210;
+      const radius = 210;
       const radiusSq = radius * radius;
-      const repel = width < 640 ? 2.15 : 2.85;
-      const spring = 0.05;
-      const friction = 0.8;
+      const repel = 2.85;
+      const spring = isMobile ? 0.028 : 0.05;
+      const friction = isMobile ? 0.88 : 0.8;
 
       ctx.fillStyle = colorRef.current;
 
       for (const dot of dotsRef.current) {
         let influenced = false;
+        const ambientTargetX = isMobile
+          ? dot.baseX + Math.sin(now * dot.speed + dot.phaseX) * dot.amp
+          : dot.baseX;
+        const ambientTargetY = isMobile
+          ? dot.baseY + Math.cos(now * dot.speed * 0.9 + dot.phaseY) * dot.amp
+          : dot.baseY;
+
         if (!reduceMotion && interactionActive) {
           const dx = dot.x - mx;
           const dy = dot.y - my;
@@ -266,22 +307,22 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
           }
         }
 
-        dot.vx += (dot.baseX - dot.x) * spring;
-        dot.vy += (dot.baseY - dot.y) * spring;
+        dot.vx += (ambientTargetX - dot.x) * spring;
+        dot.vy += (ambientTargetY - dot.y) * spring;
         dot.vx *= friction;
         dot.vy *= friction;
         dot.x += dot.vx;
         dot.y += dot.vy;
 
-        const d = Math.hypot(dot.x - dot.baseX, dot.y - dot.baseY);
+        const d = Math.hypot(dot.x - ambientTargetX, dot.y - ambientTargetY);
         const accentMix = Math.min(1, d / 16);
-        const drawR = dot.r + Math.min(1.9, d * 0.05);
+        const drawR = dot.r + Math.min(isMobile ? 0.7 : 1.9, d * (isMobile ? 0.03 : 0.05));
         const highlight = influenced || (interactionActive && d > 0.7);
 
         ctx.fillStyle = highlight ? accentRef.current : colorRef.current;
         const alpha = highlight
-          ? 0.2 + accentMix * 0.62
-          : 0.06 + Math.min(0.08, d * 0.01);
+          ? (isMobile ? 0.18 + accentMix * 0.25 : 0.2 + accentMix * 0.62)
+          : (isMobile ? 0.11 + Math.min(0.03, d * 0.03) : 0.06 + Math.min(0.08, d * 0.01));
         ctx.globalAlpha = alpha * intensity;
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, drawR, 0, Math.PI * 2);
