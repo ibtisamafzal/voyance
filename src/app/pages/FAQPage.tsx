@@ -26,11 +26,11 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Can I redirect the agent mid-research?',
-    a: 'Yes. Voyance supports voice barge-in — you can interrupt Vera mid-session with a new instruction, and the agent replans within seconds. You can also type redirect instructions.',
+    a: 'Yes. Voyance supports voice and typed interrupts during a run. New instructions are queued, and the agent replans on the next loop iteration.',
   },
   {
     q: 'What technologies power Voyance?',
-    a: 'Gemini 2.0 Flash (intent + vision), Google ADK (agent orchestration), Playwright (headless browsing), Firecrawl (fast extraction fallback), Perplexity (fact verification), ElevenLabs (Vera TTS), FastAPI + Cloud Run (backend), React + Vite (frontend).',
+    a: 'Gemini 2.0 Flash via Google GenAI SDK (intent + vision), a custom async agent loop, Playwright (headless browsing), Firecrawl (fast extraction fallback), Perplexity (fact verification), ElevenLabs (Vera TTS), FastAPI + Cloud Run (backend), React + Vite (frontend).',
   },
   {
     q: 'Is Voyance free to use?',
@@ -38,7 +38,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Can I export the research results?',
-    a: 'Yes. Results can be exported as CSV or full HTML reports directly from the output table. You can also sort by any column and filter by confidence level.',
+    a: 'Yes. Results can be exported as CSV or full HTML reports directly from the output table. You can also sort by key columns including confidence level.',
   },
   {
     q: 'How can I contribute or report issues?',

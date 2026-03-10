@@ -26,12 +26,12 @@ const PILLARS = [
     icon: <Bot className="w-6 h-6" />,
     title: 'AI-Powered',
     description:
-      "Gemini powers intent + vision, Google ADK orchestrates the agent loop, ElevenLabs powers Vera's voice briefings, and Perplexity + Firecrawl power research workflows.",
+      "Gemini powers intent + vision, a custom async agent loop orchestrates research, ElevenLabs powers Vera's voice briefings, and Perplexity + Firecrawl power verification and extraction.",
   },
 ];
 
 const TECH_STACK = [
-  { category: '🧠 Intelligence', items: 'Gemini 2.0 Flash, Google ADK, Perplexity' },
+  { category: '🧠 Intelligence', items: 'Gemini 2.0 Flash, Google GenAI SDK, Perplexity' },
   { category: '🔧 App Stack', items: 'React 18, Vite, Tailwind CSS v4, FastAPI, Cloud Run' },
   { category: '🎙️ AI + Voice', items: 'ElevenLabs (Vera TTS), Firecrawl, Playwright' },
 ];

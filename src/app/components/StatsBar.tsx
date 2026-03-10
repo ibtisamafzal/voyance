@@ -21,7 +21,7 @@ const CAPABILITIES = [
   {
     icon: <ShieldCheck className="w-5 h-5" />,
     title: 'Fact Verification',
-    desc: 'Every data point is cross-checked through Perplexity for accuracy and confidence scoring.',
+    desc: 'Key pricing claims are cross-checked through Perplexity for accuracy and confidence scoring.',
   },
   {
     icon: <Headphones className="w-5 h-5" />,

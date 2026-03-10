@@ -115,7 +115,7 @@ async def research_websocket(websocket: WebSocket, session_id: str):
 
 @router.post("/interrupt")
 async def interrupt_research(req: VoiceInterruptRequest):
-    """Mid-session voice redirect — agent replans within 5 seconds."""
+    """Mid-session voice redirect — queues a replan instruction for the running agent."""
     session = agent.get_session(req.session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found or not running")

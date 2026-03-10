@@ -59,7 +59,7 @@ export function PipelineSection() {
       number: '05',
       label: 'SYNTHESIZE',
       icon: <Brain className="w-6 h-6" />,
-      description: 'ADK agent loop compiles structured JSON',
+      description: 'Custom async agent loop compiles structured JSON',
     },
     {
       number: '06',
@@ -101,7 +101,7 @@ export function PipelineSection() {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            AI chain. Under 3 seconds.
+            AI chain. End-to-end in moments.
           </motion.h2>
         </div>
 

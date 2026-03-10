@@ -19,7 +19,7 @@ const GUIDE_STEPS: GuideStep[] = [
     icon: <Zap className="w-5 h-5" />,
     title: 'Why Voyance Exists',
     description:
-      'Unlike chatbots that answer from cached data, Voyance sends a real browser to see websites visually. Every data point is cross-verified. No hallucinations — just real, structured competitive intelligence in seconds.',
+      'Unlike chatbots that answer from cached data, Voyance sends a real browser to see websites visually. Key findings are grounded with verification signals and returned as structured competitive intelligence.',
   },
   {
     icon: <Search className="w-5 h-5" />,
@@ -37,7 +37,7 @@ const GUIDE_STEPS: GuideStep[] = [
     icon: <ShieldCheck className="w-5 h-5" />,
     title: 'Facts Are Verified',
     description:
-      'Every extracted data point is cross-checked through Perplexity. Each result receives a confidence score so you can trust the output.',
+      'Key pricing claims are cross-checked through Perplexity. Each result receives a confidence score so you can assess reliability quickly.',
   },
   {
     icon: <Headphones className="w-5 h-5" />,

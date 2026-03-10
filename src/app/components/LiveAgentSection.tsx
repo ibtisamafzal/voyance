@@ -37,7 +37,7 @@ const DEMO_STEPS: DemoStep[] = [
     icon: <ShieldCheck className="w-5 h-5" />,
     phase: 'STEP 4',
     title: 'Facts are cross-checked',
-    detail: 'Every data point is verified through Perplexity with confidence scores assigned.',
+    detail: 'Key pricing claims are cross-checked through Perplexity with confidence scores assigned.',
     color: 'var(--success)',
   },
   {

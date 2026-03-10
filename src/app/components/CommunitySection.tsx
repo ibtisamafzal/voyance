@@ -23,7 +23,7 @@ export function CommunitySection() {
     return () => observer.disconnect();
   }, []);
 
-  const credits = ['Gemini Live API', 'Google ADK', 'ElevenLabs', 'Firecrawl', 'Perplexity'];
+  const credits = ['Gemini (GenAI SDK)', 'Custom Agent Loop', 'ElevenLabs', 'Firecrawl', 'Perplexity'];
 
   return (
     <section

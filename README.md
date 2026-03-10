@@ -43,7 +43,7 @@ Voyance turns **natural language** into **competitive intelligence** in minutes:
 | **2. The agent** | Plans, visits 3–5 live websites, and “reads” pages with **Gemini multimodal vision** (screenshots only — no DOM scraping) |
 | **3. You get** | A sortable comparison table, CSV/HTML export, and **Vera** (ElevenLabs) reading the briefing aloud |
 
-No DOM hacks, no site-specific APIs. Works on any site, through redesigns. Backend runs on **Google Cloud Run**.
+No DOM hacks, no site-specific APIs. Works across site redesigns. Backend is configured for deployment on **Google Cloud Run**.
 
 ### Features
 
@@ -71,7 +71,7 @@ No DOM hacks, no site-specific APIs. Works on any site, through redesigns. Backe
 | ----------- | ------- |
 | **Gemini model** | Gemini 2.0 Flash (planning, screenshot analysis, synthesis) |
 | **Google GenAI SDK / ADK** | **Google GenAI SDK** (`google-generativeai`): Gemini for planning, vision, synthesis. Custom agent loop (plan → navigate → extract → verify), not the ADK library. |
-| **Google Cloud service** | Backend on **Google Cloud Run** |
+| **Google Cloud service** | Backend deployment target is **Google Cloud Run** (`infra/cloudbuild.yaml`, `infra/main.tf`) |
 | **UI Navigator** | Screenshots analyzed by Gemini vision; agent outputs navigation and extraction actions |
 
 *Third-party: ElevenLabs (Vera TTS), Firecrawl (extraction), Perplexity (fact verification).*
@@ -137,7 +137,7 @@ Frontend: **<http://localhost:5173>**
 | **Extraction** | Firecrawl API → Gemini vision fallback |
 | **Verification** | Perplexity API |
 | **Voice** | ElevenLabs TTS (Vera) |
-| **Backend** | FastAPI, WebSockets; **Google Cloud Run** |
+| **Backend** | FastAPI, WebSockets; **Google Cloud Run** deployment target |
 | **Frontend** | React, Vite, Tailwind |
 | **Infra** | Docker, Cloud Build, Terraform (`infra/`) |
 
@@ -145,7 +145,7 @@ Frontend: **<http://localhost:5173>**
 
 ## Architecture
 
-User and frontend → backend on Google Cloud Run → Gemini, Playwright, Firecrawl, Perplexity, ElevenLabs.
+User and frontend → backend (Cloud Run target) → Gemini, Playwright, Firecrawl, Perplexity, ElevenLabs.
 
 ![Voyance architecture](Architecture%20diagram%20for%20Voyance.png)
 
@@ -227,7 +227,7 @@ Copy `backend/.env.example` to `backend/.env` and set:
 | **Email** | [removed-private-email@example.com](mailto:removed-private-email@example.com) |
 | **LinkedIn** | [linkedin.com/in/ibtisamafzal](https://linkedin.com/in/ibtisamafzal/) |
 
-**Blog:** [How We Built Voyance (DEV)](https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h) · **Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (Deadline: Mar 16, 2026)
+**Blog:** [How We Built Voyance (DEV)](https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h) · **Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (see Devpost for current schedule)
 
 ---
 
