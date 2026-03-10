@@ -30,6 +30,13 @@ function AppShell() {
   const location = useLocation();
 
   useEffect(() => {
+    // Prevent browsers from restoring stale scroll positions between routes.
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useEffect(() => {
     document.documentElement.classList.remove('dark');
   }, []);
 
@@ -40,6 +47,13 @@ function AppShell() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    // Always start each route at the top so hero headings are visible on mobile.
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
 
   // Show guide automatically every time the user lands on "/"
   useEffect(() => {
