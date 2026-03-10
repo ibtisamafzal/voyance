@@ -263,7 +263,7 @@ export function ResearchOutputSection() {
                         className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 border-b"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
                     >
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
                             <div
                                 className="w-2 h-2 rounded-full"
                                 style={{ backgroundColor: 'var(--success)' }}
@@ -396,8 +396,93 @@ export function ResearchOutputSection() {
                         </div>
                     </div>
 
-                    {/* Scrollable Table */}
-                    <div className="overflow-x-auto">
+                    {/* Mobile cards */}
+                    <div className="md:hidden p-4 space-y-3">
+                        {sorted.length === 0 && state.sessionId ? (
+                            <div
+                                className="rounded-xl p-4 text-center"
+                                style={{ border: '1px solid var(--border)', backgroundColor: 'var(--bg-secondary)' }}
+                            >
+                                <p className="text-sm" style={{ color: 'var(--text-secondary)', marginBottom: 4 }}>
+                                    No results - 0 sites visited
+                                </p>
+                                <p className="text-xs" style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                                    Research completed but no data was extracted. Try a broader query.
+                                </p>
+                            </div>
+                        ) : (
+                            sorted.map((row, i) => {
+                                const conf = confLabel[row.confidence];
+                                return (
+                                    <motion.article
+                                        key={`${row.company}-${row.website}-${i}`}
+                                        initial={{ opacity: 0, y: 12 }}
+                                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                                        transition={{ delay: 0.25 + i * 0.05, duration: 0.3 }}
+                                        className="rounded-xl p-4"
+                                        style={{
+                                            border: '1px solid var(--border-strong)',
+                                            backgroundColor: 'var(--bg-secondary)',
+                                        }}
+                                    >
+                                        <div className="flex items-start justify-between gap-3 mb-2">
+                                            <div className="min-w-0">
+                                                <div className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>
+                                                    {row.company}
+                                                </div>
+                                                <div className="text-xs truncate" style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
+                                                    {row.website}
+                                                </div>
+                                            </div>
+                                            <div
+                                                className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold shrink-0"
+                                                style={{ backgroundColor: conf.bg, color: conf.color, fontFamily: 'var(--font-mono)' }}
+                                            >
+                                                {conf.icon}
+                                                {conf.label}
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-2 mb-2">
+                                            <div>
+                                                <div className="text-[10px] uppercase" style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                                                    Pricing
+                                                </div>
+                                                <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                                                    {row.pricing}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] uppercase" style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                                                    Segment
+                                                </div>
+                                                <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                                                    {row.targetSegment}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="mb-2">
+                                            <div className="text-[10px] uppercase mb-0.5" style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                                                Key Feature
+                                            </div>
+                                            <div className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                                                {row.keyFeature}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-1.5 text-xs" style={{ color: row.screenshot ? 'var(--success)' : 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                                            {row.screenshot ? <CheckCircle className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
+                                            {row.screenshot ? 'Screenshotted' : 'Pending'}
+                                        </div>
+                                    </motion.article>
+                                );
+                            })
+                        )}
+                    </div>
+
+                    {/* Desktop scrollable table */}
+                    <div className="hidden md:block overflow-x-auto">
                         <table className="w-full">
                             <thead>
                                 <tr style={{ borderBottom: '1px solid var(--border)' }}>
@@ -534,7 +619,7 @@ export function ResearchOutputSection() {
 
                     {/* Table Footer */}
                     <div
-                        className="px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 border-t"
+                        className="hidden md:flex px-4 sm:px-6 py-3 flex-col sm:flex-row items-center justify-between gap-2 border-t"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
                     >
                         <span
@@ -553,6 +638,20 @@ export function ResearchOutputSection() {
                                 JSON schema: company / pricing_tiers[] / key_features[] / confidence_score
                             </span>
                         </div>
+                    </div>
+
+                    {/* Mobile footer */}
+                    <div
+                        className="md:hidden px-4 py-3 border-t"
+                        style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
+                    >
+                        <span
+                            className="text-xs"
+                            style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}
+                        >
+                            {sorted.length} rows · Perplexity verified
+                            {state.sessionId ? ` · Session ${state.sessionId.slice(0, 8)}` : ''}
+                        </span>
                     </div>
                 </motion.div>
 

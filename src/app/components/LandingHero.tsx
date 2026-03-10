@@ -14,7 +14,7 @@ export function LandingHero() {
 
   return (
     <section
-      className="relative overflow-hidden"
+      className="relative min-h-[100dvh] overflow-x-hidden"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       {/* Grid background pattern */}
@@ -64,7 +64,7 @@ export function LandingHero() {
       </div>
 
       {/* ── Hero top ── */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 pt-10 sm:pt-14 lg:pt-16 pb-12 sm:pb-16 text-center">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 pt-[calc(84px+env(safe-area-inset-top))] sm:pt-[92px] lg:pt-[96px] pb-12 sm:pb-16 text-center">
         {/* Badge */}
         <motion.div
           initial={reduceMotion ? {} : { opacity: 0, scale: 0.96 }}
@@ -86,7 +86,7 @@ export function LandingHero() {
         </motion.div>
 
         {/* Headline — word-by-word spring animation */}
-        <h1 className="mb-6 overflow-hidden">
+        <h1 className="mb-6">
           <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
             {words1.map((word, i) => (
               <motion.span
