@@ -31,27 +31,44 @@ export function Navbar({ darkMode, toggleDarkMode, onStartGuide: onStartTour }: 
 
   useEffect(() => {
     const coarseQuery = window.matchMedia('(pointer: coarse)');
+    const hoverQuery = window.matchMedia('(any-hover: hover)');
+
+    const bindMqListener = (
+      mq: MediaQueryList,
+      handler: () => void
+    ) => {
+      if (typeof mq.addEventListener === 'function') {
+        mq.addEventListener('change', handler);
+      } else {
+        mq.addListener(handler);
+      }
+    };
+
+    const unbindMqListener = (
+      mq: MediaQueryList,
+      handler: () => void
+    ) => {
+      if (typeof mq.removeEventListener === 'function') {
+        mq.removeEventListener('change', handler);
+      } else {
+        mq.removeListener(handler);
+      }
+    };
+
     const updateTouchDesktopView = () => {
-      const isTouch = coarseQuery.matches || navigator.maxTouchPoints > 0;
-      setTouchDesktopView(isTouch && window.innerWidth >= 760);
+      const isPhoneLikeInput = coarseQuery.matches && !hoverQuery.matches;
+      setTouchDesktopView(isPhoneLikeInput && window.innerWidth >= 760);
     };
 
     updateTouchDesktopView();
     window.addEventListener('resize', updateTouchDesktopView, { passive: true });
-
-    if (typeof coarseQuery.addEventListener === 'function') {
-      coarseQuery.addEventListener('change', updateTouchDesktopView);
-    } else {
-      coarseQuery.addListener(updateTouchDesktopView);
-    }
+    bindMqListener(coarseQuery, updateTouchDesktopView);
+    bindMqListener(hoverQuery, updateTouchDesktopView);
 
     return () => {
       window.removeEventListener('resize', updateTouchDesktopView);
-      if (typeof coarseQuery.removeEventListener === 'function') {
-        coarseQuery.removeEventListener('change', updateTouchDesktopView);
-      } else {
-        coarseQuery.removeListener(updateTouchDesktopView);
-      }
+      unbindMqListener(coarseQuery, updateTouchDesktopView);
+      unbindMqListener(hoverQuery, updateTouchDesktopView);
     };
   }, []);
 

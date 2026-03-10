@@ -29,12 +29,13 @@ export function LandingHero() {
   useEffect(() => {
     const updateHeroHeightMode = () => {
       const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-      const touchDevice = coarsePointer || navigator.maxTouchPoints > 0;
-      setTouchViewport(touchDevice);
+      const canHover = window.matchMedia('(any-hover: hover)').matches;
+      const phoneLikeInput = coarsePointer && !canHover;
+      setTouchViewport(phoneLikeInput);
       const desktopLikeViewport = window.innerWidth >= 760;
       const scale = window.visualViewport?.scale ?? 1;
       const desktopModeScale = scale < 0.9;
-      setCompactHeroHeight(touchDevice && desktopLikeViewport && (desktopModeScale || window.innerWidth >= 900));
+      setCompactHeroHeight(phoneLikeInput && desktopLikeViewport && (desktopModeScale || window.innerWidth >= 900));
     };
 
     updateHeroHeightMode();
@@ -221,6 +222,7 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<number | null>(null);
   const dotsRef = useRef<DotPoint[]>([]);
+  const touchDesktopRef = useRef(false);
   const pointerRef = useRef({ x: -1000, y: -1000, active: false });
   const pointerStartedRef = useRef(false);
   const lastPointerMoveAtRef = useRef(0);
@@ -249,6 +251,10 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       const rect = canvas.getBoundingClientRect();
       width = Math.max(1, Math.floor(rect.width));
       height = Math.max(1, Math.floor(rect.height));
+      const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+      const canHover = window.matchMedia('(any-hover: hover)').matches;
+      const phoneLikeInput = coarsePointer && !canHover;
+      touchDesktopRef.current = phoneLikeInput && width >= 760;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -257,15 +263,17 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const isMobile = width < 640;
+      const isTouchDesktop = !isMobile && touchDesktopRef.current;
+      const boostedMotion = isMobile || isTouchDesktop;
       const spacing = isMobile ? 28 : 24;
       const jitter = spacing * 0.08;
-      const baseRadius = isMobile ? 1.35 : 1.2;
+      const baseRadius = boostedMotion ? 1.35 : 1.1;
       const nextDots: DotPoint[] = [];
       for (let y = 0; y <= height + spacing; y += spacing) {
         for (let x = 0; x <= width + spacing; x += spacing) {
           const jx = x + (Math.random() - 0.5) * jitter;
           const jy = y + (Math.random() - 0.5) * jitter;
-          const amp = isMobile ? 2.6 + Math.random() * 3.0 : 1.6 + Math.random() * 1.8;
+          const amp = boostedMotion ? 2.6 + Math.random() * 3.0 : 0.8 + Math.random() * 1.2;
           nextDots.push({
             baseX: jx,
             baseY: jy,
@@ -277,7 +285,7 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
             phaseX: Math.random() * Math.PI * 2,
             phaseY: Math.random() * Math.PI * 2,
             amp,
-            speed: isMobile ? 0.0009 + Math.random() * 0.00045 : 0.00042 + Math.random() * 0.00024,
+            speed: boostedMotion ? 0.0009 + Math.random() * 0.00045 : 0.00018 + Math.random() * 0.00018,
           });
         }
       }
@@ -291,26 +299,28 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       const { x: mx, y: my, active } = pointerRef.current;
       const now = performance.now();
       const isMobile = width < 640;
+      const isTouchDesktop = !isMobile && touchDesktopRef.current;
+      const boostedMotion = isMobile || isTouchDesktop;
       const idleDelayMs = 2200;
       const idleDimStrength = 0.33;
-      const isIdle = !isMobile && pointerStartedRef.current && now - lastPointerMoveAtRef.current > idleDelayMs;
-      const intensityTarget = isMobile ? 0.84 : (isIdle ? idleDimStrength : 1);
-      intensityRef.current += (intensityTarget - intensityRef.current) * (isMobile ? 0.045 : 0.08);
+      const isIdle = !boostedMotion && pointerStartedRef.current && now - lastPointerMoveAtRef.current > idleDelayMs;
+      const intensityTarget = boostedMotion ? 0.84 : (isIdle ? idleDimStrength : 1);
+      intensityRef.current += (intensityTarget - intensityRef.current) * (boostedMotion ? 0.045 : 0.08);
       const intensity = intensityRef.current;
-      const interactionActive = !isMobile && active && !isIdle;
+      const interactionActive = !boostedMotion && active && !isIdle;
 
       const radius = 210;
       const radiusSq = radius * radius;
       const repel = 2.85;
-      const spring = isMobile ? 0.05 : 0.065;
-      const friction = isMobile ? 0.84 : 0.78;
+      const spring = boostedMotion ? 0.05 : 0.05;
+      const friction = boostedMotion ? 0.84 : 0.8;
 
       ctx.fillStyle = colorRef.current;
 
       for (const dot of dotsRef.current) {
         let influenced = false;
         const angle = now * dot.speed + dot.phaseX;
-        const orbitRadius = isMobile ? dot.amp : dot.amp * 0.95;
+        const orbitRadius = boostedMotion ? dot.amp : dot.amp * 0.35;
         const ambientTargetX = dot.baseX + Math.cos(angle) * orbitRadius;
         const ambientTargetY = dot.baseY + Math.sin(angle) * orbitRadius;
 
@@ -336,13 +346,13 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
 
         const d = Math.hypot(dot.x - ambientTargetX, dot.y - ambientTargetY);
         const accentMix = Math.min(1, d / 16);
-        const drawR = dot.r + Math.min(isMobile ? 0.7 : 1.9, d * (isMobile ? 0.03 : 0.05));
+        const drawR = dot.r + Math.min(boostedMotion ? 0.7 : 1.9, d * (boostedMotion ? 0.03 : 0.05));
         const highlight = influenced || (interactionActive && d > 0.7);
 
-        ctx.fillStyle = highlight ? accentRef.current : (isMobile ? accentRef.current : colorRef.current);
+        ctx.fillStyle = highlight ? accentRef.current : (boostedMotion ? accentRef.current : colorRef.current);
         const alpha = highlight
-          ? (isMobile ? 0.2 + accentMix * 0.22 : 0.2 + accentMix * 0.62)
-          : (isMobile ? 0.16 + Math.min(0.045, d * 0.04) : 0.06 + Math.min(0.08, d * 0.01));
+          ? (boostedMotion ? 0.2 + accentMix * 0.22 : 0.2 + accentMix * 0.62)
+          : (boostedMotion ? 0.16 + Math.min(0.045, d * 0.04) : 0.06 + Math.min(0.08, d * 0.01));
         ctx.globalAlpha = alpha * intensity;
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, drawR, 0, Math.PI * 2);
