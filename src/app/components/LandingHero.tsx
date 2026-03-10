@@ -20,30 +20,35 @@ interface DotPoint {
 
 export function LandingHero() {
   const reduceMotion = useReduceMotion();
-  const [compactTouchDesktopHero, setCompactTouchDesktopHero] = useState(false);
-
-  useEffect(() => {
-    const updateCompactMode = () => {
-      // Mobile browsers in "desktop site" mode report a wide viewport but still coarse pointer.
-      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-      const isDesktopWidth = window.innerWidth >= 900;
-      setCompactTouchDesktopHero(isTouch && isDesktopWidth);
-    };
-
-    updateCompactMode();
-    window.addEventListener('resize', updateCompactMode);
-    return () => window.removeEventListener('resize', updateCompactMode);
-  }, []);
+  const [compactHeroHeight, setCompactHeroHeight] = useState(false);
 
   const words1 = ['Research', 'the', 'web', 'the', 'way'];
   const words2 = ['an', 'analyst', 'does'];
 
+  useEffect(() => {
+    const updateHeroHeightMode = () => {
+      const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+      const desktopLikeViewport = window.innerWidth >= 900;
+      const shortScreen = window.innerHeight <= 820;
+      setCompactHeroHeight(coarsePointer && desktopLikeViewport && shortScreen);
+    };
+
+    updateHeroHeightMode();
+    window.addEventListener('resize', updateHeroHeightMode, { passive: true });
+    window.addEventListener('orientationchange', updateHeroHeightMode);
+
+    return () => {
+      window.removeEventListener('resize', updateHeroHeightMode);
+      window.removeEventListener('orientationchange', updateHeroHeightMode);
+    };
+  }, []);
+
   return (
     <section
-      className="relative min-h-[100dvh] overflow-hidden"
+      className="relative overflow-hidden"
       style={{
         backgroundColor: 'var(--bg-primary)',
-        minHeight: compactTouchDesktopHero ? '88dvh' : '100dvh',
+        minHeight: compactHeroHeight ? 'auto' : '100dvh',
       }}
     >
       {/* Atmospheric + cursor-reactive dots background */}
