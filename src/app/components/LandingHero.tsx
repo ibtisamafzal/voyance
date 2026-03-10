@@ -29,13 +29,11 @@ export function LandingHero() {
   useEffect(() => {
     const updateHeroHeightMode = () => {
       const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-      const canHover = window.matchMedia('(any-hover: hover)').matches;
-      const phoneLikeInput = coarsePointer && !canHover;
-      setTouchViewport(phoneLikeInput);
+      setTouchViewport(coarsePointer);
       const desktopLikeViewport = window.innerWidth >= 760;
       const scale = window.visualViewport?.scale ?? 1;
       const desktopModeScale = scale < 0.9;
-      setCompactHeroHeight(phoneLikeInput && desktopLikeViewport && (desktopModeScale || window.innerWidth >= 900));
+      setCompactHeroHeight(coarsePointer && desktopLikeViewport && (desktopModeScale || window.innerWidth >= 900));
     };
 
     updateHeroHeightMode();
@@ -252,9 +250,7 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       width = Math.max(1, Math.floor(rect.width));
       height = Math.max(1, Math.floor(rect.height));
       const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-      const canHover = window.matchMedia('(any-hover: hover)').matches;
-      const phoneLikeInput = coarsePointer && !canHover;
-      touchDesktopRef.current = phoneLikeInput && width >= 760;
+      touchDesktopRef.current = coarsePointer && width >= 760;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
