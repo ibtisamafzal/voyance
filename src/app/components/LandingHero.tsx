@@ -28,18 +28,22 @@ export function LandingHero() {
   useEffect(() => {
     const updateHeroHeightMode = () => {
       const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-      const desktopLikeViewport = window.innerWidth >= 900;
-      const shortScreen = window.innerHeight <= 820;
-      setCompactHeroHeight(coarsePointer && desktopLikeViewport && shortScreen);
+      const touchDevice = coarsePointer || navigator.maxTouchPoints > 0;
+      const desktopLikeViewport = window.innerWidth >= 760;
+      const scale = window.visualViewport?.scale ?? 1;
+      const desktopModeScale = scale < 0.9;
+      setCompactHeroHeight(touchDevice && desktopLikeViewport && (desktopModeScale || window.innerWidth >= 900));
     };
 
     updateHeroHeightMode();
     window.addEventListener('resize', updateHeroHeightMode, { passive: true });
     window.addEventListener('orientationchange', updateHeroHeightMode);
+    window.visualViewport?.addEventListener('resize', updateHeroHeightMode);
 
     return () => {
       window.removeEventListener('resize', updateHeroHeightMode);
       window.removeEventListener('orientationchange', updateHeroHeightMode);
+      window.visualViewport?.removeEventListener('resize', updateHeroHeightMode);
     };
   }, []);
 
