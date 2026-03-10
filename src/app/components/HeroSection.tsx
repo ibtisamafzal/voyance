@@ -267,7 +267,7 @@ export function HeroSection() {
   }, [isRedirectRecording, sendRedirect]);
 
   return (
-    <section id="hero" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="hero" className="relative min-h-[100dvh] flex items-start md:items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Animated Mesh Gradient Background — skipped on mobile for perf */}
       {!reduceMotion && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
