@@ -1,4 +1,3 @@
-import { useRef, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Search, Eye, Cpu, ShieldCheck, Headphones } from 'lucide-react';
 import { useReduceMotion } from '../hooks/useReduceMotion';
@@ -33,30 +32,16 @@ const CAPABILITIES = [
 
 export function StatsBar() {
   const reduceMotion = useReduceMotion();
-  const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
-      ref={ref}
       className="border-t"
       style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border)' }}
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 py-6 sm:py-14">
         <motion.p
           initial={reduceMotion ? {} : { opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.4 }}
           className="text-center text-[11px] font-semibold uppercase tracking-wider mb-6 sm:mb-10"
           style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}
@@ -69,7 +54,7 @@ export function StatsBar() {
             <motion.div
               key={cap.title}
               initial={reduceMotion ? {} : { opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
               transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
               className="rounded-xl p-5 transition-colors"
               style={{
