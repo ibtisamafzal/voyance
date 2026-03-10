@@ -92,7 +92,7 @@ export function TourGuide({ isOpen, onClose }: TourGuideProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.96 }}
             transition={{ duration: 0.22 }}
-            className="w-[90vw] max-w-[420px] min-h-[470px] max-h-[88vh] sm:min-h-[500px] rounded-2xl p-6 sm:p-8 shadow-2xl mx-4 flex flex-col"
+            className="w-[90vw] max-w-[420px] min-h-[440px] max-h-[86vh] sm:min-h-[450px] rounded-2xl p-6 sm:p-7 shadow-2xl mx-4 flex flex-col"
             style={{
               backgroundColor: 'var(--bg-elevated)',
               border: '1px solid var(--border-strong)',
