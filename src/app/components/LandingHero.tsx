@@ -54,7 +54,7 @@ export function LandingHero() {
       className="relative overflow-hidden"
       style={{
         backgroundColor: 'var(--bg-primary)',
-        minHeight: compactHeroHeight ? 'auto' : (touchViewport ? '92svh' : '100dvh'),
+        minHeight: touchViewport || compactHeroHeight ? 'auto' : '100dvh',
       }}
     >
       {/* Atmospheric + cursor-reactive dots background */}
@@ -96,7 +96,7 @@ export function LandingHero() {
       </div>
 
       {/* Hero top */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 pt-[calc(84px+env(safe-area-inset-top))] sm:pt-[92px] lg:pt-[96px] pb-6 sm:pb-16 text-center">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 pt-[calc(84px+env(safe-area-inset-top))] sm:pt-[92px] lg:pt-[96px] pb-4 sm:pb-16 text-center">
         {/* Badge */}
         <motion.div
           initial={reduceMotion ? {} : { opacity: 0, scale: 0.96 }}
@@ -172,7 +172,7 @@ export function LandingHero() {
           initial={reduceMotion ? {} : { opacity: 0, y: 24 }}
           animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.4 }}
-          className="text-base sm:text-lg max-w-[620px] mx-auto mb-7 sm:mb-10 leading-relaxed"
+          className="text-base sm:text-lg max-w-[620px] mx-auto mb-6 sm:mb-10 leading-relaxed"
           style={{ color: 'var(--text-secondary)' }}
         >
           Voyance sends an AI agent to browse live websites, extract structured data
@@ -184,7 +184,7 @@ export function LandingHero() {
           initial={reduceMotion ? {} : { opacity: 0, scale: 0.95 }}
           animate={reduceMotion ? {} : { opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.35, type: 'spring', damping: 20, stiffness: 300 }}
-          className="flex flex-wrap justify-center gap-4 mb-2 sm:mb-6"
+          className="flex flex-wrap justify-center gap-4 mb-1 sm:mb-6"
         >
           <Link
             to="/research"
@@ -256,13 +256,15 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const spacing = width < 640 ? 28 : 24;
+      const isMobile = width < 640;
+      const spacing = isMobile ? 28 : 24;
       const jitter = spacing * 0.08;
       const nextDots: DotPoint[] = [];
       for (let y = 0; y <= height + spacing; y += spacing) {
         for (let x = 0; x <= width + spacing; x += spacing) {
           const jx = x + (Math.random() - 0.5) * jitter;
           const jy = y + (Math.random() - 0.5) * jitter;
+          const amp = isMobile ? 1.8 + Math.random() * 2.4 : 0.8 + Math.random() * 1.2;
           nextDots.push({
             baseX: jx,
             baseY: jy,
@@ -273,8 +275,8 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
             r: 1.15,
             phaseX: Math.random() * Math.PI * 2,
             phaseY: Math.random() * Math.PI * 2,
-            amp: 0.8 + Math.random() * 1.2,
-            speed: 0.00024 + Math.random() * 0.00024,
+            amp,
+            speed: isMobile ? 0.00055 + Math.random() * 0.00035 : 0.00018 + Math.random() * 0.00018,
           });
         }
       }
@@ -306,12 +308,10 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
 
       for (const dot of dotsRef.current) {
         let influenced = false;
-        const ambientTargetX = isMobile
-          ? dot.baseX + Math.sin(now * dot.speed + dot.phaseX) * dot.amp
-          : dot.baseX;
-        const ambientTargetY = isMobile
-          ? dot.baseY + Math.cos(now * dot.speed * 0.9 + dot.phaseY) * dot.amp
-          : dot.baseY;
+        const angle = now * dot.speed + dot.phaseX;
+        const orbitRadius = isMobile ? dot.amp : dot.amp * 0.35;
+        const ambientTargetX = dot.baseX + Math.cos(angle) * orbitRadius;
+        const ambientTargetY = dot.baseY + Math.sin(angle) * orbitRadius;
 
         if (!reduceMotion && interactionActive) {
           const dx = dot.x - mx;
