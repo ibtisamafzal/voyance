@@ -1,16 +1,54 @@
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
 import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { LandingHero } from '../components/LandingHero';
 import { StatsBar } from '../components/StatsBar';
-import { WhyVoyanceSection } from '../components/WhyVoyanceSection';
-import { FeaturesSection } from '../components/FeaturesSection';
-import { LiveAgentSection } from '../components/LiveAgentSection';
-import { PipelineSection } from '../components/PipelineSection';
-import { ImpactSection } from '../components/ImpactSection';
-import { ArchitectureSection } from '../components/ArchitectureSection';
-import { CommunitySection } from '../components/CommunitySection';
+import { LazyOnView } from '../components/LazyOnView';
+
+const loadWhyVoyanceSection = () => import('../components/WhyVoyanceSection');
+const loadFeaturesSection = () => import('../components/FeaturesSection');
+const loadLiveAgentSection = () => import('../components/LiveAgentSection');
+const loadPipelineSection = () => import('../components/PipelineSection');
+const loadImpactSection = () => import('../components/ImpactSection');
+const loadArchitectureSection = () => import('../components/ArchitectureSection');
+const loadCommunitySection = () => import('../components/CommunitySection');
+
+const WhyVoyanceSection = lazy(() => loadWhyVoyanceSection().then((m) => ({ default: m.WhyVoyanceSection })));
+const FeaturesSection = lazy(() => loadFeaturesSection().then((m) => ({ default: m.FeaturesSection })));
+const LiveAgentSection = lazy(() => loadLiveAgentSection().then((m) => ({ default: m.LiveAgentSection })));
+const PipelineSection = lazy(() => loadPipelineSection().then((m) => ({ default: m.PipelineSection })));
+const ImpactSection = lazy(() => loadImpactSection().then((m) => ({ default: m.ImpactSection })));
+const ArchitectureSection = lazy(() => loadArchitectureSection().then((m) => ({ default: m.ArchitectureSection })));
+const CommunitySection = lazy(() => loadCommunitySection().then((m) => ({ default: m.CommunitySection })));
+
+function DeferredSection({ children, fallbackHeight = 360 }: { children: ReactNode; fallbackHeight?: number }) {
+  return (
+    <LazyOnView fallbackHeight={fallbackHeight} rootMargin="1200px">
+      <Suspense fallback={<div aria-hidden="true" style={{ minHeight: fallbackHeight }} />}>
+        {children}
+      </Suspense>
+    </LazyOnView>
+  );
+}
 
 export default function LandingPage() {
+  useEffect(() => {
+    // Warm below-fold chunks shortly after first paint so sections appear instantly when reached.
+    const timer = window.setTimeout(() => {
+      void Promise.all([
+        loadWhyVoyanceSection(),
+        loadFeaturesSection(),
+        loadLiveAgentSection(),
+        loadPipelineSection(),
+        loadImpactSection(),
+        loadArchitectureSection(),
+        loadCommunitySection(),
+      ]);
+    }, 450);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <LandingHero />
@@ -19,25 +57,39 @@ export default function LandingPage() {
       <StatsBar />
 
       {/* Why Voyance — differentiator */}
-      <WhyVoyanceSection />
+      <DeferredSection fallbackHeight={760}>
+        <WhyVoyanceSection />
+      </DeferredSection>
 
       {/* Features */}
-      <FeaturesSection />
+      <DeferredSection fallbackHeight={560}>
+        <FeaturesSection />
+      </DeferredSection>
 
       {/* Live Demo */}
-      <LiveAgentSection />
+      <DeferredSection fallbackHeight={760}>
+        <LiveAgentSection />
+      </DeferredSection>
 
       {/* Pipeline — how it works */}
-      <PipelineSection />
+      <DeferredSection fallbackHeight={560}>
+        <PipelineSection />
+      </DeferredSection>
 
       {/* Impact */}
-      <ImpactSection />
+      <DeferredSection fallbackHeight={520}>
+        <ImpactSection />
+      </DeferredSection>
 
       {/* Architecture */}
-      <ArchitectureSection />
+      <DeferredSection fallbackHeight={660}>
+        <ArchitectureSection />
+      </DeferredSection>
 
       {/* Community */}
-      <CommunitySection />
+      <DeferredSection fallbackHeight={420}>
+        <CommunitySection />
+      </DeferredSection>
 
       {/* ── CTA banner ── */}
       <section
