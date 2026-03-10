@@ -53,12 +53,12 @@ export function StatsBar() {
       className="border-t"
       style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border)' }}
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 py-10 sm:py-14">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 py-7 sm:py-14">
         <motion.p
           initial={reduceMotion ? {} : { opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.4 }}
-          className="text-center text-[11px] font-semibold uppercase tracking-wider mb-10"
+          className="text-center text-[11px] font-semibold uppercase tracking-wider mb-7 sm:mb-10"
           style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}
         >
           What happens when you hit &ldquo;Research&rdquo;

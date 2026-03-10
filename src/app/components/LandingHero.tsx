@@ -21,6 +21,7 @@ interface DotPoint {
 export function LandingHero() {
   const reduceMotion = useReduceMotion();
   const [compactHeroHeight, setCompactHeroHeight] = useState(false);
+  const [touchViewport, setTouchViewport] = useState(false);
 
   const words1 = ['Research', 'the', 'web', 'the', 'way'];
   const words2 = ['an', 'analyst', 'does'];
@@ -29,6 +30,7 @@ export function LandingHero() {
     const updateHeroHeightMode = () => {
       const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
       const touchDevice = coarsePointer || navigator.maxTouchPoints > 0;
+      setTouchViewport(touchDevice);
       const desktopLikeViewport = window.innerWidth >= 760;
       const scale = window.visualViewport?.scale ?? 1;
       const desktopModeScale = scale < 0.9;
@@ -52,7 +54,7 @@ export function LandingHero() {
       className="relative overflow-hidden"
       style={{
         backgroundColor: 'var(--bg-primary)',
-        minHeight: compactHeroHeight ? 'auto' : '100dvh',
+        minHeight: compactHeroHeight ? 'auto' : (touchViewport ? '92svh' : '100dvh'),
       }}
     >
       {/* Atmospheric + cursor-reactive dots background */}
@@ -94,7 +96,7 @@ export function LandingHero() {
       </div>
 
       {/* Hero top */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 pt-[calc(84px+env(safe-area-inset-top))] sm:pt-[92px] lg:pt-[96px] pb-12 sm:pb-16 text-center">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 pt-[calc(84px+env(safe-area-inset-top))] sm:pt-[92px] lg:pt-[96px] pb-6 sm:pb-16 text-center">
         {/* Badge */}
         <motion.div
           initial={reduceMotion ? {} : { opacity: 0, scale: 0.96 }}
@@ -116,8 +118,16 @@ export function LandingHero() {
         </motion.div>
 
         {/* Headline */}
-        <h1 className="mb-6">
-          <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
+        <h1 className="mb-5 sm:mb-6">
+          <div
+            className="sm:hidden font-extrabold tracking-[-0.035em] leading-[1.06]"
+            style={{ fontSize: 'clamp(28px, 9vw, 36px)' }}
+          >
+            <div style={{ color: 'var(--text-primary)' }}>Research the web</div>
+            <div style={{ color: 'var(--accent)' }}>the way an analyst does</div>
+          </div>
+
+          <div className="hidden sm:flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
             {words1.map((word, i) => (
               reduceMotion ? (
                 <span key={i} style={{ color: 'var(--text-primary)', display: 'inline-block' }}>
@@ -136,7 +146,7 @@ export function LandingHero() {
               )
             ))}
           </div>
-          <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
+          <div className="hidden sm:flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
             {words2.map((word, i) => (
               reduceMotion ? (
                 <span key={i} style={{ color: 'var(--accent)', display: 'inline-block' }}>
@@ -162,7 +172,7 @@ export function LandingHero() {
           initial={reduceMotion ? {} : { opacity: 0, y: 24 }}
           animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.4 }}
-          className="text-base sm:text-lg max-w-[620px] mx-auto mb-10 leading-relaxed"
+          className="text-base sm:text-lg max-w-[620px] mx-auto mb-7 sm:mb-10 leading-relaxed"
           style={{ color: 'var(--text-secondary)' }}
         >
           Voyance sends an AI agent to browse live websites, extract structured data
@@ -174,7 +184,7 @@ export function LandingHero() {
           initial={reduceMotion ? {} : { opacity: 0, scale: 0.95 }}
           animate={reduceMotion ? {} : { opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.35, type: 'spring', damping: 20, stiffness: 300 }}
-          className="flex flex-wrap justify-center gap-4 mb-6"
+          className="flex flex-wrap justify-center gap-4 mb-2 sm:mb-6"
         >
           <Link
             to="/research"
@@ -198,7 +208,7 @@ export function LandingHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.1, duration: 0.6 }}
-          className="pt-6 flex flex-col items-center gap-1"
+          className="hidden sm:flex pt-6 flex-col items-center gap-1"
         >
           <ChevronDown className="w-5 h-5 animate-bounce" style={{ color: 'var(--text-tertiary)' }} />
         </motion.div>
@@ -281,7 +291,7 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       const idleDelayMs = 2200;
       const idleDimStrength = 0.33;
       const isIdle = !isMobile && pointerStartedRef.current && now - lastPointerMoveAtRef.current > idleDelayMs;
-      const intensityTarget = isMobile ? 0.62 : (isIdle ? idleDimStrength : 1);
+      const intensityTarget = isMobile ? 0.84 : (isIdle ? idleDimStrength : 1);
       intensityRef.current += (intensityTarget - intensityRef.current) * (isMobile ? 0.045 : 0.08);
       const intensity = intensityRef.current;
       const interactionActive = !isMobile && active && !isIdle;
@@ -328,10 +338,10 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
         const drawR = dot.r + Math.min(isMobile ? 0.7 : 1.9, d * (isMobile ? 0.03 : 0.05));
         const highlight = influenced || (interactionActive && d > 0.7);
 
-        ctx.fillStyle = highlight ? accentRef.current : colorRef.current;
+        ctx.fillStyle = highlight ? accentRef.current : (isMobile ? accentRef.current : colorRef.current);
         const alpha = highlight
-          ? (isMobile ? 0.18 + accentMix * 0.25 : 0.2 + accentMix * 0.62)
-          : (isMobile ? 0.11 + Math.min(0.03, d * 0.03) : 0.06 + Math.min(0.08, d * 0.01));
+          ? (isMobile ? 0.2 + accentMix * 0.22 : 0.2 + accentMix * 0.62)
+          : (isMobile ? 0.16 + Math.min(0.045, d * 0.04) : 0.06 + Math.min(0.08, d * 0.01));
         ctx.globalAlpha = alpha * intensity;
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, drawR, 0, Math.PI * 2);
@@ -380,7 +390,7 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ opacity: 0.9, filter: 'contrast(1.06)' }}
+      style={{ opacity: 1, filter: 'contrast(1.08)' }}
     />
   );
 }
