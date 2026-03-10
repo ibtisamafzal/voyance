@@ -182,6 +182,9 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
   const frameRef = useRef<number | null>(null);
   const dotsRef = useRef<DotPoint[]>([]);
   const pointerRef = useRef({ x: -1000, y: -1000, active: false });
+  const pointerStartedRef = useRef(false);
+  const lastPointerMoveAtRef = useRef(0);
+  const intensityRef = useRef(1);
   const colorRef = useRef('#94a3b8');
   const accentRef = useRef('#0d9488');
 
@@ -231,6 +234,15 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       ctx.clearRect(0, 0, width, height);
 
       const { x: mx, y: my, active } = pointerRef.current;
+      const now = performance.now();
+      const idleDelayMs = 2200;
+      const idleDimStrength = 0.33;
+      const isIdle = pointerStartedRef.current && now - lastPointerMoveAtRef.current > idleDelayMs;
+      const intensityTarget = isIdle ? idleDimStrength : 1;
+      intensityRef.current += (intensityTarget - intensityRef.current) * 0.08;
+      const intensity = intensityRef.current;
+      const interactionActive = active && !isIdle;
+
       const radius = width < 640 ? 150 : 210;
       const radiusSq = radius * radius;
       const repel = width < 640 ? 2.15 : 2.85;
@@ -241,7 +253,7 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
 
       for (const dot of dotsRef.current) {
         let influenced = false;
-        if (!reduceMotion && active) {
+        if (!reduceMotion && interactionActive) {
           const dx = dot.x - mx;
           const dy = dot.y - my;
           const distSq = dx * dx + dy * dy;
@@ -264,12 +276,13 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
         const d = Math.hypot(dot.x - dot.baseX, dot.y - dot.baseY);
         const accentMix = Math.min(1, d / 16);
         const drawR = dot.r + Math.min(1.9, d * 0.05);
-        const highlight = influenced || (active && d > 0.7);
+        const highlight = influenced || (interactionActive && d > 0.7);
 
         ctx.fillStyle = highlight ? accentRef.current : colorRef.current;
-        ctx.globalAlpha = highlight
+        const alpha = highlight
           ? 0.2 + accentMix * 0.62
           : 0.06 + Math.min(0.08, d * 0.01);
+        ctx.globalAlpha = alpha * intensity;
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, drawR, 0, Math.PI * 2);
         ctx.fill();
@@ -285,6 +298,8 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const active = x >= 0 && y >= 0 && x <= rect.width && y <= rect.height;
+      pointerStartedRef.current = true;
+      lastPointerMoveAtRef.current = performance.now();
       pointerRef.current = { x, y, active };
     };
 
