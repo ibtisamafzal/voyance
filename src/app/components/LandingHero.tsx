@@ -259,12 +259,13 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       const isMobile = width < 640;
       const spacing = isMobile ? 28 : 24;
       const jitter = spacing * 0.08;
+      const baseRadius = isMobile ? 1.35 : 1.2;
       const nextDots: DotPoint[] = [];
       for (let y = 0; y <= height + spacing; y += spacing) {
         for (let x = 0; x <= width + spacing; x += spacing) {
           const jx = x + (Math.random() - 0.5) * jitter;
           const jy = y + (Math.random() - 0.5) * jitter;
-          const amp = isMobile ? 1.8 + Math.random() * 2.4 : 0.8 + Math.random() * 1.2;
+          const amp = isMobile ? 2.6 + Math.random() * 3.0 : 1.6 + Math.random() * 1.8;
           nextDots.push({
             baseX: jx,
             baseY: jy,
@@ -272,11 +273,11 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
             y: jy,
             vx: 0,
             vy: 0,
-            r: 1.15,
+            r: baseRadius,
             phaseX: Math.random() * Math.PI * 2,
             phaseY: Math.random() * Math.PI * 2,
             amp,
-            speed: isMobile ? 0.00055 + Math.random() * 0.00035 : 0.00018 + Math.random() * 0.00018,
+            speed: isMobile ? 0.0009 + Math.random() * 0.00045 : 0.00042 + Math.random() * 0.00024,
           });
         }
       }
@@ -301,15 +302,15 @@ function CursorReactiveDotField({ reduceMotion }: { reduceMotion: boolean }) {
       const radius = 210;
       const radiusSq = radius * radius;
       const repel = 2.85;
-      const spring = isMobile ? 0.028 : 0.05;
-      const friction = isMobile ? 0.88 : 0.8;
+      const spring = isMobile ? 0.05 : 0.065;
+      const friction = isMobile ? 0.84 : 0.78;
 
       ctx.fillStyle = colorRef.current;
 
       for (const dot of dotsRef.current) {
         let influenced = false;
         const angle = now * dot.speed + dot.phaseX;
-        const orbitRadius = isMobile ? dot.amp : dot.amp * 0.35;
+        const orbitRadius = isMobile ? dot.amp : dot.amp * 0.95;
         const ambientTargetX = dot.baseX + Math.cos(angle) * orbitRadius;
         const ambientTargetY = dot.baseY + Math.sin(angle) * orbitRadius;
 
