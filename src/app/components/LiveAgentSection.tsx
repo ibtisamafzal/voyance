@@ -143,7 +143,7 @@ export function LiveAgentSection() {
                 <button
                   key={i}
                   onClick={() => setActiveStep(i)}
-                  className="w-full text-left rounded-xl p-4 transition-all flex items-start gap-4"
+                  className="w-full text-left rounded-xl p-3 sm:p-4 transition-all flex items-start gap-3 sm:gap-4"
                   style={{
                     backgroundColor: isActive ? 'var(--bg-elevated)' : 'transparent',
                     border: `1px solid ${isActive ? 'var(--border-strong)' : 'transparent'}`,
@@ -203,7 +203,7 @@ export function LiveAgentSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.3 }}
-                className="rounded-2xl p-6 sm:p-8 border"
+                className="rounded-2xl p-4 sm:p-6 md:p-8 border"
                 style={{
                   backgroundColor: 'var(--bg-elevated)',
                   borderColor: 'var(--border-strong)',
@@ -248,12 +248,12 @@ export function LiveAgentSection() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Sample output table */}
+            {/* Sample output table — hidden on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="rounded-2xl border overflow-hidden"
+              className="hidden md:block rounded-2xl border overflow-hidden"
               style={{
                 backgroundColor: 'var(--bg-elevated)',
                 borderColor: 'var(--border-strong)',
@@ -339,6 +339,7 @@ export function LiveAgentSection() {
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.8, duration: 0.4 }}
+              className="flex justify-center lg:justify-start"
             >
               <Link
                 to="/research"
