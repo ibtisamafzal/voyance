@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 import { ResearchProvider } from './context/ResearchContext';
 import { Navbar } from './components/Navbar';
@@ -27,6 +27,7 @@ function PageSkeleton() {
 function AppShell() {
   const [darkMode, setDarkMode] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
+  const hasAutoOpenedGuide = useRef(false);
   const location = useLocation();
   const heroRoute = location.pathname === '/' || location.pathname === '/research';
 
@@ -55,6 +56,20 @@ function AppShell() {
       window.scrollTo(0, 0);
     }
   }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    // Auto-open the tour on first home load.
+    if (location.pathname !== '/' || hasAutoOpenedGuide.current) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setGuideOpen(true);
+      hasAutoOpenedGuide.current = true;
+    }, 550);
+
+    return () => window.clearTimeout(timer);
+  }, [location.pathname]);
 
   const closeGuide = () => {
     setGuideOpen(false);
