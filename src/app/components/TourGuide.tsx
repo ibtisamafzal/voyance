@@ -88,12 +88,11 @@ export function TourGuide({ isOpen, onClose }: TourGuideProps) {
           onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
         >
           <motion.div
-            key={step}
             initial={{ opacity: 0, y: 16, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.96 }}
             transition={{ duration: 0.22 }}
-            className="w-[90vw] max-w-[420px] rounded-2xl p-7 sm:p-8 shadow-2xl mx-4"
+            className="w-[90vw] max-w-[420px] min-h-[470px] max-h-[88vh] sm:min-h-[500px] rounded-2xl p-6 sm:p-8 shadow-2xl mx-4 flex flex-col"
             style={{
               backgroundColor: 'var(--bg-elevated)',
               border: '1px solid var(--border-strong)',
@@ -119,31 +118,43 @@ export function TourGuide({ isOpen, onClose }: TourGuideProps) {
               </button>
             </div>
 
-            {/* Icon */}
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-              style={{ backgroundColor: 'var(--accent-glow)', color: 'var(--accent)' }}
-            >
-              {current.icon}
-            </div>
+            {/* Content region with stable height */}
+            <div className="flex-1 min-h-0">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.2 }}
+                  className="h-full overflow-y-auto pr-1"
+                >
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
+                    style={{ backgroundColor: 'var(--accent-glow)', color: 'var(--accent)' }}
+                  >
+                    {current.icon}
+                  </div>
 
-            {/* Content */}
-            <h3
-              className="text-lg font-bold mb-2 tracking-tight"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              {current.title}
-            </h3>
-            <p
-              className="text-sm leading-relaxed mb-7"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              {current.description}
-            </p>
+                  <h3
+                    className="text-lg font-bold mb-2 tracking-tight"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    {current.title}
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed mb-4"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    {current.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             {/* Progress bar */}
             <div
-              className="h-1 rounded-full mb-6 overflow-hidden"
+              className="h-1 rounded-full mt-4 mb-6 overflow-hidden"
               style={{ backgroundColor: 'var(--bg-secondary)' }}
             >
               <div
