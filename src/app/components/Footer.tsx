@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router';
+import { BrandLogo } from './BrandLogo';
 
 interface FooterLink {
   label: string;
@@ -62,23 +63,7 @@ export function Footer() {
         >
           {/* Brand column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'var(--accent)', color: 'white' }}
-              >
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 2L14 6V10L8 14L2 10V6L8 2Z" fill="currentColor" fillOpacity="0.9"/>
-                  <circle cx="8" cy="8" r="2.5" fill="white" fillOpacity="0.9"/>
-                </svg>
-              </div>
-              <span
-                className="text-lg font-bold tracking-tight"
-                style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-geist)' }}
-              >
-                Voyance
-              </span>
-            </div>
+            <BrandLogo iconSize={32} textClassName="text-lg" />
             <p
               className="text-sm leading-relaxed max-w-[260px]"
               style={{ color: 'var(--text-tertiary)' }}
@@ -176,23 +161,7 @@ export function Footer() {
             className="py-8 border-b space-y-3"
             style={{ borderColor: 'var(--border)' }}
           >
-            <div className="flex items-center gap-2.5">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'var(--accent)', color: 'white' }}
-              >
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 2L14 6V10L8 14L2 10V6L8 2Z" fill="currentColor" fillOpacity="0.9"/>
-                  <circle cx="8" cy="8" r="2.5" fill="white" fillOpacity="0.9"/>
-                </svg>
-              </div>
-              <span
-                className="text-lg font-bold tracking-tight"
-                style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-geist)' }}
-              >
-                Voyance
-              </span>
-            </div>
+            <BrandLogo iconSize={32} textClassName="text-lg" />
             <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
               AI-powered competitive intelligence agent.
             </p>

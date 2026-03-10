@@ -9,11 +9,11 @@ export function useReduceMotion(): boolean {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
       return false;
     }
-    return window.matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)').matches;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)');
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => setReduce(mq.matches);
     update();
     if (typeof mq.addEventListener === 'function') {

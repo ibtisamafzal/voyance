@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Send, MapPin, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { useReduceMotion } from '../hooks/useReduceMotion';
 
 const API_BASE = ((import.meta as { env?: { VITE_API_URL?: string } }).env?.VITE_API_URL ?? 'http://localhost:8000').replace(/\/+$/, '');
 
@@ -10,6 +11,7 @@ export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const reduceMotion = useReduceMotion();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,17 +55,35 @@ export default function ContactPage() {
       transition={{ duration: 0.4 }}
     >
       {/* Header */}
-      <section className="pt-12 sm:pt-16 pb-10 sm:pb-12 text-center">
+      <section className="pt-8 sm:pt-10 pb-10 sm:pb-12 text-center">
         <div className="max-w-[600px] mx-auto px-4 sm:px-6 md:px-10 space-y-4">
-          <h1 className="overflow-hidden">
+          <motion.div
+            initial={reduceMotion ? {} : { opacity: 0, scale: 0.96 }}
+            animate={reduceMotion ? {} : { opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.3, type: 'spring' }}
+          >
+            <span
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider"
+              style={{
+                backgroundColor: 'var(--accent-glow)',
+                color: 'var(--accent)',
+                border: '1px solid var(--accent-pill-border)',
+                fontFamily: 'var(--font-mono)',
+                letterSpacing: '0.08em',
+              }}
+            >
+              Contact
+            </span>
+          </motion.div>
+          <h1>
             <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap">
               {CONTACT_TITLE_WORDS.map((word, i) => (
                 <motion.span
                   key={i}
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
+                  initial={reduceMotion ? {} : { y: 100, opacity: 0 }}
+                  animate={reduceMotion ? {} : { y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 + i * 0.05, duration: 0.5, type: 'spring', damping: 20, stiffness: 300 }}
-                  style={{ color: 'var(--text-primary)', display: 'inline-block' }}
+                  style={{ color: i === CONTACT_TITLE_WORDS.length - 1 ? 'var(--accent)' : 'var(--text-primary)', display: 'inline-block' }}
                 >
                   {word}
                 </motion.span>
@@ -71,10 +91,10 @@ export default function ContactPage() {
             </div>
           </h1>
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduceMotion ? {} : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.4 }}
-            className="text-lg"
+            className="text-base sm:text-lg"
             style={{ color: 'var(--text-secondary)' }}
           >
             Have questions, feedback, or partnership ideas? We'd love to hear from you.
