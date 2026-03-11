@@ -147,7 +147,7 @@ Frontend: **<http://localhost:5173>**
 
 User and frontend → backend (Cloud Run target) → Gemini, Playwright, Firecrawl, Perplexity, ElevenLabs.
 
-![Voyance architecture](Architecture%20diagram%20for%20Voyance.png)
+[![Voyance architecture](https://github.com/ibtisamafzal/voyance/blob/main/Architecture%20diagram.png)](https://github.com/ibtisamafzal/voyance/blob/main/Architecture%20diagram.png)
 
 ---
 
