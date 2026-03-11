@@ -27,7 +27,7 @@
   - [Environment variables](#environment-variables)
   - [Deployment](#deployment)
   - [Project structure](#project-structure)
-  - [Community & write-ups](#community--write-ups)
+  - [Community \& write-ups](#community--write-ups)
   - [Contact](#contact)
   - [License](#license)
 
@@ -174,6 +174,8 @@ Copy `backend/.env.example` to `backend/.env` and set:
 | `FIRECRAWL_API_KEY` | Fast extraction |
 | `PERPLEXITY_API_KEY` | Fact verification |
 | `GOOGLE_CLOUD_PROJECT` | Optional (Firestore); in-memory fallback if unset |
+| `CONTACT_EMAIL` | Contact form recipient email (set in server env) |
+| `CONTACT_EMAIL_APP_PASSWORD` | Gmail App Password for SMTP contact form sending |
 
 ---
 
@@ -224,7 +226,7 @@ Copy `backend/.env.example` to `backend/.env` and set:
 
 | | |
 | --- | --- |
-| **Email** | [removed-private-email@example.com](mailto:removed-private-email@example.com) |
+| **Contact** | Use the in-app contact form (`/contact`) |
 | **LinkedIn** | [linkedin.com/in/ibtisamafzal](https://linkedin.com/in/ibtisamafzal/) |
 
 **Blog:** [How We Built Voyance (DEV)](https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h) · **Hackathon:** [Gemini Live Agent Challenge](https://geminiliveagentchallenge.devpost.com/) (see Devpost for current schedule)
