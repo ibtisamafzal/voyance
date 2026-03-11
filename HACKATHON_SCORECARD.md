@@ -1,4 +1,4 @@
-# Voyance Hackathon Scorecard
+# Voyance Hackathon Scorecard (Working)
 
 Last updated: 2026-03-10
 Source reviewed: https://geminiliveagentchallenge.devpost.com/
