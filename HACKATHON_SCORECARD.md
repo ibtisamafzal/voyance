@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Voyance Hackathon Scorecard (Working)
+=======
+# Voyance Hackathon Scorecard
+>>>>>>> 0efbf9c69f4ade5693db658496b53446fc69c9b6
 
 Last updated: 2026-03-10
 Source reviewed: https://geminiliveagentchallenge.devpost.com/
