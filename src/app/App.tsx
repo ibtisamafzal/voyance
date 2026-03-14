@@ -85,7 +85,7 @@ function AppShell() {
       <main className="overflow-x-hidden">
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage onStartGuide={() => setGuideOpen(true)} />} />
             <Route path="/research" element={<AppPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/faq" element={<FAQPage />} />

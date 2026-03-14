@@ -31,7 +31,11 @@ function DeferredSection({ children, fallbackHeight = 360 }: { children: ReactNo
   );
 }
 
-export default function LandingPage() {
+interface LandingPageProps {
+  onStartGuide: () => void;
+}
+
+export default function LandingPage({ onStartGuide }: LandingPageProps) {
   useEffect(() => {
     // Warm below-fold chunks shortly after first paint so sections appear instantly when reached.
     const timer = window.setTimeout(() => {
@@ -51,7 +55,7 @@ export default function LandingPage() {
 
   return (
     <>
-      <LandingHero />
+      <LandingHero onStartGuide={onStartGuide} />
 
       {/* Capability cards */}
       <StatsBar />

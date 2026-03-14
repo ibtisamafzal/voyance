@@ -161,7 +161,7 @@ LEFT — Logo lockup:
         suggesting the act of visual observation. Rendered as an SVG monogram.
         16×16px icon + "Voyance" wordmark in Geist 600, 18px, var(--text-primary)
   Below wordmark (desktop only): 
-    "by Gemini Live API" in DM Mono 10px var(--text-tertiary)
+    "by Gemini GenAI SDK" in DM Mono 10px var(--text-tertiary)
 
 CENTER — Nav links (desktop only, hidden on mobile):
   How It Works | Live Agent | Features | Community | Docs
@@ -207,7 +207,7 @@ LEFT COLUMN — Text + CTAs:
     
   Sub-headline (animate after headline, 300ms delay, fade-up 24px):
     "Voyance navigates any website visually — no APIs, no DOM access. 
-    Just pure AI vision, orchestrated by Gemini + Google ADK, 
+    Just pure AI vision, orchestrated by Gemini + a custom agent loop, 
     delivered through Vera's voice."
     18px / var(--text-secondary) / max-width 480px
 
@@ -224,7 +224,7 @@ LEFT COLUMN — Text + CTAs:
 
   Trust signals row (below CTAs, 12px gap):
     Three micro-chips in a row:
-    ✓ Gemini Live API   ✓ Google Cloud Run   ✓ ADK Orchestrated
+    ✓ Google GenAI SDK   ✓ Google Cloud Run   ✓ Custom Agent Loop
     Each: DM Mono 11px / var(--text-tertiary) / no border
 
 RIGHT COLUMN — Live Agent Preview Panel:
@@ -309,7 +309,7 @@ Nodes (6 total):
   02  INTERPRET    👁  Gemini 2.0 Flash reads pixels — zero DOM
   03  EXTRACT      ⚡  Firecrawl fast-path OR Gemini vision fallback
   04  VERIFY       🔍  Perplexity grounds key facts live
-  05  SYNTHESIZE   🧠  ADK agent loop compiles structured JSON
+  05  SYNTHESIZE   🧠  Custom agent loop compiles structured JSON
   06  DELIVER      🔊  ElevenLabs Vera speaks the briefing
 
 Each node component:
@@ -458,21 +458,21 @@ Card hover state:
             when available. Gemini vision handles the rest."
      Tag: "POWERED BY FIRECRAWL"
 
-  e) ADK Agent Loop
+  e) Custom Agent Loop
      Icon: loop/cycle SVG
      Accent: var(--accent) blue
      Bg tint: rgba(10,95,232,0.04)
-     Desc: "Google Agent Development Kit orchestrates 
+         Desc: "Custom async agent loop orchestrates 
             Plan → Navigate → Extract → Verify → Report."
-     Tag: "POWERED BY GOOGLE ADK"
+         Tag: "POWERED BY CUSTOM AGENT LOOP"
 
   f) Voice Redirection
      Icon: microphone with arrow SVG
      Accent: var(--vera-voice) indigo
      Bg tint: rgba(99,102,241,0.04)
-     Desc: "Interrupt Vera mid-session by voice. 
-            Agent replans in under 5 seconds."
-     Tag: "GEMINI LIVE BARGE-IN"
+         Desc: "Interrupt Vera mid-session by voice or text. 
+           Agent queues the redirect and replans on the next loop iteration."
+         Tag: "INTERRUPT + REPLAN"
 
 ──── 7. IMPACT & USE CASES SECTION ─────────────────────────────────────────
 
@@ -516,7 +516,7 @@ Card style: background rgba(255,255,255,0.04) / border rgba(255,255,255,0.08) /
 Below cards — Tech stack trust bar:
   Label: "BUILT ON" — DM Mono 11px centered / var(--text-tertiary)
   Row of 5 logo chips:
-    Gemini Live API | Google ADK | Cloud Run | ElevenLabs | Perplexity
+    Google GenAI SDK | Custom Agent Loop | Cloud Run | ElevenLabs | Perplexity
     Each: dark pill chip / DM Mono 12px / var(--text-secondary) /
           border rgba(255,255,255,0.10) / padding 6px 14px / radius 999px
     Hover: border brightens to rgba(255,255,255,0.22)
@@ -536,12 +536,12 @@ Display a clean architecture visualization (not a boring table, a visual diagram
   ZONE 1 — INPUT (left)
     Box: "User Voice" → microphone icon
     Arrow → 
-    Box: "Gemini Live API" (accent blue, slightly larger, "key service" indicator)
+    Box: "Gemini 2.0 Flash" (accent blue, slightly larger, "key service" indicator)
     Arrow →
-    Box: "ADK Agent Loop" (accent blue)
+    Box: "Custom Agent Loop" (accent blue)
   
   ZONE 2 — PROCESSING (center)
-    From ADK, 3 branches (fork arrow) going to:
+    From the custom loop, 3 branches (fork arrow) going to:
     Box: "Playwright Browser" (gray)
     Box: "Firecrawl API" (amber)  
     Box: "Gemini Vision" (accent blue)
@@ -578,7 +578,7 @@ Simple centered section:
     "📄 Read the Docs" — ghost button
 
   Credits row (DM Mono chips):
-    "Gemini Live API" | "Google ADK" | "ElevenLabs" | "Firecrawl" | "Perplexity"
+    "Google GenAI SDK" | "Custom Agent Loop" | "ElevenLabs" | "Firecrawl" | "Perplexity"
     Each chip styled: var(--bg-elevated) / border var(--border) / 
                       DM Mono 12px / radius 8px
 
@@ -593,7 +593,7 @@ Top row: Logo lockup (light version) + tagline
 
 Middle: 4-column link grid
   Product: How It Works / Features / Live Demo / Architecture
-  Built With: Gemini API / Google ADK / Cloud Run / Firestore
+  Built With: Gemini API / Custom Agent Loop / Cloud Run / Firestore
   External APIs: ElevenLabs / Firecrawl / Perplexity / Playwright
   Project: GitHub / Devpost / PRD / License
 

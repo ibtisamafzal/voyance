@@ -132,9 +132,8 @@ async def run_research(
             progress=0.1,
         )
 
-        # Vera confirms the plan
+        # Vera confirms the plan (text-only — audio is generated on-demand when user clicks Listen)
         confirmation = "Got it! I'll research that for you now. Starting analysis..."
-        vera_audio = await voice_service.text_to_speech(confirmation)
         await on_update(AgentUpdate(
             session_id=sid,
             step=AgentStep.PLANNING,
@@ -261,9 +260,6 @@ async def run_research(
         results_dicts = [r.model_dump(mode="json") for r in results]
         vera_summary = await gemini_service.synthesize_report(results_dicts, session.query)
         session.vera_summary = vera_summary
-
-        # Generate Vera's spoken briefing
-        vera_audio_final = await voice_service.text_to_speech(vera_summary)
 
         # ── COMPLETE ──────────────────────────────────────────────────────────
         session.current_step = AgentStep.COMPLETE

@@ -36,7 +36,7 @@ class ResearchRequest(BaseModel):
     query: str = Field(..., description="Natural language research request", example="Compare pricing for top 5 CRM tools")
     max_sites: int = Field(default=5, ge=1, le=10, description="Max number of sites to visit")
     session_id: Optional[str] = Field(default=None)
-    voice_enabled: bool = Field(default=True)
+    voice_enabled: bool = Field(default=False)
 
 
 class VoiceInterruptRequest(BaseModel):

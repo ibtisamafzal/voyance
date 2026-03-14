@@ -18,7 +18,11 @@ interface DotPoint {
   speed: number;
 }
 
-export function LandingHero() {
+interface LandingHeroProps {
+  onStartGuide: () => void;
+}
+
+export function LandingHero({ onStartGuide }: LandingHeroProps) {
   const reduceMotion = useReduceMotion();
   const [compactHeroHeight, setCompactHeroHeight] = useState(false);
   const [touchViewport, setTouchViewport] = useState(false);
@@ -193,13 +197,14 @@ export function LandingHero() {
             Start Researching
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <a
-            href="#how-it-works"
+          <button
+            type="button"
+            onClick={onStartGuide}
             className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-[15px] font-semibold border transition-all hover:scale-[1.04]"
             style={{ borderColor: 'var(--border-strong)', color: 'var(--text-primary)' }}
           >
             See How It Works
-          </a>
+          </button>
         </motion.div>
 
         {/* Scroll hint */}
