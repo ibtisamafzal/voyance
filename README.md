@@ -5,6 +5,21 @@
 [![Gemini Live Agent Challenge 2026](https://img.shields.io/badge/Gemini%20Live%20Agent%20Challenge-2026-4285F4?style=flat&logo=google)](https://geminiliveagentchallenge.devpost.com/)  
 **Track:** [UI Navigator](https://geminiliveagentchallenge.devpost.com/) · Visual UI understanding & interaction
 
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>Live Demo</h3>
+      <p>See Voyance research, verify, and narrate in a real end-to-end flow.</p>
+      <p><a href="https://voyance-beta.vercel.app/"><strong>Open Demo</strong></a></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>Engineering Blog</h3>
+      <p>Read the architecture and implementation decisions behind Voyance.</p>
+      <p><a href="https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h"><strong>Read Blog Post</strong></a></p>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## Table of contents
@@ -15,15 +30,13 @@
     - [Features](#features)
     - [Screenshots](#screenshots)
     - [Hackathon alignment](#hackathon-alignment)
-    - [Judge snapshot (Devpost-ready copy)](#judge-snapshot-devpost-ready-copy)
-    - [Google Cloud deployment proof](#google-cloud-deployment-proof)
+    - [Google Cloud Deployment](#google-cloud-deployment)
   - [Quick start](#quick-start)
     - [Prerequisites](#prerequisites)
     - [1. Clone and install](#1-clone-and-install)
     - [2. Backend](#2-backend)
     - [3. Frontend](#3-frontend)
     - [4. Run a research task](#4-run-a-research-task)
-  - [Manual smoke checklist](#manual-smoke-checklist)
   - [Tech stack](#tech-stack)
   - [Architecture](#architecture)
   - [Voyance mind map](#voyance-mind-map)
@@ -31,7 +44,6 @@
   - [Deployment](#deployment)
   - [Project structure](#project-structure)
   - [Community \& write-ups](#community--write-ups)
-  - [Submission-ready public content blurb](#submission-ready-public-content-blurb)
   - [Contact](#contact)
   - [License](#license)
 
@@ -81,40 +93,7 @@ No DOM hacks, no site-specific APIs. Works across site redesigns. Backend is con
 
 *Third-party: ElevenLabs (Vera TTS), Firecrawl (extraction), Perplexity (fact verification).*
 
-### Judge snapshot (Devpost-ready copy)
-
-Use this as condensed submission text for Devpost.
-
-#### Problem
-
-Teams doing competitor research lose hours manually browsing pricing/features pages across many websites, then cleaning and comparing the data.
-
-#### Solution
-
-Voyance is a multimodal UI Navigator agent that takes a voice or text query, visually navigates live websites, extracts structured findings, verifies key claims, and returns both a sortable report and spoken summary.
-
-#### Stack
-
-- Gemini 2.0 Flash via Google GenAI SDK (planning, screenshot analysis, synthesis, transcription)
-- FastAPI backend + WebSockets
-- Playwright (screenshot-based browsing)
-- Firecrawl (fast extraction path), Perplexity (verification), ElevenLabs (Vera voice)
-- React + Vite frontend
-- Google Cloud Run deployment target (with Terraform + Cloud Build)
-
-#### Data sources
-
-- Live competitor websites captured through Playwright screenshots
-- Firecrawl extraction responses when available
-- Perplexity web-backed verification responses
-
-#### Learnings
-
-- Screenshot-first UI understanding is more resilient than selector-heavy scraping for changing websites.
-- Streaming progress and interrupt-plus-replan UX matter for trust in long-running agent tasks.
-- Clear deployment evidence and reproducible setup instructions are as important as model performance for judge evaluation.
-
-### Google Cloud deployment proof
+### Google Cloud Deployment
 
 - Live backend URL: [voyance-backend-712979751443.us-central1.run.app](https://voyance-backend-712979751443.us-central1.run.app)
 - Judge artifact: `Google-Cloud-Logs-Voyance.png` (Cloud Run logs screenshot)
@@ -170,12 +149,6 @@ Frontend: **<http://localhost:5173>**
 1. Enter a query in the hero (e.g. *"Compare pricing for top 5 CRM tools"*).
 2. Click **Research** — the agent plans, navigates, extracts, and verifies.
 3. In the Output section: sort the table, export **CSV** or **HTML**, and click **Listen to Vera** for the spoken briefing.
-
----
-
-## Manual smoke checklist
-
-Before recording the final demo or submitting to judges, run the short checklist in `SMOKE_CHECKLIST.md` from a clean checkout environment.
 
 ---
 
@@ -269,16 +242,6 @@ Copy `backend/.env.example` to `backend/.env` and set:
 - **Hackathon submission**: [Gemini Live Agent Challenge — UI Navigator track](https://geminiliveagentchallenge.devpost.com/)
 - **Source code**: [Voyance on GitHub](https://github.com/ibtisamafzal/voyance)
 - **GDG profile**: [g.dev/IbtisamAfzal](https://g.dev/IbtisamAfzal)
-
-## Submission-ready public content blurb
-
-Use this in your blog/video description (edit links as needed):
-
-Built for entering the Gemini Live Agent Challenge 2026 (UI Navigator track), Voyance is a multimodal research agent powered by Gemini and deployed on Google Cloud. It navigates live websites visually, extracts and verifies competitor intelligence, and delivers both structured reports and spoken briefings.
-
-Hashtag: #GeminiLiveAgentChallenge
-
----
 
 ## Contact
 
