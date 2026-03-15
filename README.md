@@ -13,7 +13,7 @@
       <p><a href="https://voyance-beta.vercel.app/"><strong>Open Demo</strong></a></p>
     </td>
     <td width="50%" valign="top">
-      <h3>Engineering Blog</h3>
+      <h3>Dev.to Blog</h3>
       <p>Read the architecture and implementation decisions behind Voyance.</p>
       <p><a href="https://dev.to/ibtisamafzal/how-we-built-voyance-an-ai-agent-that-researches-the-web-by-seeing-it-214h"><strong>Read Blog Post</strong></a></p>
     </td>
