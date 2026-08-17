@@ -280,7 +280,7 @@ export function Footer() {
             className="text-[11px] text-center sm:text-right order-1 sm:order-2"
             style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}
           >
-            Made for Google · Powered by Gemini
+            Made for Google by Ibtisam Afzal
           </p>
         </div>
 
